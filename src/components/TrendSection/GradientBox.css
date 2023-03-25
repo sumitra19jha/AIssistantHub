@@ -1,0 +1,136 @@
+.parent {
+    height: 400px;
+    position: relative;
+}
+
+.gradient {
+    background: linear-gradient(to bottom right, #A8E6CE, #FFD3B5);
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+.animation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.graph {
+    height: 70%;
+    width: 10%;
+    margin: 0 30px;
+    border-radius: 10px;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.graph1 {
+    background-color: #ffc4a3;
+    animation-delay: -0.4s;
+}
+
+.graph2 {
+    background-color: #ffb089;
+    animation-delay: -0.2s;
+}
+
+.graph3 {
+    background-color: #ffa173;
+    animation-delay: 0s;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(0.9);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(0.9);
+    }
+}
+
+.child1 {
+    max-width: 576px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+.child2 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.explore-what {
+    font-family: sans-serif;
+    font-weight: 400;
+    font-size: 1.75rem;
+}
+
+.india-box {
+    background-image: linear-gradient(to right, #f5e2ad, #f5e2ad);
+    padding: 0 5px;
+    display: inline-block;
+    border-radius: 1px;
+}
+
+.india {
+    font-weight: 800;
+    font-size: 1.75rem;
+}
+
+.is-searching-for {
+    font-family: sans-serif;
+    font-weight: 400;
+    font-size: 1.75rem;
+}
+
+.child3 {
+    margin-top: 50px;
+    width: 576px;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 32px;
+    background-color: #fdfcfb;
+    backdrop-filter: blur(10px);
+    padding: 10px 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.search-box input {
+    border: none;
+    background-color: transparent;
+    width: 100%;
+    margin-right: 10px;
+    font-size: 1.2rem;
+    font-weight: 400;
+}
+
+.explore-btn {
+    background-color: blue;
+    border: none;
+    color: #fff;
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    border-radius: 32px;
+    cursor: pointer;
+}

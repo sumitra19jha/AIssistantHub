@@ -1,0 +1,32 @@
+.trending-topics {
+    padding: 2rem 0;
+}
+
+.trending-topics h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    color: #3c4043;
+}
+
+.trending-topics__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.trending-topics__item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.trending-topics__title {
+    font-size: 1rem;
+    color: #3c4043;
+}
+
+.trending-topics__value {
+    font-size: 1rem;
+    color: #34a853;
+}

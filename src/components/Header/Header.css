@@ -1,0 +1,98 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: 'Roboto', sans-serif;
+}
+
+.header__logo h1 {
+    font-size: 1.75rem;
+    color: #4a4af7;
+    margin: 0;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.header__nav {
+    display: flex;
+}
+
+.header__nav-list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.header__nav-item {
+    margin-right: 1.5rem;
+}
+
+.header__nav-link {
+    text-decoration: none;
+    font-size: 1rem;
+    color: #5f6368;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: color 0.3s ease;
+}
+
+.header__nav-link:hover {
+    color: #4a4af7;
+}
+
+.header__search {
+    position: relative;
+}
+
+.header__search-input {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: 1px solid #dfe1e5;
+    border-radius: 24px;
+    /* Updated border-radius for a rounded search box */
+    outline: none;
+    width: 250px;
+    transition: box-shadow 0.3s ease, width 0.3s ease;
+    /* Added width transition for smoother animation */
+}
+
+.header__search-input::placeholder {
+    color: #5f6368;
+}
+
+.header__search-input:focus {
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    /* Increased the width on focus */
+}
+
+.header__login-btn {
+    background: #1a73e8;
+    border: 1px solid transparent;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0.25px;
+    line-height: 16px;
+    margin-left: 10px;
+    margin-right: 8px;
+    min-width: 96px;
+    padding: 9px 23px;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.header__login-btn:hover {
+    background: #1565c0;
+    border-color: #1565c0;
+}
