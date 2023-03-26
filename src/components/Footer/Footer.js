@@ -9,7 +9,7 @@ function Footer() {
                 <div className="content-info__links-container">
                     <a
                         className="content-info__link"
-                        href="https://policies.google.com/privacy?hl=en-US"
+                        href="/PrivacyPolicy"
                         aria-label="Privacy Opens a new tab"
                         target="_new"
                     >
@@ -17,7 +17,7 @@ function Footer() {
                     </a>
                     <a
                         className="content-info__link"
-                        href="https://policies.google.com/terms?hl=en-US"
+                        href="/TermsOfService"
                         aria-label="Terms Opens a new tab"
                         target="_new"
                     >
@@ -30,14 +30,6 @@ function Footer() {
                         target="_new"
                     >
                         Send feedback
-                    </a>
-                    <a
-                        className="content-info__link"
-                        href="https://about.google?hl=en-US"
-                        aria-label="About Opens a new tab"
-                        target="_new"
-                    >
-                        About
                     </a>
                 </div>
             </div>

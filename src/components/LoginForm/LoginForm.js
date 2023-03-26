@@ -15,7 +15,7 @@ import {
 import "./LoginForm.css";
 import ForgotPassword from "./ForgetPassword";
 
-export default function LoginForm({ open, handleClose }) {
+export default function LoginForm({ open, handleClose, onShowCreateAccount }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [forgotPassword, setForgotPassword] = useState(false);
@@ -98,7 +98,7 @@ export default function LoginForm({ open, handleClose }) {
                 </div>
                 <div className="google-login">
                     <GoogleLogin
-                        clientId="YOUR_GOOGLE_CLIENT_ID"
+                        clientId="1018941777246-aslpbg70n0nk7aa25616g5jf71mmcdhj.apps.googleusercontent.com"
                         buttonText="Login with Google"
                         onSuccess={handleGoogleLoginSuccess}
                         onFailure={handleGoogleLoginFailure}
@@ -108,7 +108,7 @@ export default function LoginForm({ open, handleClose }) {
                 </div>
                 <Typography variant="body2" align="center" sx={{ mt: 2 }}>
                     Don't have an account?{" "}
-                    <Link color="primary" onClick={() => console.log("Create account clicked")}>
+                    <Link color="primary" onClick={onShowCreateAccount}>
                         Create your account
                     </Link>
                 </Typography>
