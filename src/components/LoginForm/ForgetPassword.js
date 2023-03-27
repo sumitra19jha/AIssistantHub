@@ -1,53 +1,99 @@
 import React, { useState } from "react";
-import { Box, Button, Container, TextField, Typography } from "@mui/material";
+import {
+    Button,
+    Dialog,
+    DialogContent,
+    DialogTitle,
+    TextField,
+    CircularProgress,
+    InputLabel,
+    FormControl,
+} from "@mui/material";
+import VerifyOTPDialog from "../CreateAccount/VerifyOTPDialog";
 
-const ForgotPassword = () => {
+export default function ForgetPassword({ open, handleClose }) {
     const [email, setEmail] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
+    const [verifyOTPDialogOpen, setVerifyOTPDialogOpen] = useState(false);
+    const [showForgetPassword, setShowForgetPassword] = useState(true);
 
-    const handleEmailChange = (event) => {
-        setEmail(event.target.value);
+    // Handle forget password form submission
+    const handleForgetPassword = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        setError("");
+
+        try {
+            const response = await fetch("http://127.0.0.1:5000/user/forget-password", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ email }),
+            });
+            const data = await response.json();
+            setLoading(false);
+
+            if (data.success) {
+                setVerifyOTPDialogOpen(true);
+                setShowForgetPassword(false);
+            } else {
+                setError(data.message);
+            }
+        } catch (error) {
+            setLoading(false);
+            console.error("Error verifying OTP:", error);
+            setError("Something went wrong. Please try again later.");
+        }
     };
 
-    const handleForgotPassword = (event) => {
-        event.preventDefault();
-        // Implement the password reset link sending logic here
-        console.log("Sending password reset link to:", email);
+    // Handle verify OTP dialog close
+    const handleVerifyOTPClose = () => {
+        setVerifyOTPDialogOpen(false);
     };
 
     return (
-        <Container maxWidth="xs">
-            <Box sx={{ mt: 8, mb: 4 }}>
-                <Typography variant="h4" align="center">
-                    Forgot Password
-                </Typography>
-            </Box>
-            <Box
-                component="form"
-                onSubmit={handleForgotPassword}
-                sx={{
-                    mt: 1,
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                }}
-            >
-                <TextField
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    label="Email Address"
-                    type="email"
-                    value={email}
-                    onChange={handleEmailChange}
-                    autoFocus
-                />
-                <Button type="submit" fullWidth variant="contained" sx={{ mt: 2 }}>
-                    Send Password Reset Link
-                </Button>
-            </Box>
-        </Container>
+        <>
+            {showForgetPassword ? (
+                <Dialog open={open} onClose={handleClose}>
+                    <DialogTitle>Forget Password</DialogTitle>
+                    <DialogContent>
+                        <form onSubmit={handleForgetPassword}>
+                            <FormControl fullWidth margin="dense" error={Boolean(error)}>
+                                <InputLabel>Email</InputLabel>
+                                <TextField
+                                    type="email"
+                                    name="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    fullWidth
+                                    required
+                                    autoFocus
+                                />
+                            </FormControl>
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                sx={{ mt: 2 }}
+                                disabled={loading}
+                            >
+                                {loading ? <CircularProgress size={24} /> : "Send OTP"}
+                            </Button>
+                            {error && (
+                                <div style={{ color: "red", marginTop: "10px" }}>{error}</div>
+                            )}
+                        </form>
+                    </DialogContent>
+                </Dialog>
+            ) : null}
+            <VerifyOTPDialog
+                open={verifyOTPDialogOpen}
+                handleClose={handleVerifyOTPClose}
+                email={email}
+                setError={setError}
+            />
+        </>
     );
-};
-
-export default ForgotPassword;
+}

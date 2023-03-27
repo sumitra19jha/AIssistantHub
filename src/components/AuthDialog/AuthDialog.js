@@ -1,31 +1,36 @@
 import React, { useState, useEffect } from "react";
 import LoginForm from "./../LoginForm/LoginForm";
 import CreateAccount from "./../CreateAccount/CreateAccount";
+import ForgetPassword from "./../LoginForm/ForgetPassword";
 
 export default function AuthDialog({ open, handleClose }) {
-    const [formType, setFormType] = useState("login");
+    const [currentForm, setCurrentForm] = useState("login");
 
     useEffect(() => {
         if (!open) {
-            setFormType("login");
+            setCurrentForm("login");
         }
     }, [open]);
 
-    const handleShowCreateAccount = () => {
-        setFormType("createAccount");
+    const showCreateAccountHandler = () => {
+        setCurrentForm("createAccount");
     };
 
-    const handleShowLoginForm = () => {
-        setFormType("login");
+    const showForgetPasswordHandler = () => {
+        setCurrentForm("forgetPassword");
     };
 
-    const renderForm = () => {
-        if (formType === "login") {
-            return <LoginForm open={open} handleClose={handleClose} onShowCreateAccount={handleShowCreateAccount} />;
-        } else if (formType === "createAccount") {
-            return <CreateAccount open={open} handleClose={handleClose} onShowLoginForm={handleShowLoginForm} />;
-        }
+    const showLoginFormHandler = () => {
+        setCurrentForm("login");
     };
 
-    return <>{renderForm()}</>;
+    const FormComponent = {
+        login: LoginForm,
+        createAccount: CreateAccount,
+        forgetPassword: ForgetPassword,
+    }[currentForm];
+
+    return FormComponent ? (
+        <FormComponent {...{ open, handleClose, showCreateAccountHandler, showForgetPasswordHandler, showLoginFormHandler }} />
+    ) : null;
 }
