@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./ContentGenerationDialog.css";
 
 const ContentGenerationDialog = ({ onClose }) => {
@@ -7,6 +8,7 @@ const ContentGenerationDialog = ({ onClose }) => {
     const [contentLength, setContentLength] = useState("");
     const [advancedSettings, setAdvancedSettings] = useState(false);
     const [generatedContent, setGeneratedContent] = useState("");
+    const history = useNavigate();
 
     const handleContentTypeChange = (event) => {
         setContentType(event.target.value);
@@ -29,6 +31,10 @@ const ContentGenerationDialog = ({ onClose }) => {
         // For now, let's just display a placeholder message.
 
         setGeneratedContent("Your generated content goes here!");
+    };
+
+    const handleReviewContentClick = () => {
+        history(`/content-review?generatedContent=${encodeURIComponent(generatedContent)}`);
     };
 
     return (
@@ -108,6 +114,9 @@ const ContentGenerationDialog = ({ onClose }) => {
                             Generated Content:
                         </label>
                         <textarea className="content-generation-dialog-textarea" id="generated-content-textarea" value={generatedContent} readOnly />
+                        <button className="content-generation-dialog-review-content-button" onClick={handleReviewContentClick}>
+                            Review Content
+                        </button>
                     </div>
                 )}
             </div>
