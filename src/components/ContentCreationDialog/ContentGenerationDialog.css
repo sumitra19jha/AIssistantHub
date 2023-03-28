@@ -1,0 +1,154 @@
+.content-generation-dialog {
+    top: 50%;
+    left: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    color: #333;
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    width: 500px;
+    max-width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.content-generation-dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #e0e0e0;
+    border-radius: 10px 10px 0 0;
+}
+
+.content-generation-dialog-title {
+    margin: 0;
+    font-size: 24px;
+}
+
+.content-generation-dialog-close-button {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    outline: none;
+}
+
+.content-generation-dialog-close-button:hover,
+.content-generation-dialog-close-button:focus {
+    color: #666;
+}
+
+.content-generation-dialog-content {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: auto;
+}
+
+.content-generation-dialog-label {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.content-generation-dialog-field {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.content-generation-dialog-select,
+.content-generation-dialog-input {
+  display: block;
+  box-sizing: border-box;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
+}
+
+.content-generation-dialog-select:focus,
+.content-generation-dialog-input:focus {
+    border-color: #666;
+}
+
+.content-generation-dialog-select {
+    width: 100%;
+}
+
+.content-generation-dialog-input {
+    width: 100%;
+}
+
+.content-generation-dialog-advanced-settings-toggle {
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    border: none;
+    background-color: #f8f8f8;
+    cursor: pointer;
+}
+
+.content-generation-dialog-advanced-settings-toggle:hover,
+.content-generation-dialog-advanced-settings-toggle:focus {
+    color: #666;
+}
+
+.content-generation-dialog-advanced-settings {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.content-generation-dialog-textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    resize: vertical;
+    outline: none;
+    height: 150px;
+}
+
+.content-generation-dialog-generate-content-button {
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #333;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    align-self: center;
+}
+
+.content-generation-dialog-generate-content-button:hover,
+.content-generation-dialog-generate-content-button:focus {
+    background-color: #666;
+}
+
+.content-generation-dialog-generated-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+@media screen and (max-width: 600px) {
+    .content-generation-dialog {
+        width: 90%;
+    }
+}
