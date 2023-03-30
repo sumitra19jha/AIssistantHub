@@ -2,114 +2,11 @@
     display: flex;
     flex-direction: row;
     height: 100vh;
+    overflow: hidden;
 }
 
-.content-review {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    max-width: 100%;
-    margin: 0 auto;
-    padding-top: 1rem;
-    padding-left: 2rem;
-    padding-right: 2rem;
-    font-family: sans-serif;
-}
-
-h1 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    align-self: center;
-}
-
-.row-alignment{
-    display: flex;
-    align-items: center;
-}
-
-.menu-icon {
-    top: 1rem;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    align-self: center;
-}
-
-.close-icon {
-    top: 1rem;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    align-self: center;
-}
-
-.formatted-content-display {
-    margin-bottom: 2rem;
-}
-
-.editable-text-area {
-    margin-bottom: 2rem;
-}
-
-.navigation-and-content-structure {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 2rem;
-}
-
-.navigation-and-content-structure h3 {
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
-}
-
-.navigation-and-content-structure ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.navigation-and-content-structure li {
-    margin-bottom: 0.5rem;
-}
-
-.save-and-export-options {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 2rem;
-}
-
-.save-and-export-options button {
-    font-size: 1rem;
-    padding: 0.5rem 1rem;
-    margin-right: 1rem;
-    border-radius: 0.5rem;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-}
-
-.save-and-export-options button:hover {
-    background-color: #0062cc;
-}
-
-.help-and-support {
-    display: flex;
-    justify-content: center;
-}
-
-.help-and-support a {
-    font-size: 1rem;
-    margin-left: 0.5rem;
-    color: #007bff;
-    cursor: pointer;
-    text-decoration: none;
-    transition: all 0.2s ease-in-out;
-}
-
-.help-and-support a:hover {
-    color: #0056b3;
-    text-decoration: underline;
+@media screen and (max-width: 768px) {
+    .area-split {
+        flex-direction: column;
+    }
 }

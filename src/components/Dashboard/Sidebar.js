@@ -5,22 +5,25 @@ const Sidebar = () => {
     return (
         <div className="sidebar">
             <div className="sidebar-logo">
-                <img src="/logo.svg" alt="Logo" width="30" height="30" /> My Dashboard
+                <img src="/keywordIQ.svg" alt="Logo" width="30" height="30" /> KeywordIQ
             </div>
             <ul>
                 <li>
-                    <a href="#">Settings</a>
+                    <a href="/dashboard">My Dashboard</a>
                 </li>
                 <li>
-                    <a href="#">Account Information</a>
+                    <a href="/settings">Settings</a>
                 </li>
                 <li>
-                    <a href="#">Help Center</a>
+                    <a href="/account">Account Information</a>
+                </li>
+                <li>
+                    <a href="/help">Help Center</a>
                 </li>
             </ul>
             <div className="sidebar-bottom">
                 <div className="sidebar-bottom-text">Version 1.0.0</div>
-                <a href="#" className="sidebar-bottom-link">
+                <a href="/learn-more" className="sidebar-bottom-link">
                     Learn More
                 </a>
             </div>
