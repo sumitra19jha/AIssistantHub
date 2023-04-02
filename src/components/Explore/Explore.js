@@ -6,7 +6,7 @@ import KeyFeatures from './KeyFeatures/KeyFeatures';
 import UseCases from './UseCases/UseCases';
 import DemoSection from './DemoSection/DemoSection';
 import IntegrationPartners from './Integration/Integration';
-import PricingPlans from './PricingPlans/PricingPlans';
+import { PricingPlan } from '../Subscription/PricingPlan/PricingPlan';
 import FAQs from './FAQs/FAQs';
 
 const ExplorePage = () => {
@@ -18,11 +18,6 @@ const ExplorePage = () => {
         { logo: 'https://pigeon-website-images.s3.us-east-2.amazonaws.com/mailchimp-logo.jpeg', name: 'Mailchimp', description: 'Integrate with your Mailchimp account.' },
         { logo: 'https://pigeon-website-images.s3.us-east-2.amazonaws.com/semrush-logo.png', name: 'SEMrush', description: 'Integrate with your SEMrush account.' },
         { logo: 'https://pigeon-website-images.s3.us-east-2.amazonaws.com/goggle-analytics-logo.png', name: 'Google Analytics', description: 'Integrate with your Google Analytics account.' },
-    ];
-    const pricingPlans = [
-        { name: 'Basic', price: '$9/month', features: ['5 content campaigns', 'Basic analytics', 'Email support'] },
-        { name: 'Pro', price: '$29/month', features: ['Unlimited content campaigns', 'Advanced analytics', 'Priority support'] },
-        { name: 'Enterprise', price: 'Custom', features: ['Customized features and support', '24 * 7 service member deployed', 'Automated Integration'] },
     ];
 
     const featureIcons = [
@@ -56,7 +51,7 @@ const ExplorePage = () => {
             <IntegrationPartners integrations={integrations} />
 
             {/* Pricing and plans section */}
-            <PricingPlans pricingPlans={pricingPlans} />
+            <PricingPlan />
 
             {/* FAQs or knowledge base section */}
             <FAQs />

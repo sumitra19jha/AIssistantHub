@@ -1,10 +1,11 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import AuthDialog from '../AuthDialog/AuthDialog';
 import './Header.css';
 
 const Header = () => {
   const [authDialogOpen, setAuthDialogOpen] = useState(false);
+  const location = useLocation();
 
   const handleAuthDialogClose = () => {
     setAuthDialogOpen(false);
@@ -22,10 +23,13 @@ const Header = () => {
       <nav className="header__nav">
         <ul className="header__nav-list">
           <li className="header__nav-item">
-            <a href="/explore" className="header__nav-link">Explore</a>
+            <a href="/" className={`header__nav-link ${location.pathname === '/' ? 'active' : ''}`}>Home</a>
           </li>
           <li className="header__nav-item">
-            <a href="/subscriptions" className="header__nav-link">Subscriptions</a>
+            <a href="/explore" className={`header__nav-link ${location.pathname === '/explore' ? 'active' : ''}`}>Explore</a>
+          </li>
+          <li className="header__nav-item">
+            <a href="/subscriptions" className={`header__nav-link ${location.pathname === '/subscriptions' ? 'active' : ''}`}>Subscriptions</a>
           </li>
         </ul>
       </nav>
@@ -36,3 +40,4 @@ const Header = () => {
 };
 
 export default Header;
+

@@ -4,8 +4,8 @@ import './TermsOfService.css';
 const TermsOfService = () => {
     return (
         <div>
-            <div className="privacy-policy-container">
-                <h1 className="privacy-policy-title">Terms Of Service</h1>
+            <div className="terms-of-service-container">
+                <h1 className="terms-of-service-title">Terms Of Service</h1>
                 <p>Last updated: 25th Mar 2023</p>
                 <p>Welcome to our website! As a user of our website, you agree to be bound by the following Terms of Service (the "Agreement"):</p>
 

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import Header from './components/Header/Header';
 import Home from './pages/Home/Home';
+import { SubscriptionPage } from './pages/Subscription/SubscriptionPage';
 import PrivacyPolicy from './pages/PrivacyPolicy/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService/TermsOfService';
 import Dashboard from './components/Dashboard/Dashboard';
@@ -23,6 +24,7 @@ function App() {
           /*Before Login */
           <Route path="/" element={<Home />} />
           <Route path="/explore" element={<ExplorePage />} />
+          <Route path="/subscriptions" element={<SubscriptionPage />} />
           <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
           <Route path="/TermsOfService" element={<TermsOfService />} />
 
