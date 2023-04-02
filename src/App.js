@@ -17,7 +17,7 @@ function App() {
 
   return (
     <Router>
-      <div>
+      <div style={{height:"100vh"}}>
         {/* conditionally render the header on the before-login pages */}
         {isLoggedIn === false && <Header />}
         <Routes>

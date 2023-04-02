@@ -12,7 +12,7 @@ function Home() {
     };
 
     return (
-        <div>
+        <div style={{minHeight:"100vh"}}>
             <CssBaseline />
             <GradientBox />
             <Features />
