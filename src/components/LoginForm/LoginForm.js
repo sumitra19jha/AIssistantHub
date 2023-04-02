@@ -102,7 +102,7 @@ function LoginFormUI({
     );
 }
 
-export default function LoginForm({ open, handleClose, onShowCreateAccount, onShowForgetPassword }) {
+export default function LoginForm({ open, handleClose, showCreateAccountHandler, showForgetPasswordHandler }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
@@ -193,8 +193,8 @@ export default function LoginForm({ open, handleClose, onShowCreateAccount, onSh
                     setPassword={setPassword}
                     loading={loading}
                     onSubmit={handleLogin}
-                    onShowForgetPassword={onShowForgetPassword}
-                    onShowCreateAccount={onShowCreateAccount}
+                    onShowForgetPassword={showForgetPasswordHandler}
+                    onShowCreateAccount={showCreateAccountHandler}
                     passwordVisible={passwordVisible}
                     togglePasswordVisibility={togglePasswordVisibility}
                     googleLogin={googleLogin}

@@ -29,11 +29,11 @@ const FeatureList = () => (
  */
 const FeatureItem = ({ icon, title, description }) => (
     <div className="feature-item">
-        <div className="icon-container">
+        <div className="feature-item-icon-container">
             {icon}
         </div>
-        <h3 className="title">{title}</h3>
-        <p className="description">{description}</p>
+        <h3 className="feature-item-title">{title}</h3>
+        <p className="feature-item-description">{description}</p>
     </div>
 );
 

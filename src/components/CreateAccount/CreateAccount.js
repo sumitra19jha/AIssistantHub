@@ -18,7 +18,7 @@ import VerifyOTPDialog from "./VerifyOTPDialog";
  * @param {function} props.handleClose - Function to handle closing the dialog
  * @param {function} props.onShowLoginForm - Function to show the login form
  */
-export default function CreateAccount({ open, handleClose, onShowLoginForm }) {
+export default function CreateAccount({ open, handleClose, showLoginFormHandler }) {
 
 
     // State variables for form input values and loading state
@@ -154,7 +154,7 @@ export default function CreateAccount({ open, handleClose, onShowLoginForm }) {
                         </form>
                         <Typography variant="body2" align="center" sx={{ mt: 2 }}>
                             Already have an account?{" "}
-                            <Link color="primary" onClick={onShowLoginForm}>
+                            <Link color="primary" onClick={showLoginFormHandler}>
                                 Log in
                             </Link>
                         </Typography>

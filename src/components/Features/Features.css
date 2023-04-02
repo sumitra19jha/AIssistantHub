@@ -5,6 +5,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 30px;
 }
 
 .feature-container {
@@ -25,6 +26,7 @@
 }
 
 .feature-list {
+    margin-top: 20px;
     padding: 1.5rem;
     background-color: #ffffff;
     border-radius: 10px;
@@ -46,7 +48,7 @@
     text-align: left;
 }
 
-.icon-container {
+.feature-item-icon-container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -62,7 +64,7 @@
     height: 3rem;
 }
 
-.title {
+.feature-item-title {
     font-weight: bold;
     font-size: 1.2rem;
     margin-bottom: 1rem;
@@ -70,7 +72,7 @@
     text-align: left;
 }
 
-.description {
+.feature-item-description {
     max-height: 4.5rem;
     text-overflow: ellipsis;
     overflow: hidden;
