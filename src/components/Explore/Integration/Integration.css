@@ -1,0 +1,29 @@
+.integrationPartners {
+    background-color: #ffffff;
+    padding: 50px 0;
+    border-top: none;
+}
+
+.integrationPartners .header {
+    margin-bottom: 50px;
+}
+
+.integrationPartners .list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.integrationPartners .list-item {
+    margin: 0 10px;
+}
+
+.integrationPartners .list-header {
+    font-size: 24px;
+    margin: 10px 0;
+}
+
+.integrationPartners .list-description {
+    font-size: 16px;
+    color: #999;
+}

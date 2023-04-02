@@ -1,11 +1,9 @@
 import React from 'react';
-import Header from '../../components/Header/Header';
 import './PrivacyPolicy.css';
 
 const PrivacyPolicy = () => {
     return (
         <div>
-            <Header />
             <div className="privacy-policy-container">
                 <h1 className="privacy-policy-title">Privacy Policy</h1>
                 <p>Last updated: 25th Mar 2023</p>

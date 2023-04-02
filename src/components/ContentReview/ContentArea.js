@@ -132,10 +132,6 @@ const ContentArea = ({showSidebar, setShowSidebar}) => {
                     <button className="copy-button"><FaCopy size={20} /> Copy</button>
                     <button className="share-button"><FaShareAlt size={20} /> Share</button>
                 </div>
-
-                <div className="help-and-support">
-                    <span className="help-text">Need Help? <a href="/contact-support">Contact Support</a></span>
-                </div>
             </div>
         </div>
     );

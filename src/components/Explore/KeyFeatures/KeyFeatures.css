@@ -1,0 +1,105 @@
+.key-features {
+    background-color: #ffffff;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.title {
+    font-size: 36px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+
+.feature-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.feature-list {
+    padding: 0rem;
+    margin: 0rem;
+    background-color: #ffffff;
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.feature-item {
+    width: 22%;
+    background-color: #F2F2F2;
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin: 0rem;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    margin-right: 20px;
+}
+
+.feature {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 30px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.feature:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.icon-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    margin-right: 20px;
+}
+
+.icon {
+    font-size: 48px;
+    color: #333;
+}
+
+.content {
+    margin-top: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.header-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.name {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.description-wrapper {
+    margin-top: 10px;
+    /* Add some spacing between the header and the description */
+}
+
+
+.description {
+    font-size: 18px;
+    color: #666;
+    line-height: 1.5;
+}

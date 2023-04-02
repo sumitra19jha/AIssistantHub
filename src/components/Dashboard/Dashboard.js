@@ -8,6 +8,7 @@ import {
     faImage,
 } from "@fortawesome/free-solid-svg-icons";
 import ContentGenerationDialog from "../ContentCreationDialog/ContentGenerationDialog";
+import SeoOptimisationDialog from "../SeoOptimisationDialog/SeoOptimisationDialog";
 
 const handleUploadClick = (event) => {
     event.preventDefault();
@@ -16,6 +17,7 @@ const handleUploadClick = (event) => {
 
 const Dashboard = () => {
     const [showContentGenerationDialog, setShowContentGenerationDialog] = useState(false);
+    const [showSeoOptimisationDialog, setShowSeoOptimisationDialog] = useState(false);
 
     const handleOptionClick = (event) => {
         if (event.target.tagName !== "BUTTON") {
@@ -23,13 +25,23 @@ const Dashboard = () => {
         }
     };
 
+    const handleSeoOptionClick = (event) => {
+        if (event.target.tagName !== "BUTTON") {
+            setShowSeoOptimisationDialog(true);
+        }
+    };
+
     const handleCloseContentGenerationDialog = () => {
         setShowContentGenerationDialog(false);
     };
 
+    const handleCloseSeoContentGenerationDialog = () => {
+        setShowSeoOptimisationDialog(false);
+    };
+
     return (
         <div>
-            <div className={`dashboard ${showContentGenerationDialog ? "dashboard-blur" : ""}`}>
+            <div className={`dashboard ${(showContentGenerationDialog || showSeoOptimisationDialog) ? "dashboard-blur" : ""}`}>
                 <Sidebar />
                 <div className="dashboard-main">
                     <div className="dashboard-content">
@@ -53,6 +65,7 @@ const Dashboard = () => {
                                             backgroundColor="#fff3cd"
                                             showUpload={false}
                                             onClick={handleOptionClick}
+                                            iconOption="Create"
                                         />
                                         <div className="options-component-upload-child">
                                             <form>
@@ -77,7 +90,8 @@ const Dashboard = () => {
                                             }
                                             backgroundColor="#d4edda"
                                             showUpload={false}
-                                            onClick={() => { }}
+                                            onClick={handleSeoOptionClick}
+                                            iconOption="Optimize"
                                         />
                                         <div className="options-component-upload-child" />
                                     </div>
@@ -95,6 +109,7 @@ const Dashboard = () => {
                                             backgroundColor="#cce5ff"
                                             showUpload={false}
                                             onClick={() => { }}
+                                            iconOption="Share"
                                         />
                                         <div className="options-component-upload-child" />
                                     </div>
@@ -107,6 +122,9 @@ const Dashboard = () => {
             {showContentGenerationDialog && (
                 <ContentGenerationDialog onClose={handleCloseContentGenerationDialog} />
             )}
+            {showSeoOptimisationDialog && (
+                <SeoOptimisationDialog onClose={handleCloseSeoContentGenerationDialog} />
+            )}
         </div>
     );
 };
@@ -116,6 +134,7 @@ const OptionComponent = ({
     icon,
     backgroundColor,
     onClick,
+    iconOption
 }) => {
 
     return (
@@ -124,7 +143,7 @@ const OptionComponent = ({
             <div className="options-component-parent">
                 <div className="options-component-child">
                     {icon}
-                    <span>New</span>
+                    <span>{iconOption}</span>
                 </div>
             </div>
         </div>

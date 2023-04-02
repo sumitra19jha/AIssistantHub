@@ -276,3 +276,32 @@
         padding: 0.5rem 1rem;
     }
 }
+
+
+.heading:hover,
+.subheading:hover,
+.sub-subheading:hover,
+.paragraph:hover,
+.list-item:hover {
+    border: 2px dashed #007bff;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.heading:focus,
+.subheading:focus,
+.sub-subheading:focus,
+.paragraph:focus,
+.list-item:focus {
+    border: 2px dashed #007bff;
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    outline: none;
+}
+
+.add-margin{
+    margin-bottom: 10rem;
+}
