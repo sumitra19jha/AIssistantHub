@@ -1,17 +1,44 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { BeatLoader } from "react-spinners";
+import api from "./../../services/api";
+import { CONTENT_TYPES } from "./../../utils/constants"
 import "./ContentGenerationDialog.css";
+
+const contentTypeList = [
+    "Social Media Post",
+    "Blog Post",
+    "Article",
+    "Email Marketing",
+    "Newsletter",
+    "Product Description",
+    "Case Study",
+    "Whitepaper",
+    "Video Script"
+];
 
 const ContentGenerationDialog = ({ onClose }) => {
     const [contentType, setContentType] = useState("");
     const [topic, setTopic] = useState("");
+    const [purposeType, setPurposeType] = useState("");
+    const [platformType, setPlatformType] = useState("");
     const [contentLength, setContentLength] = useState("");
     const [advancedSettings, setAdvancedSettings] = useState(false);
-    const [generatedContent, setGeneratedContent] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState("");
     const history = useNavigate();
 
     const handleContentTypeChange = (event) => {
         setContentType(event.target.value);
+        setPurposeType("");
+    };
+
+    const handlePurposeTypeChange = (event) => {
+        setPurposeType(event.target.value);
+    };
+
+    const handlePlatformTypeChange = (event) => {
+        setPlatformType(event.target.value);
     };
 
     const handleTopicChange = (event) => {
@@ -27,14 +54,49 @@ const ContentGenerationDialog = ({ onClose }) => {
     };
 
     const handleGenerateContentClick = () => {
-        // Here, you would process the user's inputs and generate the content.
-        // For now, let's just display a placeholder message.
+        if (contentType === "" || topic === "" || contentLength === "") {
+            setError("Please fill in all fields before generating content.");
+            return;
+        }
 
-        setGeneratedContent("Your generated content goes here!");
+        setError("");
+        setIsLoading(true);
+
+        api.get('/dashboard/generator/content', {
+            params: {
+                type: contentType.toUpperCase(),
+                topic: topic,
+                keywords: '',
+                length: contentLength.toUpperCase(),
+                platform: platformType.toUpperCase(),
+                purpose: purposeType.toUpperCase(),
+            }
+        })
+            .then((response) => {
+                setIsLoading(false);
+                if(response.data.success){
+                    history(`/content-review?generatedContent=${encodeURIComponent(response.data.content)}`);
+                }else{
+                    alert(response.data.message);
+                }
+                
+            })
+            .catch((error) => {
+                alert("Some issue occured!");
+                setIsLoading(false);
+            });
     };
 
-    const handleReviewContentClick = () => {
-        history(`/content-review?generatedContent=${encodeURIComponent(generatedContent)}`);
+    const renderPlatformOptions = () => {
+        return CONTENT_TYPES[contentType].platformOptions.map((option) => (
+            <option value={option} key={option}>{option}</option>
+        ));
+    };
+
+    const renderPurposeOptions = () => {
+        return CONTENT_TYPES[contentType].purposeOptions.map((option) => (
+            <option value={option} key={option}>{option}</option>
+        ));
     };
 
     return (
@@ -45,6 +107,7 @@ const ContentGenerationDialog = ({ onClose }) => {
                     &times;
                 </button>
             </div>
+
             <div className="content-generation-dialog-content">
                 <div className="content-generation-dialog-field">
                     <label className="content-generation-dialog-label" htmlFor="content-type-select">
@@ -52,19 +115,43 @@ const ContentGenerationDialog = ({ onClose }) => {
                     </label>
                     <select className="content-generation-dialog-select" id="content-type-select" value={contentType} onChange={handleContentTypeChange}>
                         <option value="">Select Content Type</option>
-                        <option value="blog post">Blog Post</option>
-                        <option value="article">Article</option>
-                        <option value="listicle">Listicle</option>
-                        <option value="video script">Video Script</option>
+                        {contentTypeList.map(element => (
+                            <option value={element} key={element}>{element}</option>
+                        ))}
                     </select>
                 </div>
 
                 <div className="content-generation-dialog-field">
                     <label className="content-generation-dialog-label" htmlFor="topic-input">
-                        Provide Topic or Keyword(s):
+                        Provide Topic:
                     </label>
+                    {error && <div className="content-generation-dialog-error">{error}</div>}
                     <input className="content-generation-dialog-input" id="topic-input" type="text" value={topic} onChange={handleTopicChange} />
                 </div>
+
+                {contentType && CONTENT_TYPES[contentType].platformOptions && (
+                    <div className="content-generation-dialog-field">
+                        <label className="content-generation-dialog-label" htmlFor="content-platform-select">
+                            Select Platform:
+                        </label>
+                        <select className="content-generation-dialog-select" id="content-platform-select" value={platformType} onChange={handlePlatformTypeChange}>
+                            <option value="">Select Platform</option>
+                            {renderPlatformOptions()}
+                        </select>
+                    </div>
+                )}
+
+                {contentType && CONTENT_TYPES[contentType].purposeOptions && (
+                    <div className="content-generation-dialog-field">
+                        <label className="content-generation-dialog-label" htmlFor="content-purpose-select">
+                            Select Purpose:
+                        </label>
+                        <select className="content-generation-dialog-select" id="content-purpose-select" value={purposeType} onChange={handlePurposeTypeChange}>
+                            <option value="">Select Purpose</option>
+                            {renderPurposeOptions()}
+                        </select>
+                    </div>
+                )}
 
                 <div className="content-generation-dialog-field">
                     <label className="content-generation-dialog-label" htmlFor="content-length-select">
@@ -72,9 +159,9 @@ const ContentGenerationDialog = ({ onClose }) => {
                     </label>
                     <select className="content-generation-dialog-select" id="content-length-select" value={contentLength} onChange={handleContentLengthChange}>
                         <option value="">Select Content Length</option>
-                        <option value="short">Short</option>
-                        <option value="medium">Medium</option>
-                        <option value="long">Long</option>
+                        <option value="short">SHORT</option>
+                        <option value="medium">MEDIUM</option>
+                        <option value="long">LONG</option>
                     </select>
                 </div>
 
@@ -104,21 +191,9 @@ const ContentGenerationDialog = ({ onClose }) => {
 
                 <div className="content-generation-dialog-field">
                     <button className="content-generation-dialog-generate-content-button" onClick={handleGenerateContentClick}>
-                        Generate Content
+                        {isLoading ? <BeatLoader size={10} color={"#ffffff"} /> : "Generate Content"}
                     </button>
                 </div>
-
-                {generatedContent && (
-                    <div className="content-generation-dialog-generated-content">
-                        <label className="content-generation-dialog-label" htmlFor="generated-content-textarea">
-                            Generated Content:
-                        </label>
-                        <textarea className="content-generation-dialog-textarea" id="generated-content-textarea" value={generatedContent} readOnly />
-                        <button className="content-generation-dialog-review-content-button" onClick={handleReviewContentClick}>
-                            Review Content
-                        </button>
-                    </div>
-                )}
             </div>
         </div>
     );

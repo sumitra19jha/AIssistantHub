@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 
 import Header from './components/Header/Header';
 import Home from './pages/Home/Home';
@@ -11,34 +11,44 @@ import ContentReview from './components/ContentReview/ContentReview';
 import SEOEditor from './components/SEOEditor/SEOEditor';
 import ExplorePage from './components/Explore/Explore';
 import Footer from './components/Footer/Footer';
+import UserSubscription from './pages/UserSubscription/UserSubscription';
 
 function App() {
-  const isLoggedIn = false; // replace with your login status check
+  const storedSessionId = localStorage.getItem('session_id');
 
+  if (storedSessionId) {
+    return (
+      <Router>
+        <Routes>
+          <Route path="/" element={<Navigate to="/dashboard" replace />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/content-review" element={<ContentReview />} />
+          <Route path="/seo-editor" element={<SEOEditor />} />
+          <Route path="/user-subscription" element={<UserSubscription />} />
+
+          <Route path="*" element={<Navigate to="/dashboard" replace />} />
+        </Routes>
+      </Router>
+    );
+  }
+
+  // Render the login components if the user is not logged in
   return (
     <Router>
-      <div style={{height:"100vh"}}>
-        {/* conditionally render the header on the before-login pages */}
-        {isLoggedIn === false && <Header />}
+      <div style={{ height: "100vh" }}>
+        <Header />
         <Routes>
-          /*Before Login */
           <Route path="/" element={<Home />} />
           <Route path="/explore" element={<ExplorePage />} />
           <Route path="/subscriptions" element={<SubscriptionPage />} />
           <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
           <Route path="/TermsOfService" element={<TermsOfService />} />
-
-          /*After Login */
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/content-review" element={<ContentReview />} />
-          <Route path="/seo-editor" element={<SEOEditor />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
-        {/* <Footer /> */}
-        {isLoggedIn === false && <Footer />}
+        <Footer />
       </div>
     </Router>
   );
 }
 
 export default App;
-

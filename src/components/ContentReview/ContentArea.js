@@ -4,18 +4,13 @@ import { IoMdMenu, IoMdClose } from 'react-icons/io';
 import { FaSave, FaFileExport, FaCopy, FaShareAlt } from 'react-icons/fa';
 import { MdRefresh } from 'react-icons/md';
 
-const ContentArea = ({showSidebar, setShowSidebar}) => {
-    const [content, setContent] = useState({
-        heading: 'Heading',
-        subheading: 'Subheading',
-        paragraph: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod justo ac elit vestibulum, vitae ultrices tortor blandit. Curabitur nec semper nulla. Sed sit amet dolor vel elit dictum vehicula ut eget nibh. Sed auctor non ligula sed venenatis. Cras eget augue arcu. Duis sed fermentum metus. Morbi varius augue in ligula pharetra, ut interdum massa posuere. Nulla facilisi. Fusce eleifend quam eget nibh posuere, vitae lobortis neque imperdiet.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod justo ac elit vestibulum, vitae ultrices tortor blandit. Curabitur nec semper nulla. Sed sit amet dolor vel elit dictum vehicula ut eget nibh. Sed auctor non ligula sed venenatis. Cras eget augue arcu. Duis sed fermentum metus. Morbi varius augue in ligula pharetra, ut interdum massa posuere. Nulla facilisi. Fusce eleifend quam eget nibh posuere, vitae lobortis neque imperdiet.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod justo ac elit vestibulum, vitae ultrices tortor blandit. Curabitur nec semper nulla. Sed sit amet dolor vel elit dictum vehicula ut eget nibh. Sed auctor non ligula sed venenatis. Cras eget augue arcu. Duis sed fermentum metus. Morbi varius augue in ligula pharetra, ut interdum massa posuere. Nulla facilisi. Fusce eleifend quam eget nibh posuere, vitae lobortis neque imperdiet.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod justo ac elit vestibulum, vitae ultrices tortor blandit. Curabitur nec semper nulla. Sed sit amet dolor vel elit dictum vehicula ut eget nibh. Sed auctor non ligula sed venenatis. Cras eget augue arcu. Duis sed fermentum metus. Morbi varius augue in ligula pharetra, ut interdum massa posuere. Nulla facilisi. Fusce eleifend quam eget nibh posuere, vitae lobortis neque imperdiet.`,
-        subSubheading: 'Sub-Subheading',
-        listItems: ['List Item 1', 'List Item 2', 'List Item 3'],
-        finalParagraph: `Sed pellentesque justo vel augue euismod, et eleifend eros fringilla. Aliquam erat volutpat. Donec a mi sed libero lacinia ultrices. Donec blandit nibh sit amet eros bibendum, quis malesuada nulla tristique. Fusce non luctus tortor. Nunc id dui id lectus convallis rhoncus. Donec at ultrices velit, vel facilisis massa. Phasellus bibendum semper arcu, ut luctus velit rhoncus ut. Nam tristique, diam id aliquet fermentum, mauris dolor consequat leo, vel suscipit mauris purus eu justo.`
-    });
+const ContentArea = ({ showSidebar, setShowSidebar, contentData }) => {
+    const [bold, setBold] = useState(false);
+    const [italic, setItalic] = useState(false);
+    const [underline, setUnderline] = useState(false);
 
     const handleInputChange = (key, value) => {
-        setContent({ ...content, [key]: value });
+        // setContent({ ...content, [key]: value });
     };
 
     const toggleSidebar = () => {
@@ -49,6 +44,22 @@ const ContentArea = ({showSidebar, setShowSidebar}) => {
             console.error("Error fetching new content:", error);
         }
     };
+
+    const handleBold = () => {
+        document.execCommand("bold", false, null);
+        setBold(!bold);
+    };
+
+    const handleItalic = () => {
+        document.execCommand("italic", false, null);
+        setItalic(!italic);
+    };
+
+    const handleUnderline = () => {
+        document.execCommand("underline", false, null);
+        setUnderline(!underline);
+    };
+
     return (
         <div className="right-part">
             <div className="content-review">
@@ -59,71 +70,21 @@ const ContentArea = ({showSidebar, setShowSidebar}) => {
                         {showSidebar ? <IoMdClose size={30} /> : <IoMdMenu size={30} />}
                     </button>
                     <h1 className="title">Content Review</h1>
+                    <p></p>
                 </div>
 
                 <div className="formatted-content-display">
-                    <h1
-                        contentEditable="true"
-                        className="heading"
-                        onBlur={(e) => handleInputChange("heading", e.target.innerText)}>
-                        {content.heading}
-                    </h1>
-                    <button
-                        onClick={() => requestNewContent('heading')}
-                        className="refresh-button">
-                        <MdRefresh size={25} />
-                    </button>
-
-                    <h2
-                        contentEditable="true"
-                        className="subheading"
-                        onBlur={(e) => handleInputChange("subheading", e.target.innerText)}>
-                        {content.subheading}
-                    </h2>
+                    <div className="formatting-options">
+                        <button className={bold ? "formatting-button active" : "formatting-button"} onClick={handleBold}><strong>B</strong></button>
+                        <button className={italic ? "formatting-button active" : "formatting-button"} onClick={handleItalic}><em>I</em></button>
+                        <button className={underline ? "formatting-button active" : "formatting-button"} onClick={handleUnderline}><u>U</u></button>
+                    </div>
                     <p
                         contentEditable="true"
                         className="paragraph"
-                        onBlur={(e) => handleInputChange("paragraph", e.target.innerText)}>
-                        {content.paragraph}
+                        onBlur={(e) => handleInputChange("paragraph", e.target.innerHTML)}
+                        dangerouslySetInnerHTML={{ __html: contentData }}>
                     </p>
-                    <h2
-                        contentEditable="true"
-                        className="subheading"
-                        onBlur={(e) => handleInputChange("subSubheading", e.target.innerText)}>
-                        {content.subSubheading}
-                    </h2>
-                    <ul>
-                        {content.listItems.map((item, index) => (
-                            <li
-                                key={index}
-                                contentEditable="true"
-                                className="list-item"
-                                onBlur={(e) => {
-                                    const newListItems = [...content.listItems];
-                                    newListItems[index] = e.target.innerText;
-                                    handleInputChange("listItems", newListItems);
-                                }}>
-                                {item}
-                            </li>
-                        ))}
-                    </ul>
-                    <h3
-                        contentEditable="true"
-                        className="sub-subheading"
-                        onBlur={(e) => handleInputChange("subSubheading", e.target.innerText)}>
-                        {content.subSubheading}
-                    </h3>
-                    <p
-                        contentEditable="true"
-                        className="paragraph"
-                        onBlur={(e) => handleInputChange("finalParagraph", e.target.innerText)}>
-                        {content.finalParagraph}
-                    </p>
-                    <button
-                        onClick={() => requestNewContent('paragraph')}
-                        className="refresh-button">
-                        <MdRefresh size={25} />
-                    </button>
                 </div>
 
                 <div className={showSidebar ? "save-and-export-options" : "save-and-export-options-without-sidebar"}>

@@ -139,6 +139,8 @@ export default function LoginForm({ open, handleClose, showCreateAccountHandler,
             if (data.success) {
                 setSnackbarOpen(true);
                 setSnackbarMessage("Login successful!");
+                localStorage.setItem('session_id', data.session_id);
+                navigate('/dashboard');
                 handleClose();
             } else {
                 setSnackbarOpen(true);

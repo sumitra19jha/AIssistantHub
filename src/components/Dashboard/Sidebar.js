@@ -5,11 +5,14 @@ const Sidebar = () => {
     return (
         <div className="sidebar">
             <div className="sidebar-logo">
-                <img src="/keywordIQ.svg" alt="Logo" width="30" height="30" /> KeywordIQ
+                KeywordIQ
             </div>
             <ul>
                 <li>
                     <a href="/dashboard">My Dashboard</a>
+                </li>
+                <li>
+                    <a href="/user-subscription">Purchase History</a>
                 </li>
                 <li>
                     <a href="/settings">Settings</a>

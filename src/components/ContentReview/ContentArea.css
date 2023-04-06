@@ -2,306 +2,133 @@
     flex: 1;
     display: flex;
     flex-direction: column;
+    padding: 2rem;
+    background-color: #F7F7F7;
     overflow-y: auto;
 }
 
 .content-review {
-    max-width: 100%;
-    min-height: 100vh;
-    margin: 0 auto;
+    background-color: #FFFFFF;
+    border-radius: 1rem;
     padding: 2rem;
-    font-family: 'Roboto', sans-serif;
-    background-color: #f5f5f5;
-    border-radius: 0rem;
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
 }
 
 .row-alignment {
     display: flex;
     align-items: center;
-    justify-content: start;
+    justify-content: space-between;
     margin-bottom: 2rem;
 }
 
 .menu-icon,
 .close-icon {
-    background-color: white;
+    background-color: transparent;
     border: none;
     cursor: pointer;
-    align-self: center;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-    margin-right: 15px;
-}
-
-.menu-icon:hover,
-.close-icon:hover {
-    background-color: #f5f5f5;
 }
 
 .title {
-    font-size: 2.0rem;
-    font-weight: bold;
-    color: #000000;
+    font-size: 2rem;
     margin: 0;
 }
 
 .formatted-content-display {
+    border: 2px solid #CCCCCC;
+    border-radius: 1rem;
+    padding: 1rem;
     margin-bottom: 2rem;
-    padding: 2rem;
-    background-color: white;
-    border-radius: 0.5rem;
     position: relative;
 }
 
-.heading,
-.subheading,
-.sub-subheading {
-    font-size: 2rem;
-    font-weight: bold;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-    color: #007bff;
-}
-
 .paragraph {
+    margin: 0;
     font-size: 1.2rem;
-    line-height: 1.6;
-    margin-bottom: 2rem;
-}
-
-.list-item {
-    font-size: 1.2rem;
-    line-height: 1.6;
-    margin-bottom: 1rem;
-    list-style-type: disc;
-    margin-left: 2rem;
-}
-
-.refresh-button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 50%;
+    line-height: 1.5;
+    outline: none;
     padding: 1rem;
-    font-size: 2rem;
-    cursor: pointer;
+}
+
+.formatting-options {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
-    transform: translate(50%, -50%);
-    transition: background-color 0.2s ease-in-out;
+    top: -2rem;
+    left: 0;
 }
 
-.refresh-button:hover {
-    background-color: #0062cc;
+.formatting-button {
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    padding: 0.5rem;
+    margin-right: 0.5rem;
+    cursor: pointer;
 }
 
-.navigation-and-content-structure {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-}
-
-.navigation-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-    color: #007bff;
-}
-
-.navigation-list {
-    list-style: none;
-    margin-left: 0;
-    padding-left: 0;
-}
-
-.navigation-list li {
-    margin-bottom: 1rem;
-}
-
-.navigation-list li a {
-    color: #007bff;
-    text-decoration: none;
-    transition: color 0.2s ease-in-out;
-}
-
-.navigation-list li a:hover {
-    color: #0062cc;
+.formatting-button.active {
+    background-color: #CCCCCC;
 }
 
 .save-and-export-options {
     margin-top: 2rem;
-    margin-bottom: 2rem;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    bottom: 3%;
-    width: 60%;
+    justify-content: space-between;
 }
 
 .save-and-export-options-without-sidebar {
     margin-top: 2rem;
-    margin-bottom: 2rem;
     display: flex;
     justify-content: center;
-    align-items: center;
-    position: fixed;
-    bottom: 3%;
-    width: 85%;
 }
 
 .save-button,
 .export-button,
 .copy-button,
 .share-button {
-    background-color: #007bff;
-    color: white;
-    border: none;
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
     border-radius: 0.5rem;
-    padding: 1rem 2rem;
-    font-size: 1.2rem;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
     cursor: pointer;
-    margin-right: 1rem;
-    transition: background-color 0.2s ease-in-out;
 }
 
 .save-button:hover,
 .export-button:hover,
 .copy-button:hover,
 .share-button:hover {
-    background-color: #0062cc;
+    background-color: #CCCCCC;
+    color: #FFFFFF;
 }
 
-.save-button:last-child,
-.export-button:last-child,
-.copy-button:last-child,
-.share-button:last-child {
-    margin-right: 0;
-}
-
-@media screen and (max-width: 768px) {
-    .content-review {
+@media (max-width: 768px) {
+    .right-part {
         padding: 1rem;
     }
 
     .title {
-        font-size: 2rem;
+        font-size: 1.5rem;
     }
 
     .formatted-content-display {
-        padding: 1rem;
-    }
-
-    .heading,
-    .subheading,
-    .sub-subheading {
-        font-size: 1.5rem;
+        padding: 0.5rem;
     }
 
     .paragraph {
         font-size: 1rem;
     }
 
-    .list-item {
-        font-size: 1rem;
-    }
-
-    .navigation-title {
-        font-size: 1.2rem;
-    }
-
-    .save-and-export-options {
-        flex-direction: column;
-        align-items: stretch;
-        position: static;
-    }
-
-    .save-and-export-options-without-sidebar {
-        flex-direction: column;
-        align-items: stretch;
-        position: static;
+    .formatting-button {
+        font-size: 0.8rem;
+        padding: 0.3rem;
     }
 
     .save-button,
     .export-button,
     .copy-button,
     .share-button {
-        margin-right: 0;
-        margin-bottom: 1rem;
+        font-size: 0.8rem;
+        padding: 0.3rem 0.5rem;
     }
-
-    .save-button:last-child,
-    .export-button:last-child,
-    .copy-button:last-child,
-    .share-button:last-child {
-        margin-bottom: 0;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .content-review {
-        padding: 0.5rem;
-    }
-
-    .title {
-        font-size: 1.5rem;
-    }
-
-    .heading,
-    .subheading,
-    .sub-subheading {
-        font-size: 1.2rem;
-    }
-
-    .paragraph,
-    .list-item {
-        font-size: 0.9rem;
-    }
-
-    .navigation-title {
-        font-size: 1rem;
-    }
-
-    .save-button,
-    .export-button,
-    .copy-button,
-    .share-button {
-        font-size: 1rem;
-        padding: 0.5rem 1rem;
-    }
-}
-
-
-.heading:hover,
-.subheading:hover,
-.sub-subheading:hover,
-.paragraph:hover,
-.list-item:hover {
-    border: 2px dashed #007bff;
-    padding: 5px;
-    border-radius: 5px;
-    cursor: pointer;
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-}
-
-.heading:focus,
-.subheading:focus,
-.sub-subheading:focus,
-.paragraph:focus,
-.list-item:focus {
-    border: 2px dashed #007bff;
-    padding: 5px;
-    border-radius: 5px;
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-    outline: none;
-}
-
-.add-margin{
-    margin-bottom: 10rem;
 }

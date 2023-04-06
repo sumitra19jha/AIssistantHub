@@ -1,0 +1,92 @@
+.subscription-container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
+
+.subscription-content {
+    flex: 1;
+    padding: 30px;
+}
+
+.subscription-content h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+}
+
+.subscription-table {
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.subscription-table th {
+    background-color: #f7f7f7;
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+.subscription-table td {
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.subscription-table tr:hover {
+    background-color: #f5f5f5;
+}
+
+.subscription-table .success {
+    background-color: #d4edda;
+}
+
+.subscription-table .fail {
+    background-color: #f8d7da;
+}
+
+.subscription-table .success td {
+    color: #155724;
+}
+
+.subscription-table .fail td {
+    color: #721c24;
+}
+
+.subscription-table a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.subscription-btn-container {
+    justify-content: space-between;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: row;
+}
+
+.btn-purchase {
+
+    background: #1a73e8;
+    border: 1px solid transparent;
+    color: #ffffff;
+    border-color: #2e6fac;
+    border-radius: 25px;
+    font-size: 1.2rem;
+    font-weight: 500;
+    text-transform: capitalize;
+    letter-spacing: 1px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    height: fit-content;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.btn-purchase:hover {
+    background-color: #3c628b;
+    border-color: #3c628b;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
