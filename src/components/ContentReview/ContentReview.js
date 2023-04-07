@@ -10,13 +10,12 @@ const ContentReview = () => {
     const [showSidebar, setShowSidebar] = useState(false);
     const location = useLocation();
     const parsedQuery = queryString.parse(location.search);
-    console.log(parsedQuery.generatedContent)
 
     return (
         <div className="area-split">
             {showSidebar && <Sidebar />}
             <ContentArea showSidebar={showSidebar} setShowSidebar={setShowSidebar} contentData={parsedQuery.generatedContent}/>
-            <AIBot/>
+            <AIBot contentId={parsedQuery.contentId}/>
         </div>
     );
 };

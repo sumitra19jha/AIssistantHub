@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import "./ContentArea.css"
 import { IoMdMenu, IoMdClose } from 'react-icons/io';
 import { FaSave, FaFileExport, FaCopy, FaShareAlt } from 'react-icons/fa';
-import { MdRefresh } from 'react-icons/md';
 
 const ContentArea = ({ showSidebar, setShowSidebar, contentData }) => {
     const [bold, setBold] = useState(false);
@@ -27,22 +26,6 @@ const ContentArea = ({ showSidebar, setShowSidebar, contentData }) => {
 
     const handleExport = () => {
         //code to export the content in various formats
-    };
-
-    const requestNewContent = async (section) => {
-        try {
-            // Replace with your API endpoint for fetching new content
-            const response = await fetch(`https://api.example.com/suggestions/${section}`);
-            const data = await response.json();
-
-            if (data && data.suggestion) {
-                handleInputChange(section, data.suggestion);
-            } else {
-                console.error("No suggestion received");
-            }
-        } catch (error) {
-            console.error("Error fetching new content:", error);
-        }
     };
 
     const handleBold = () => {

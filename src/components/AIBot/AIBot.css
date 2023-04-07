@@ -2,9 +2,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 22%;
+    width: 24%;
     height: 100%;
-    background-color: #F7F7F7;
+    background-color: #e7d1d100;
     padding-top: 10px;
     padding-bottom: 10px;
     padding-right: 10px;
@@ -74,7 +74,10 @@
 }
 
 .message {
+    display: flex;
+    flex-direction: column;
     margin-bottom: 1rem;
+    max-width: 70%;
 }
 
 .message.user {
@@ -83,6 +86,7 @@
     color: #fff;
     padding: 0.5rem 1rem;
     border-radius: 1rem;
+    margin-left: 0.5rem;
     margin-right: 0.5rem;
 }
 
@@ -93,6 +97,7 @@
     padding: 0.5rem 1rem;
     border-radius: 1rem;
     margin-left: 0.5rem;
+    margin-right: 0.5rem;
 }
 
 .input-form {
@@ -105,11 +110,20 @@
 .user-input {
     flex-grow: 1;
     padding: 0.5rem;
-    border-radius: 1rem;
-    border: 1px solid #ced4da;
+    border-radius: 1.5rem;
+    border: 2px solid #ced4da;
     margin-right: 0.5rem;
     outline: none;
+    font-size: 1rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
+
+.user-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+}
+
 
 .submit-button {
     background-color: #007bff;
@@ -124,4 +138,49 @@
 
 .submit-button:hover {
     background-color: #0069d9;
+}
+
+.message-info {
+    display: flex;
+    align-items: center;
+    font-size: 0.8rem;
+    margin-bottom: 0.25rem;
+    justify-content: space-between;
+}
+
+
+.message-username {
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+
+.message-timestamp {
+    color: #777;
+}
+
+.message-content {
+    padding: 0.5rem 0.5rem;
+    border-radius: 1rem;
+    margin-left: 0.1rem;
+    margin-right: 0.1rem;
+}
+
+.message.user .message-username {
+    color: #fff;
+}
+
+.message.ai .message-username {
+    color: #000;
+}
+
+.message.user .message-content {
+    align-self: flex-end;
+    background-color: #0084ff;
+    color: #fff;
+}
+
+.message.ai .message-content {
+    align-self: flex-start;
+    background-color: #e6f7ff;
+    color: #000;
 }
