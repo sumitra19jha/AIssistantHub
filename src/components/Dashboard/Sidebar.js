@@ -5,20 +5,17 @@ const Sidebar = () => {
     return (
         <div className="sidebar">
             <div className="sidebar-logo">
-                KeywordIQ
+                AIssistantHub
             </div>
             <ul>
                 <li>
                     <a href="/dashboard">My Dashboard</a>
                 </li>
                 <li>
-                    <a href="/user-subscription">Purchase History</a>
+                    <a href="/user-subscription">My Purchase</a>
                 </li>
                 <li>
-                    <a href="/settings">Settings</a>
-                </li>
-                <li>
-                    <a href="/account">Account Information</a>
+                    <a href="/settings">My Settings</a>
                 </li>
                 <li>
                     <a href="/help">Help Center</a>

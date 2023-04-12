@@ -28,6 +28,16 @@ const ContentArea = ({ showSidebar, setShowSidebar, contentData }) => {
         //code to export the content in various formats
     };
 
+    const handleCopy = () => {
+        const textArea = document.createElement("textarea");
+        textArea.value = contentData;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textArea);
+    };
+
+
     const handleBold = () => {
         document.execCommand("bold", false, null);
         setBold(!bold);
@@ -57,10 +67,13 @@ const ContentArea = ({ showSidebar, setShowSidebar, contentData }) => {
                 </div>
 
                 <div className="formatted-content-display">
-                    <div className="formatting-options">
-                        <button className={bold ? "formatting-button active" : "formatting-button"} onClick={handleBold}><strong>B</strong></button>
-                        <button className={italic ? "formatting-button active" : "formatting-button"} onClick={handleItalic}><em>I</em></button>
-                        <button className={underline ? "formatting-button active" : "formatting-button"} onClick={handleUnderline}><u>U</u></button>
+                    <div className="row-container">
+                        <div className="formatting-options">
+                            <button className={bold ? "formatting-button active" : "formatting-button"} onClick={handleBold}><strong>B</strong></button>
+                            <button className={italic ? "formatting-button active" : "formatting-button"} onClick={handleItalic}><em>I</em></button>
+                            <button className={underline ? "formatting-button active" : "formatting-button"} onClick={handleUnderline}><u>U</u></button>
+                        </div>
+                        <button className="copy-button" onClick={handleCopy}><FaCopy size={20} /> Copy</button>
                     </div>
                     <p
                         contentEditable="true"
@@ -73,7 +86,6 @@ const ContentArea = ({ showSidebar, setShowSidebar, contentData }) => {
                 <div className={showSidebar ? "save-and-export-options" : "save-and-export-options-without-sidebar"}>
                     <button className="save-button" onClick={handleSave}><FaSave size={20} /> Save</button>
                     <button className="export-button" onClick={handleExport}><FaFileExport size={20} /> Export</button>
-                    <button className="copy-button"><FaCopy size={20} /> Copy</button>
                     <button className="share-button"><FaShareAlt size={20} /> Share</button>
                 </div>
             </div>

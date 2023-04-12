@@ -121,14 +121,6 @@ const ContentGenerationDialog = ({ onClose }) => {
                     </select>
                 </div>
 
-                <div className="content-generation-dialog-field">
-                    <label className="content-generation-dialog-label" htmlFor="topic-input">
-                        Provide Topic:
-                    </label>
-                    {error && <div className="content-generation-dialog-error">{error}</div>}
-                    <input className="content-generation-dialog-input" id="topic-input" type="text" value={topic} onChange={handleTopicChange} />
-                </div>
-
                 {contentType && CONTENT_TYPES[contentType].platformOptions && (
                     <div className="content-generation-dialog-field">
                         <label className="content-generation-dialog-label" htmlFor="content-platform-select">
@@ -140,6 +132,14 @@ const ContentGenerationDialog = ({ onClose }) => {
                         </select>
                     </div>
                 )}
+
+                <div className="content-generation-dialog-field">
+                    <label className="content-generation-dialog-label" htmlFor="topic-input">
+                        Provide Topic:
+                    </label>
+                    {error && <div className="content-generation-dialog-error">{error}</div>}
+                    <input className="content-generation-dialog-input" id="topic-input" type="text" value={topic} onChange={handleTopicChange} />
+                </div>
 
                 {contentType && CONTENT_TYPES[contentType].purposeOptions && (
                     <div className="content-generation-dialog-field">

@@ -42,13 +42,13 @@ const GradientBox = () => {
             </div>
             <div className="child1">
                 <div className="child2">
-                    <div className="explore-what">Maximize your SEO with</div>
+                    <div className="explore-what">Empower creativity with</div>
                     <div className="india-box">
                         <div className="india">
-                            Chat-GPT's
+                        IntelliMate
                         </div>
                     </div>
-                    <div className="is-searching-for">keyword research and writing.</div>
+                    <div className="is-searching-for">your versatile AI-driven partner.</div>
                 </div>
                 <div className="child3">
                     <div className="search-box">

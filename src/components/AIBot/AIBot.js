@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import api from "../../services/api";
 import "./AIBot.css";
 import { AUTH_TOKEN } from '../../utils/constants';
 import io from "socket.io-client";
@@ -20,6 +21,40 @@ const AIBot = ({ contentId }) => {
     const [messages, setMessages] = useState([]);
     const [socket, setSocket] = useState(null);
     const [currentAIMessage, setCurrentAIMessage] = useState(null);
+    const chatContainerRef = useRef(null);
+    const chatHeaderRef = useRef(null);
+    const [chatHistoryFetched, setChatHistoryFetched] = useState(false);
+
+    const lastMessageRef = useRef(null);
+
+
+    const fetchChatHistory = async () => {
+        try {
+            api.get('/dashboard/content/chat/history', {
+                params: {
+                    content_id: contentId,
+                }
+            })
+                .then((response) => {
+                    if (response.data.success) {
+                        setMessages(response.data.history.map(message => ({
+                            type: message.type,
+                            content: message.content,
+                            username: message.username,
+                            timestamp: new Date(message.timestamp)
+                        })));
+                    } else {
+                        console.log(response.data.message);
+                    }
+
+                })
+                .catch((error) => {
+                    console.log("Some issue occured!", error);
+                });
+        } catch (error) {
+            alert('Error fetching chat history:', error);
+        }
+    };
 
 
     // Socket Connection
@@ -32,6 +67,16 @@ const AIBot = ({ contentId }) => {
         setSocket(newSocket);
         return () => newSocket.close();
     }, []);
+
+
+    useEffect(() => {
+        if (contentId && socket && !chatHistoryFetched) {
+            fetchChatHistory();
+            setChatHistoryFetched(true);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [contentId, socket, chatHistoryFetched]);
+
 
     useEffect(() => {
         if (socket) {
@@ -51,7 +96,7 @@ const AIBot = ({ contentId }) => {
                         {
                             type: 'ai',
                             content: all_message,
-                            username: 'AI Bot',
+                            username: 'Content AI',
                             timestamp: new Date(),
                         },
                     ]);
@@ -86,30 +131,54 @@ const AIBot = ({ contentId }) => {
         }
     };
 
+    useEffect(() => {
+        if (chatContainerRef.current && chatHeaderRef.current) {
+            const chatHeaderHeight = chatHeaderRef.current.offsetHeight;
+            chatContainerRef.current.style.height = `calc(100% - ${chatHeaderHeight}px)`;
+        }
+    }, [messages]);
+
+    useEffect(() => {
+        if (lastMessageRef.current) {
+            lastMessageRef.current.scrollIntoView({ behavior: "smooth" });
+        }
+    }, [messages]);
+
 
     return (
         <div className="ai-bot">
-            <div className="chat-header">
+            <div className="chat-header" ref={chatHeaderRef}>
                 <img className="ai-bot-image" src="/image.png" alt="AI Bot" />
-                <div className="ai-model-name">ChatGPT</div>
+                <div className="ai-model-name">IntelliMate</div>
                 <div className="online">Online</div>
             </div>
-            <div className="chat-container">
-                <div className="chat-window">
+
+            <div className="chat-container" ref={chatContainerRef}>
+                <div className="chat-window" >
                     {messages.map((message, index) => (
-                        <div key={index} className={`message ${message.type}`}>
+                        <div
+                            key={index}
+                            className={`message ${message.type}`}
+                            ref={index === messages.length - 1 ? lastMessageRef : null}
+                        >
                             <div className="message-info">
                                 <span className="message-username">{message.username}</span>
                                 <span className="message-timestamp">{formatTime(message.timestamp)}</span>
                             </div>
-                            <div className="message-content">{message.content}</div>
+                            <div className="message-content">
+                                {message.content.split('\n').map((part, index) => (
+                                    <p key={index}>{part}</p>
+                                ))}
+                            </div>
                         </div>
                     ))}
 
                     {currentAIMessage && (
                         <div className={`message ai`}>{currentAIMessage}</div>
                     )}
+                    <div className={`space ai`} />
                 </div>
+
                 <form className="input-form" onSubmit={handleSubmit}>
                     <input
                         type="text"

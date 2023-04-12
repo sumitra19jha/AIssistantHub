@@ -42,6 +42,14 @@
     position: relative;
 }
 
+.row-container{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    justify-content: space-between;
+    top: -2rem;
+}
+
 .paragraph {
     margin: 0;
     font-size: 1.2rem;
@@ -50,10 +58,24 @@
     padding: 1rem;
 }
 
-.formatting-options {
-    position: absolute;
-    top: -2rem;
-    left: 0;
+.paragraph h1,
+.paragraph h2,
+.paragraph h3,
+.paragraph h4{
+    font-size: 1.4rem;
+}
+
+.paragraph p{
+    font-size: 1.2rem;
+}
+
+.paragraph ul{
+    font-size: 1.2rem;
+    list-style-type: disc;
+}
+
+.paragraph li{
+    margin-bottom: 20px;
 }
 
 .formatting-button {
@@ -73,7 +95,7 @@
 .save-and-export-options {
     margin-top: 2rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .save-and-export-options-without-sidebar {
@@ -82,10 +104,7 @@
     justify-content: center;
 }
 
-.save-button,
-.export-button,
-.copy-button,
-.share-button {
+.copy-button{
     background-color: #FFFFFF;
     border: 1px solid #CCCCCC;
     border-radius: 0.5rem;
@@ -94,9 +113,25 @@
     cursor: pointer;
 }
 
+.copy-button:hover{
+    background-color: #CCCCCC;
+    color: #FFFFFF;
+}
+
+.save-button,
+.export-button,
+.share-button {
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    margin-right: 1rem;
+}
+
 .save-button:hover,
 .export-button:hover,
-.copy-button:hover,
 .share-button:hover {
     background-color: #CCCCCC;
     color: #FFFFFF;
@@ -124,9 +159,14 @@
         padding: 0.3rem;
     }
 
+
+    .copy-button{
+        font-size: 0.8rem;
+        padding: 0.3rem 0.5rem;
+    }
+
     .save-button,
     .export-button,
-    .copy-button,
     .share-button {
         font-size: 0.8rem;
         padding: 0.3rem 0.5rem;

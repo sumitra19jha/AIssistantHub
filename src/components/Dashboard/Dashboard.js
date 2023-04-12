@@ -2,13 +2,10 @@ import React, { useState } from "react";
 import Sidebar from "./Sidebar";
 import "./Dashboard.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    faFileCode,
-    faSearch,
-    faImage,
-} from "@fortawesome/free-solid-svg-icons";
+import { faFileCode, faSearch, faImage} from "@fortawesome/free-solid-svg-icons";
 import ContentGenerationDialog from "../ContentCreationDialog/ContentGenerationDialog";
 import SeoOptimisationDialog from "../SeoOptimisationDialog/SeoOptimisationDialog";
+import ProjectHistory from "../ProjectHistory/ProjectHistory";
 
 const handleUploadClick = (event) => {
     event.preventDefault();
@@ -115,6 +112,9 @@ const Dashboard = () => {
                                     </div>
                                 </div>
                             </div>
+
+                            <h2>Project History</h2>
+                            <ProjectHistory/>
                         </div>
                     </div>
                 </div>
