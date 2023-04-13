@@ -22,12 +22,6 @@
     font-size: 1.3rem;
 }
 
-.public-DraftStyleDefault-link {
-    color: blue;
-    text-decoration: underline;
-}
-
-
 .wrapper_f1x2i2y1 {
     position: absolute;
     transition: opacity .2s;

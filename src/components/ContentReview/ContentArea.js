@@ -30,7 +30,9 @@ const ContentArea = ({ contentData }) => {
 
     useEffect(() => {
         if (showLinkBox) {
-            linkInputRef.current.focus();
+            setTimeout(() => {
+                linkInputRef.current.focus();
+            }, 0);
         }
     }, [showLinkBox]);
 
