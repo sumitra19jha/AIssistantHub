@@ -4,15 +4,25 @@ import { stateFromHTML } from 'draft-js-import-html';
 import { Map } from 'immutable';
 import 'draft-js/dist/Draft.css';
 import "./ContentArea.css";
+import { createLinkDecorator } from './linkDecorator';
 import Toolbar from './Toolbar';
 
 const ContentArea = ({ contentData }) => {
-    const [editorState, setEditorState] = useState(() => EditorState.createWithContent(stateFromHTML(contentData)));
+    const [editorState, setEditorState] = useState(() =>
+        EditorState.createWithContent(
+            stateFromHTML(contentData),
+            createLinkDecorator()
+        )
+    );
+
     const editorRef = useRef();
     const editorContainerRef = useRef();
     const linkInputRef = useRef();
     const [showLinkBox, setShowLinkBox] = useState(false);
     const [linkBoxPosition, setLinkBoxPosition] = useState({ x: 0, y: 0 });
+    const [lastEditorSelection, setLastEditorSelection] = useState(null);
+    const [inputURL, setInputURL] = useState('');
+
 
     useEffect(() => {
         const handleKeyDown = (event) => {
@@ -38,7 +48,6 @@ const ContentArea = ({ contentData }) => {
 
     const getCaretCoordinates = () => {
         const sel = window.getSelection();
-        console.log(sel.rangeCount)
         if (!sel.rangeCount) {
             return null;
         }
@@ -50,8 +59,6 @@ const ContentArea = ({ contentData }) => {
 
         const rect = dummy.getBoundingClientRect();
         dummy.parentNode.removeChild(dummy);
-
-        console.log(rect.left, rect.top)
         return { x: rect.left, y: rect.top };
     };
 
@@ -69,15 +76,42 @@ const ContentArea = ({ contentData }) => {
     };
 
     const handleApplyLink = () => {
-        const selection = editorState.getSelection();
-        const contentState = editorState.getCurrentContent();
-        const contentStateWithEntity = contentState.createEntity('LINK', 'MUTABLE', { url: 'url_here' });
-        const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
-        const newContentState = Modifier.applyEntity(contentStateWithEntity, selection, entityKey);
-        const newEditorState = EditorState.push(editorState, newContentState, 'apply-entity');
-        setEditorState(newEditorState);
+        if (!inputURL) {
+            return;
+        }
+
+        let link = inputURL
+
+        // Add 'http://' to the inputURL if it doesn't have it
+        if (!/^http(s)?:\/\//.test(link)) {
+            link = 'http://' + link;
+        }
+
+        const decorator = createLinkDecorator();
+        const currentContent = editorState.getCurrentContent();
+        const createEntity = currentContent.createEntity("LINK", "MUTABLE", {
+            url: link,
+        });
+
+        const entityKey = createEntity.getLastCreatedEntityKey();
+        const selection = lastEditorSelection || editorState.getSelection();
+        const collapsedSelection = selection.merge({
+            anchorOffset: selection.getStartOffset(),
+            focusOffset: selection.getStartOffset(),
+        }); // Add this line to collapse the selection
+        const textWithEntity = Modifier.insertText(
+            currentContent,
+            collapsedSelection, // Update this line to use the collapsed selection
+            link,
+            null,
+            entityKey
+        );
+        const newState = EditorState.createWithContent(textWithEntity, decorator);
+        setEditorState(newState);
+        setInputURL('');
         setShowLinkBox(false);
     };
+
 
     const myKeyBindingFn = (e) => {
         if (e.keyCode === 9 /* Tab */) {
@@ -160,6 +194,7 @@ const ContentArea = ({ contentData }) => {
 
     return (
         <div className="content-area">
+
             <Toolbar
                 contentData={contentData}
                 setEditorState={setEditorState}
@@ -169,15 +204,21 @@ const ContentArea = ({ contentData }) => {
             />
 
             {showLinkBox &&
-                <div data-role="positioned-container" class="wrapper_f1x2i2y1" style={{ left: linkBoxPosition.x, top: linkBoxPosition.y }}>
+                <div
+                    data-role="positioned-container"
+                    className="wrapper_f1x2i2y1"
+                    style={{ left: linkBoxPosition.x, top: linkBoxPosition.y }}
+                >
                     <div className="link-box" >
                         <input
                             ref={linkInputRef}
                             className="link-box-url-input link-box-url-holder link-box-link-base"
                             type="text"
                             placeholder="Enter Link URL"
+                            value={inputURL}
+                            onChange={(e) => setInputURL(e.target.value)}
                         />
-                        <button class="fqlvlsm f2phmyy f1gcrnub" onClick={handleApplyLink}>Apply</button>
+                        <button className="fqlvlsm f2phmyy f1gcrnub" onClick={handleApplyLink}>Apply</button>
                     </div>
                 </div>
             }
@@ -188,7 +229,11 @@ const ContentArea = ({ contentData }) => {
                     editorState={editorState}
                     handleKeyCommand={handleKeyCommand}
                     keyBindingFn={myKeyBindingFn}
-                    onChange={setEditorState}
+                    onChange={(newState) => {
+                        setLastEditorSelection(newState.getSelection());
+                        setEditorState(newState);
+                    }}
+                //customStyleMap={styleMap}
                 />
             </div>
         </div>
