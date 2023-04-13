@@ -7,7 +7,7 @@ const ProjectCard = ({ project }) => {
     const history = useNavigate();
 
     const onCardClick = ()=>{
-        history(`/content-review?generatedContent=${encodeURIComponent(html_form)}&contentId=${encodeURIComponent(content_id)}`);
+        history(`/content-review?generatedContent=${encodeURIComponent(html_form)}&contentId=${encodeURIComponent(content_id)}&topic=${encodeURIComponent(topic)}`);
     }
 
     return (

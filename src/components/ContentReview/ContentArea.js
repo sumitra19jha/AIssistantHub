@@ -1,96 +1,196 @@
-import React, { useState } from 'react';
-import "./ContentArea.css"
-import { IoMdMenu, IoMdClose } from 'react-icons/io';
-import { FaSave, FaFileExport, FaCopy, FaShareAlt } from 'react-icons/fa';
+import React, { useState, useRef, useEffect } from 'react';
+import { Editor, EditorState, RichUtils, getDefaultKeyBinding, Modifier } from 'draft-js';
+import { stateFromHTML } from 'draft-js-import-html';
+import { Map } from 'immutable';
+import 'draft-js/dist/Draft.css';
+import "./ContentArea.css";
+import Toolbar from './Toolbar';
 
-const ContentArea = ({ showSidebar, setShowSidebar, contentData }) => {
-    const [bold, setBold] = useState(false);
-    const [italic, setItalic] = useState(false);
-    const [underline, setUnderline] = useState(false);
+const ContentArea = ({ contentData }) => {
+    const [editorState, setEditorState] = useState(() => EditorState.createWithContent(stateFromHTML(contentData)));
+    const editorRef = useRef();
+    const editorContainerRef = useRef();
+    const linkInputRef = useRef();
+    const [showLinkBox, setShowLinkBox] = useState(false);
+    const [linkBoxPosition, setLinkBoxPosition] = useState({ x: 0, y: 0 });
 
-    const handleInputChange = (key, value) => {
-        // setContent({ ...content, [key]: value });
+    useEffect(() => {
+        const handleKeyDown = (event) => {
+            if (event.key === 'Escape') {
+                setShowLinkBox(false);
+            }
+        };
+
+        document.addEventListener('keydown', handleKeyDown);
+
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, []);
+
+    useEffect(() => {
+        if (showLinkBox) {
+            linkInputRef.current.focus();
+        }
+    }, [showLinkBox]);
+
+    const getCaretCoordinates = () => {
+        const sel = window.getSelection();
+        console.log(sel.rangeCount)
+        if (!sel.rangeCount) {
+            return null;
+        }
+        const range = sel.getRangeAt(0).cloneRange(); // Clone the range to avoid modifying the original range
+        const dummy = document.createElement("span");
+
+        range.collapse(false); // Collapse the range to the end point
+        range.insertNode(dummy);
+
+        const rect = dummy.getBoundingClientRect();
+        dummy.parentNode.removeChild(dummy);
+
+        console.log(rect.left, rect.top)
+        return { x: rect.left, y: rect.top };
     };
 
-    const toggleSidebar = () => {
-        setShowSidebar(!showSidebar);
+
+    const handleLink = (event) => {
+        const caretCoordinates = getCaretCoordinates();
+        if (!caretCoordinates) {
+            return;
+        }
+        const iconHeight = 20; // Height of the link icon
+        const x = caretCoordinates.x - editorContainerRef.current.scrollLeft;
+        const y = caretCoordinates.y - editorContainerRef.current.scrollTop + iconHeight;
+        setLinkBoxPosition({ x, y });
+        setShowLinkBox(true);
     };
 
-    const closeSidebar = () => {
-        setShowSidebar(false);
+    const handleApplyLink = () => {
+        const selection = editorState.getSelection();
+        const contentState = editorState.getCurrentContent();
+        const contentStateWithEntity = contentState.createEntity('LINK', 'MUTABLE', { url: 'url_here' });
+        const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
+        const newContentState = Modifier.applyEntity(contentStateWithEntity, selection, entityKey);
+        const newEditorState = EditorState.push(editorState, newContentState, 'apply-entity');
+        setEditorState(newEditorState);
+        setShowLinkBox(false);
     };
 
-    const handleSave = () => {
-        //code to save the edited content
+    const myKeyBindingFn = (e) => {
+        if (e.keyCode === 9 /* Tab */) {
+            e.preventDefault();
+            if (e.shiftKey) {
+                return 'tab-outdent';
+            }
+            return 'tab-indent';
+        }
+        return getDefaultKeyBinding(e);
     };
 
-    const handleExport = () => {
-        //code to export the content in various formats
+    const indentList = (editorState) => {
+        const contentState = editorState.getCurrentContent();
+        const selectionState = editorState.getSelection();
+        const startKey = selectionState.getStartKey();
+        const block = contentState.getBlockForKey(startKey);
+        const blockType = block.getType();
+
+        if (blockType === 'unordered-list-item') {
+            const currentDepth = block.getDepth();
+            if (currentDepth < 4) {
+                const newContentState = Modifier.setBlockData(
+                    contentState,
+                    selectionState,
+                    Map({ depth: currentDepth + 1 })
+                );
+                return EditorState.push(editorState, newContentState, 'change-block-data');
+            }
+        }
+
+        return editorState;
     };
 
-    const handleCopy = () => {
-        const textArea = document.createElement("textarea");
-        textArea.value = contentData;
-        document.body.appendChild(textArea);
-        textArea.select();
-        document.execCommand("copy");
-        document.body.removeChild(textArea);
+    const outdentList = (editorState) => {
+        const contentState = editorState.getCurrentContent();
+        const selectionState = editorState.getSelection();
+        const startKey = selectionState.getStartKey();
+        const block = contentState.getBlockForKey(startKey);
+        const blockType = block.getType();
+
+        if (blockType === 'unordered-list-item') {
+            const currentDepth = block.getDepth();
+            if (currentDepth > 0) {
+                const newContentState = Modifier.setBlockData(
+                    contentState,
+                    selectionState,
+                    Map({ depth: currentDepth - 1 })
+                );
+                return EditorState.push(editorState, newContentState, 'change-block-data');
+            }
+        }
+
+        return editorState;
     };
 
 
-    const handleBold = () => {
-        document.execCommand("bold", false, null);
-        setBold(!bold);
-    };
+    const handleKeyCommand = (command, editorState) => {
+        if (command === 'tab-indent') {
+            const newState = indentList(editorState);
+            if (newState !== editorState) {
+                setEditorState(newState);
+                return 'handled';
+            }
+        } else if (command === 'tab-outdent') {
+            const newState = outdentList(editorState);
+            if (newState !== editorState) {
+                setEditorState(newState);
+                return 'handled';
+            }
+        }
 
-    const handleItalic = () => {
-        document.execCommand("italic", false, null);
-        setItalic(!italic);
-    };
-
-    const handleUnderline = () => {
-        document.execCommand("underline", false, null);
-        setUnderline(!underline);
+        const newState = RichUtils.handleKeyCommand(editorState, command);
+        if (newState) {
+            setEditorState(newState);
+            return 'handled';
+        }
+        return 'not-handled';
     };
 
     return (
-        <div className="right-part">
-            <div className="content-review">
-                <div className='row-alignment'>
-                    <button
-                        className={showSidebar ? "close-icon" : "menu-icon"}
-                        onClick={showSidebar ? closeSidebar : toggleSidebar}>
-                        {showSidebar ? <IoMdClose size={30} /> : <IoMdMenu size={30} />}
-                    </button>
-                    <h1 className="title">Content Review</h1>
-                    <p></p>
-                </div>
+        <div className="content-area">
+            <Toolbar
+                contentData={contentData}
+                setEditorState={setEditorState}
+                editorState={editorState}
+                RichUtils={RichUtils}
+                handleLink={handleLink}
+            />
 
-                <div className="formatted-content-display">
-                    <div className="row-container">
-                        <div className="formatting-options">
-                            <button className={bold ? "formatting-button active" : "formatting-button"} onClick={handleBold}><strong>B</strong></button>
-                            <button className={italic ? "formatting-button active" : "formatting-button"} onClick={handleItalic}><em>I</em></button>
-                            <button className={underline ? "formatting-button active" : "formatting-button"} onClick={handleUnderline}><u>U</u></button>
-                        </div>
-                        <button className="copy-button" onClick={handleCopy}><FaCopy size={20} /> Copy</button>
+            {showLinkBox &&
+                <div data-role="positioned-container" class="wrapper_f1x2i2y1" style={{ left: linkBoxPosition.x, top: linkBoxPosition.y }}>
+                    <div className="link-box" >
+                        <input
+                            ref={linkInputRef}
+                            className="link-box-url-input link-box-url-holder link-box-link-base"
+                            type="text"
+                            placeholder="Enter Link URL"
+                        />
+                        <button class="fqlvlsm f2phmyy f1gcrnub" onClick={handleApplyLink}>Apply</button>
                     </div>
-                    <p
-                        contentEditable="true"
-                        className="paragraph"
-                        onBlur={(e) => handleInputChange("paragraph", e.target.innerHTML)}
-                        dangerouslySetInnerHTML={{ __html: contentData }}>
-                    </p>
                 </div>
+            }
 
-                <div className={showSidebar ? "save-and-export-options" : "save-and-export-options-without-sidebar"}>
-                    <button className="save-button" onClick={handleSave}><FaSave size={20} /> Save</button>
-                    <button className="export-button" onClick={handleExport}><FaFileExport size={20} /> Export</button>
-                    <button className="share-button"><FaShareAlt size={20} /> Share</button>
-                </div>
+            <div ref={editorContainerRef} className="editor" onClick={() => editorRef.current.focus()}>
+                <Editor
+                    ref={editorRef}
+                    editorState={editorState}
+                    handleKeyCommand={handleKeyCommand}
+                    keyBindingFn={myKeyBindingFn}
+                    onChange={setEditorState}
+                />
             </div>
         </div>
     );
-}
+};
 
 export default ContentArea;

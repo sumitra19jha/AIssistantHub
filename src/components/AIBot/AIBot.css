@@ -91,7 +91,7 @@
 
 .message.ai {
     align-self: flex-start;
-    background-color: #e6f7ff;
+    background-color: #d3f0fd;
     color: #000;
     padding: 0.5rem 1rem;
     border-radius: 1rem;
@@ -114,6 +114,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
+    border-top: 0.5px solid #dfdfdf;
 }
 
 .user-input {
@@ -190,6 +191,6 @@
 
 .message.ai .message-content {
     align-self: flex-start;
-    background-color: #e6f7ff;
+    background-color: #d3f0fd;
     color: #000;
 }

@@ -75,7 +75,7 @@ const ContentGenerationDialog = ({ onClose }) => {
             .then((response) => {
                 setIsLoading(false);
                 if(response.data.success){
-                    history(`/content-review?generatedContent=${encodeURIComponent(response.data.content)}&contentId=${encodeURIComponent(response.data.contentId)}`);
+                    history(`/content-review?generatedContent=${encodeURIComponent(response.data.content)}&contentId=${encodeURIComponent(response.data.contentId)}&topic=${encodeURIComponent(topic)}`);
                 }else{
                     alert(response.data.message);
                 }
