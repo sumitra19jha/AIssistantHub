@@ -1,18 +1,32 @@
-.right-part {
+:root {
+    --cardWidth: 400px;
+    --rem: 14px;
+    font-size: 14px;
+}
+
+.content-area {
     flex: 1;
     display: flex;
     flex-direction: column;
     padding: 2rem;
-    background-color: #F7F7F7;
+    background-color: #FFFFFF;
     overflow-y: auto;
+    height: 100%;
+    border-right: 0.5px solid #dfdfdf;
 }
 
-.content-review {
-    background-color: #FFFFFF;
-    border-radius: 1rem;
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
+.editor {
+    cursor: text;
+    min-height: 200px;
+    padding: 10px;
+}
+
+.public-DraftStyleDefault-ltr {
+    color: rgb(14, 16, 26);
+    font-size: calc(1.3 * var(--rem));
+    font-weight: 400;
+    letter-spacing: calc(0 * var(--rem));
+    line-height: calc(2.1 * var(--rem));
 }
 
 .row-alignment {
@@ -20,34 +34,6 @@
     align-items: center;
     justify-content: space-between;
     margin-bottom: 2rem;
-}
-
-.menu-icon,
-.close-icon {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-}
-
-.title {
-    font-size: 2rem;
-    margin: 0;
-}
-
-.formatted-content-display {
-    border: 2px solid #CCCCCC;
-    border-radius: 1rem;
-    padding: 1rem;
-    margin-bottom: 2rem;
-    position: relative;
-}
-
-.row-container{
-    display: flex;
-    flex-direction: row;
-    position: relative;
-    justify-content: space-between;
-    top: -2rem;
 }
 
 .paragraph {
@@ -61,83 +47,29 @@
 .paragraph h1,
 .paragraph h2,
 .paragraph h3,
-.paragraph h4{
+.paragraph h4 {
     font-size: 1.4rem;
 }
 
-.paragraph p{
+.paragraph p {
     font-size: 1.2rem;
 }
 
-.paragraph ul{
+.paragraph ul {
     font-size: 1.2rem;
     list-style-type: disc;
 }
 
-.paragraph li{
+.paragraph li {
     margin-bottom: 20px;
 }
 
-.formatting-button {
-    background-color: #FFFFFF;
-    border: 1px solid #CCCCCC;
-    border-radius: 0.5rem;
-    font-size: 1rem;
-    padding: 0.5rem;
-    margin-right: 0.5rem;
-    cursor: pointer;
-}
 
-.formatting-button.active {
-    background-color: #CCCCCC;
-}
+@media (max-width: 1279px) {
+    .link-box {
+        padding: calc(var(--rem) * 0.4);
+    }
 
-.save-and-export-options {
-    margin-top: 2rem;
-    display: flex;
-    justify-content: center;
-}
-
-.save-and-export-options-without-sidebar {
-    margin-top: 2rem;
-    display: flex;
-    justify-content: center;
-}
-
-.copy-button{
-    background-color: #FFFFFF;
-    border: 1px solid #CCCCCC;
-    border-radius: 0.5rem;
-    font-size: 1rem;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-}
-
-.copy-button:hover{
-    background-color: #CCCCCC;
-    color: #FFFFFF;
-}
-
-.save-button,
-.export-button,
-.share-button {
-    background-color: #FFFFFF;
-    border: 1px solid #CCCCCC;
-    border-radius: 0.5rem;
-    font-size: 1rem;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    margin-right: 1rem;
-}
-
-.save-button:hover,
-.export-button:hover,
-.share-button:hover {
-    background-color: #CCCCCC;
-    color: #FFFFFF;
-}
-
-@media (max-width: 768px) {
     .right-part {
         padding: 1rem;
     }
@@ -152,23 +84,5 @@
 
     .paragraph {
         font-size: 1rem;
-    }
-
-    .formatting-button {
-        font-size: 0.8rem;
-        padding: 0.3rem;
-    }
-
-
-    .copy-button{
-        font-size: 0.8rem;
-        padding: 0.3rem 0.5rem;
-    }
-
-    .save-button,
-    .export-button,
-    .share-button {
-        font-size: 0.8rem;
-        padding: 0.3rem 0.5rem;
     }
 }

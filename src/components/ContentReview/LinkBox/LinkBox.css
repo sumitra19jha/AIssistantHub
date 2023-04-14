@@ -1,0 +1,129 @@
+:root {
+    --cardWidth: 400px;
+    --rem: 14px;
+    font-size: 14px;
+}
+
+.parent-link-box {
+    position: absolute;
+    transition: opacity .1s;
+    z-index: 10;
+}
+
+.link-box {
+    display: flex;
+    margin-top: 5px;
+    padding: calc(var(--rem) * 0.6);
+    border-radius: calc(var(--rem) * 0.5);
+    background-color: #fff;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, .05), 0 4px 20px rgba(0, 0, 0, .15);
+    pointer-events: all;
+    align-items: center;
+    align-content: center;
+}
+
+.link-box-url-input {
+    max-width: calc(var(--rem) * 14);
+    padding: 3px 5px;
+    width: calc(var(--rem) * 16);
+    height: calc(var(--rem) * 2.9);
+    outline: none;
+    border: none;
+    border-radius: calc(var(--rem) * 0.25);
+    background-color: #f0f2fc;
+}
+
+.link-box-url-holder {
+    display: inline-flex;
+    margin-right: calc(var(--rem) * 0.5);
+    padding-left: calc(var(--rem) * 0.5);
+    max-width: calc(var(--rem) * 16);
+    color: #4a6ee0;
+    align-items: center;
+}
+
+.link-box-link-base {
+    color: #0e101a;
+    letter-spacing: 0;
+    font-weight: 400;
+    font-size: calc(var(--rem) * 1.1);
+    line-height: calc(var(--rem) * 1.5);
+}
+
+.link-box-button-text {
+    align-items: center;
+    background-color: transparent;
+    border: 0;
+    border-radius: calc(0.25 * var(--rem));
+    color: #2551da;
+    cursor: default;
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    line-height: calc(2 * var(--rem));
+    min-height: calc(2 * var(--rem));
+    min-width: calc(2 * var(--rem));
+    outline: none;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+    transition-duration: .2s;
+    transition-property: border, background, color;
+    user-select: none;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.link-box-button-text {
+    color: rgb(74, 110, 224);
+    font-size: calc(1 * var(--rem));
+    font-weight: 700;
+    letter-spacing: calc(0 * var(--rem));
+    line-height: calc(2 * var(--rem));
+    margin: 0;
+}
+
+.link-box-button-form {
+    -moz-appearance: none;
+    -moz-osx-font-smoothing: inherit;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: inherit;
+    appearance: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    margin: 0;
+    overflow: visible;
+    padding: 0;
+    width: auto;
+}
+
+.link-box-button-appearance {
+    align-items: center;
+    background-color: transparent;
+    border: 0;
+    border-radius: calc(0.25 * var(--rem));
+    color: #2551da;
+    cursor: default;
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    line-height: calc(2 * var(--rem));
+    min-height: calc(2 * var(--rem));
+    min-width: 30px;
+    outline: none;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+    transition-duration: .2s;
+    transition-property: border, background, color;
+    user-select: none;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+@media (max-width: 1279px) {
+    .link-box {
+        max-width: calc(var(--rem)*1*14);
+    }
+}

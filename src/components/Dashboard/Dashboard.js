@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import Sidebar from "./Sidebar";
 import "./Dashboard.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFileCode, faSearch, faImage} from "@fortawesome/free-solid-svg-icons";
+import { FaFileCode, FaSearch, FaImage} from 'react-icons/fa';
 import ContentGenerationDialog from "../ContentCreationDialog/ContentGenerationDialog";
 import SeoOptimisationDialog from "../SeoOptimisationDialog/SeoOptimisationDialog";
 import ProjectHistory from "../ProjectHistory/ProjectHistory";
@@ -54,8 +53,7 @@ const Dashboard = () => {
                                         <OptionComponent
                                             option="Content Generation"
                                             icon={
-                                                <FontAwesomeIcon
-                                                    icon={faFileCode}
+                                                <FaFileCode
                                                     className="option-icon"
                                                 />
                                             }
@@ -80,8 +78,7 @@ const Dashboard = () => {
                                         <OptionComponent
                                             option="SEO Optimization"
                                             icon={
-                                                <FontAwesomeIcon
-                                                    icon={faSearch}
+                                                <FaSearch
                                                     className="option-icon"
                                                 />
                                             }
@@ -98,8 +95,7 @@ const Dashboard = () => {
                                         <OptionComponent
                                             option="Social Media Post"
                                             icon={
-                                                <FontAwesomeIcon
-                                                    icon={faImage}
+                                                <FaImage
                                                     className="option-icon"
                                                 />
                                             }
