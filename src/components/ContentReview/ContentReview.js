@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import ContentArea from './ContentArea';
 import AIBot from '../AIBot/AIBot.js';
-import Header from './Header';
+import Header from './Header/Header';
 import "./ContentReview.css";
 
 const ContentReview = () => {

@@ -1,51 +1,52 @@
-import React from 'react';
-import { FaImage, FaCopy, FaBold, FaItalic, FaUnderline, FaList, FaAlignJustify, FaLink } from 'react-icons/fa';
-import "./Toolbar.css"
+import { EditorState, AtomicBlockUtils, RichUtils } from "draft-js";
+import { FaImage, FaCopy, FaBold, FaItalic, FaUnderline, FaList, FaAlignJustify, FaLink } from "react-icons/fa";
+import "./Toolbar.css";
 
-const Toolbar = ({ contentData, setEditorState, editorState, RichUtils, handleLink }) => {
+const Toolbar = ({ contentData, setEditorState, editorState, handleLink }) => {
+    const handleImage = () => {
+        const input = document.createElement('input');
+        input.setAttribute('type', 'file');
+        input.setAttribute('accept', 'image/*');
+        input.click();
+
+        input.onchange = async () => {
+            const file = input.files[0];
+            const reader = new FileReader();
+
+            reader.onload = () => {
+                const src = reader.result;
+                const contentState = editorState.getCurrentContent();
+                const contentStateWithEntity = contentState.createEntity('IMAGE', 'IMMUTABLE', { src });
+                const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
+                const newEditorState = EditorState.set(editorState, { currentContent: contentStateWithEntity });
+
+                setEditorState(AtomicBlockUtils.insertAtomicBlock(newEditorState, entityKey, ' '));
+            };
+
+            reader.readAsDataURL(file);
+        };
+    };
+
+
     const isStyleActive = (style) => {
-        const selection = editorState.getSelection();
         const currentInlineStyle = editorState.getCurrentInlineStyle();
-
-        if (selection.isCollapsed()) {
-            return currentInlineStyle.has(style);
-        } else {
-            let hasStyle = false;
-            const contentState = editorState.getCurrentContent();
-            const startKey = selection.getStartKey();
-            const endKey = selection.getEndKey();
-            const startOffset = selection.getStartOffset();
-            const endOffset = selection.getEndOffset();
-
-            contentState.getBlockMap().skipUntil((_, k) => k === startKey).takeUntil((_, k) => k === endKey).concat([[endKey, contentState.getBlockForKey(endKey)]]).forEach((block) => {
-                const blockKey = block.getKey();
-                const start = blockKey === startKey ? startOffset : 0;
-                const end = blockKey === endKey ? endOffset : block.getLength();
-                for (let i = start; i < end; i++) {
-                    if (block.getInlineStyleAt(i).has(style)) {
-                        hasStyle = true;
-                        break;
-                    }
-                }
-            });
-            return hasStyle;
-        }
+        return currentInlineStyle.has(style);
     };
 
     const handleBold = () => {
-        setEditorState(RichUtils.toggleInlineStyle(editorState, 'BOLD'));
+        setEditorState(RichUtils.toggleInlineStyle(editorState, "BOLD"));
     };
 
     const handleItalic = () => {
-        setEditorState(RichUtils.toggleInlineStyle(editorState, 'ITALIC'));
+        setEditorState(RichUtils.toggleInlineStyle(editorState, "ITALIC"));
     };
 
     const handleUnderline = () => {
-        setEditorState(RichUtils.toggleInlineStyle(editorState, 'UNDERLINE'));
+        setEditorState(RichUtils.toggleInlineStyle(editorState, "UNDERLINE"));
     };
 
     const handleUnorderedList = () => {
-        setEditorState(RichUtils.toggleBlockType(editorState, 'unordered-list-item'));
+        setEditorState(RichUtils.toggleBlockType(editorState, "unordered-list-item"));
     };
 
     const handleCopy = () => {
@@ -91,7 +92,7 @@ const Toolbar = ({ contentData, setEditorState, editorState, RichUtils, handleLi
                 <div className="vertical-divider"></div>
                 <div className="toolbar-group">
                     <FaLink className="toolbar-icon" onMouseDown={handleLink} />
-                    <FaImage className="toolbar-icon" />
+                    <FaImage className="toolbar-icon" onClick={handleImage} />
                 </div>
             </div>
             <div className="toolbar-portion">

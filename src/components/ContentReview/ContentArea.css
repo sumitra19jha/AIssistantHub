@@ -19,100 +19,14 @@
     cursor: text;
     min-height: 200px;
     padding: 10px;
-    font-size: 1.3rem;
 }
 
-.wrapper_f1x2i2y1 {
-    position: absolute;
-    transition: opacity .2s;
-    z-index: 10;
-}
-
-.link-box {
-    display: flex;
-    margin-top: 5px;
-    padding: calc(var(--rem) * 0.5);
-    border-radius: calc(var(--rem) * 0.5);
-    background-color: #fff;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, .05), 0 4px 20px rgba(0, 0, 0, .15);
-    pointer-events: all;
-    /* rest of the styles */
-}
-
-.link-box-url-input {
-    max-width: calc(var(--rem) * 14);
-    padding: 3px 5px;
-    width: calc(var(--rem) * 16);
-    height: calc(var(--rem) * 2);
-    outline: none;
-    border: none;
-    border-radius: calc(var(--rem) * 0.25);
-    background-color: #f0f2fc;
-}
-
-.link-box-url-holder {
-    display: inline-flex;
-    margin-right: calc(var(--rem) * 0.5);
-    padding-left: calc(var(--rem) * 0.5);
-    max-width: calc(var(--rem) * 16);
-    color: #4a6ee0;
-    align-items: center;
-}
-
-.link-box-link-base {
-    color: #0e101a;
-    letter-spacing: 0;
+.public-DraftStyleDefault-ltr {
+    color: rgb(14, 16, 26);
+    font-size: calc(1.3 * var(--rem));
     font-weight: 400;
-    font-size: calc(var(--rem) * 0.875);
-    line-height: calc(var(--rem) * 1.5);
-}
-
-.fqlvlsm {
-    align-items: center;
-    background-color: transparent;
-    border: 0;
-    border-radius: calc(0.25px * var(--rem));
-    color: var(--interface-interactivebranded-primary-default);
-    cursor: default;
-    display: inline-flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    line-height: calc(2px * var(--rem));
-    min-height: calc(2px * var(--rem));
-    min-width: calc(2px * var(--rem));
-    outline: none;
-    overflow: hidden;
-    padding: 0;
-    position: relative;
-    transition-duration: .2s;
-    transition-property: border, background, color;
-    user-select: none;
-    vertical-align: middle;
-    white-space: nowrap;
-}
-
-.f2phmyy {
-    -moz-appearance: none;
-    -moz-osx-font-smoothing: inherit;
-    -webkit-appearance: none;
-    -webkit-font-smoothing: inherit;
-    appearance: none;
-    border: none;
-    cursor: pointer;
-    font-family: inherit;
-    margin: 0;
-    overflow: visible;
-    padding: 0;
-    width: auto;
-}
-
-.fqlvlsm {
-    color: rgb(74, 110, 224);
-    font-size: calc(0.875px * var(--rem));
-    font-weight: 700;
-    letter-spacing: calc(0px * var(--rem));
-    line-height: calc(2px * var(--rem));
-    margin: 0;
+    letter-spacing: calc(0 * var(--rem));
+    line-height: calc(2.1 * var(--rem));
 }
 
 .row-alignment {
@@ -120,34 +34,6 @@
     align-items: center;
     justify-content: space-between;
     margin-bottom: 2rem;
-}
-
-.menu-icon,
-.close-icon {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-}
-
-.title {
-    font-size: 2rem;
-    margin: 0;
-}
-
-.formatted-content-display {
-    border: 2px solid #CCCCCC;
-    border-radius: 1rem;
-    padding: 1rem;
-    margin-bottom: 2rem;
-    position: relative;
-}
-
-.row-container {
-    display: flex;
-    flex-direction: row;
-    position: relative;
-    justify-content: space-between;
-    top: -2rem;
 }
 
 .paragraph {
@@ -178,45 +64,6 @@
     margin-bottom: 20px;
 }
 
-.formatting-button {
-    background-color: #FFFFFF;
-    border: 1px solid #CCCCCC;
-    border-radius: 0.5rem;
-    font-size: 1rem;
-    padding: 0.5rem;
-    margin-right: 0.5rem;
-    cursor: pointer;
-}
-
-.formatting-button.active {
-    background-color: #CCCCCC;
-}
-
-.save-and-export-options,
-.save-and-export-options-without-sidebar {
-    margin-top: 2rem;
-    display: flex;
-    justify-content: center;
-}
-
-.save-button,
-.export-button,
-.share-button {
-    background-color: #FFFFFF;
-    border: 1px solid #CCCCCC;
-    border-radius: 0.5rem;
-    font-size: 1rem;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    margin-right: 1rem;
-}
-
-.save-button:hover,
-.export-button:hover,
-.share-button:hover {
-    background-color: #CCCCCC;
-    color: #FFFFFF;
-}
 
 @media (max-width: 1279px) {
     .link-box {
@@ -237,22 +84,5 @@
 
     .paragraph {
         font-size: 1rem;
-    }
-
-    .formatting-button {
-        font-size: 0.8rem;
-        padding: 0.3rem;
-    }
-
-    .copy-button {
-        font-size: 0.8rem;
-        padding: 0.3rem 0.5rem;
-    }
-
-    .save-button,
-    .export-button,
-    .share-button {
-        font-size: 0.8rem;
-        padding: 0.3rem 0.5rem;
     }
 }
