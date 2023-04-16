@@ -166,7 +166,7 @@ const AIBot = ({ contentId }) => {
                                 <span className="message-timestamp">{formatTime(message.timestamp)}</span>
                             </div>
                             <div className="message-content">
-                                {message.content.split('\n').map((part, index) => (
+                                {`${message.content}`.split('\n').map((part, index) => (
                                     <p key={index}>{part}</p>
                                 ))}
                             </div>
