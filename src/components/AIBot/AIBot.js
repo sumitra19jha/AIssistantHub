@@ -5,19 +5,28 @@ import ChatWindow from "./ChatWindow";
 import MessageForm from "./MessageForm";
 import useChat from "./useChat";
 
+
 const AIBot = ({ contentId }) => {
-    const { messages, userInput, setUserInput, handleSubmit, currentAIMessage } = useChat(contentId);
+    const { messages, userInput, setUserInput, handleSubmit, currentAIMessage, isLoading } = useChat(contentId);
 
     return (
         <div className="ai-bot">
             <ChatHeader />
             <div className="chat-container">
-                <ChatWindow messages={messages} currentAIMessage={currentAIMessage} />
-                <MessageForm
-                    userInput={userInput}
-                    setUserInput={setUserInput}
-                    handleSubmit={handleSubmit}
-                />
+                {isLoading ? (
+                    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }}>
+                        <div className="loading-animation"></div>
+                    </div>
+                ) : (
+                    <>
+                        <ChatWindow messages={messages} currentAIMessage={currentAIMessage} />
+                        <MessageForm
+                            userInput={userInput}
+                            setUserInput={setUserInput}
+                            handleSubmit={handleSubmit}
+                        />
+                    </>
+                )}
             </div>
         </div>
     );

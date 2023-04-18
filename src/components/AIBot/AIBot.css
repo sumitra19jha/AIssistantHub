@@ -10,7 +10,8 @@
     padding-bottom: 0px;
     padding-right: 0px;
     border: 1px solid #e1e1e1;
-    position: relative; /* Add this */
+    position: relative;
+    /* Add this */
 }
 
 .ai-bot-image {
@@ -123,9 +124,12 @@
     padding: 1rem;
     border-top: 0.5px solid #dfdfdf;
     background-color: white;
-    position: absolute; /* Add this */
-    bottom: 0; /* Add this */
-    width: 100%; /* Add this */
+    position: absolute;
+    /* Add this */
+    bottom: 0;
+    /* Add this */
+    width: 100%;
+    /* Add this */
 }
 
 .user-input {
@@ -212,7 +216,7 @@
     color: #fff;
 }
 
-.message.user .message-content p{
+.message.user .message-content p {
     align-self: flex-end;
     background-color: transparent;
     color: #fff;
@@ -222,4 +226,24 @@
     align-self: flex-start;
     background-color: transparent;
     color: #000;
+}
+
+.loading-animation {
+    display: inline-block;
+    width: 64px;
+    height: 64px;
+    border: 4px solid rgba(75, 85, 110, 0.2);
+    border-left-color: #4b556e;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }

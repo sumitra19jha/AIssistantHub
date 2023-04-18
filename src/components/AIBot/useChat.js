@@ -4,6 +4,7 @@ import io from "socket.io-client";
 import { AUTH_TOKEN } from "../../utils/constants";
 
 const useChat = (contentId) => {
+    const [isLoading, setIsLoading] = useState(true);
     const [userInput, setUserInput] = useState("");
     const [messages, setMessages] = useState([]);
     const [socket, setSocket] = useState(null);
@@ -28,13 +29,14 @@ const useChat = (contentId) => {
                     } else {
                         console.log(response.data.message);
                     }
-
+                    setIsLoading(false);
                 })
                 .catch((error) => {
                     console.log("Some issue occured!", error);
                 });
         } catch (error) {
             alert('Error fetching chat history:', error);
+            setIsLoading(false);
         }
     };
 
@@ -123,7 +125,7 @@ const useChat = (contentId) => {
         }
     };
 
-    return { messages, userInput, setUserInput, handleSubmit, currentAIMessage };
+    return { messages, userInput, setUserInput, handleSubmit, currentAIMessage, isLoading };
 }
 
 export default useChat;
