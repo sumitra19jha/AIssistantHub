@@ -14,7 +14,7 @@ const ContentReview = () => {
         <div className="app-container">
             <Header title={parsedQuery.topic} />
             <div className="area-split">
-                <ContentArea contentData={parsedQuery.generatedContent} />
+                <ContentArea contentData={parsedQuery.generatedContent} contentId={parsedQuery.contentId} />
                 <AIBot contentId={parsedQuery.contentId} />
             </div>
         </div>

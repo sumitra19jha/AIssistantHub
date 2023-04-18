@@ -1,16 +1,16 @@
 .ai-bot {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     align-items: center;
     width: 30%;
     height: 100%;
     background-color: #f4f4f4;
-    /* Changed background color */
     padding-top: 0px;
     padding-bottom: 0px;
     padding-right: 0px;
     border: 1px solid #e1e1e1;
-    /* Added border */
+    position: relative; /* Add this */
 }
 
 .ai-bot-image {
@@ -61,7 +61,8 @@
     justify-content: space-between;
     width: 100%;
     background-color: #fff;
-    padding: 0.6rem;
+    padding: 0rem;
+    height: 100%;
 }
 
 .chat-window {
@@ -73,6 +74,9 @@
     padding-top: 1rem;
     padding-bottom: 1rem;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.0);
+    position: absolute;
+    top: 70px;
+    bottom: 50px;
 }
 
 .message {
@@ -118,6 +122,10 @@
     align-items: center;
     padding: 1rem;
     border-top: 0.5px solid #dfdfdf;
+    background-color: white;
+    position: absolute; /* Add this */
+    bottom: 0; /* Add this */
+    width: 100%; /* Add this */
 }
 
 .user-input {

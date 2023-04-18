@@ -1,9 +1,11 @@
+import io from "socket.io-client";
 import { Map } from 'immutable';
 import 'draft-js/dist/Draft.css';
 import { stateFromHTML } from 'draft-js-import-html';
 import React, { useState, useRef, useEffect } from 'react';
-import { Editor, EditorState, RichUtils, getDefaultKeyBinding, Modifier } from 'draft-js';
+import { Editor, EditorState, RichUtils, getDefaultKeyBinding, Modifier, SelectionState } from 'draft-js';
 
+import { AUTH_TOKEN } from '../../utils/constants';
 import { createLinkDecorator } from './linkDecorator';
 import Toolbar from './Toolbar/Toolbar';
 import LinkBox from './LinkBox/LinkBox';
@@ -12,7 +14,87 @@ import UpdateLinkBox from './UpdateLinkBox/UpdateLinkBox';
 import "./ContentArea.css";
 
 
-const ContentArea = ({ contentData }) => {
+const Image = (props) => {
+    const { contentState, block } = props;
+    const data = contentState.getEntity(block.getEntityAt(0)).getData();
+    return <img src={data.src} alt="" style={{ maxWidth: '100%' }} />;
+};
+
+const actionBreakdown = (action, words, firstBlock, contentState) => {
+    const { action: actionType, position, content: newContent } = action;
+    const index = position.index;
+
+    if (actionType === "update" || actionType === "add" || actionType === "remove") {
+        // Find the position in the content based on the index
+        let startOffset = 0;
+
+        for (let i = 0; i < Math.min(index, words.length); i++) {
+            startOffset += words[i].length + 1;
+        }
+
+        if (actionType === "update" || actionType === "remove") {
+            const startIndexForRemoval = position.start_index_for_removal;
+            const endIndexForRemoval = position.end_index_for_removal;
+
+            let endOffset = startOffset;
+
+            for (let i = startIndexForRemoval; i < Math.min(endIndexForRemoval, words.length); i++) {
+                endOffset += words[i].length + 1;
+            }
+
+            const targetRange = new SelectionState({
+                anchorKey: firstBlock.getKey(),
+                anchorOffset: startOffset,
+                focusKey: firstBlock.getKey(),
+                focusOffset: endOffset,
+            });
+
+            if (actionType === "update") {
+                contentState = Modifier.replaceText(contentState, targetRange, newContent);
+            } else {
+                contentState = Modifier.removeRange(contentState, targetRange, 'backward');
+            }
+        } else if (actionType === "add") {
+            const targetRange = new SelectionState({
+                anchorKey: firstBlock.getKey(),
+                anchorOffset: startOffset,
+                focusKey: firstBlock.getKey(),
+                focusOffset: startOffset,
+            });
+
+            contentState = Modifier.insertText(contentState, targetRange, ` ${newContent}`);
+        }
+    }
+
+    return contentState;
+}
+
+
+const updateEditorContent = (actionsJson, editorState) => {
+    let contentState = editorState.getCurrentContent();
+    const blockMap = contentState.getBlockMap();
+    const firstBlock = blockMap.first();
+
+    // Split the text into an array of words
+    const words = firstBlock.getText().split(/\s+/);
+
+    if (!actionsJson.actions) {
+        // If actions do not exist or the array is empty, return the current editor state
+        contentState = actionBreakdown(actionsJson, words, firstBlock, contentState);
+    } else {
+        // Loop through each action in the 'actions' array
+        for (const action of actionsJson.actions) {
+            contentState = actionBreakdown(action, words, firstBlock, contentState);
+        }
+    }
+
+    // Update the editor state with the updated content
+    const newEditorState = EditorState.push(editorState, contentState, 'insert-fragment');
+    return newEditorState;
+}
+
+const ContentArea = ({ contentData, contentId }) => {
+    const [socket, setSocket] = useState(null);
     const [editorState, setEditorState] = useState(() =>
         EditorState.createWithContent(
             stateFromHTML(contentData),
@@ -30,6 +112,32 @@ const ContentArea = ({ contentData }) => {
     const [editedURL, setEditedURL] = useState('');
     const [editorFocused, setEditorFocused] = useState(false);
     const [currentLinkKey, setCurrentLinkKey] = useState(null);
+
+    // Socket Connection
+    useEffect(() => {
+        const newSocket = io('http://localhost:3001', {
+            extraHeaders: {
+                authorization: `Bearer ${AUTH_TOKEN}`,
+            },
+        });
+        setSocket(newSocket);
+        return () => newSocket.close();
+    }, []);
+
+    useEffect(() => {
+        if (socket) {
+            socket.emit('JOIN_EDIT_ROOM', { contentId: contentId }, () => {
+                console.log('JOIN_CONTENT_ROOM event sent');
+            });
+
+            socket.on('CONTENT_UPDATED', (data) => {
+                console.log('CONTENT_UPDATED event received', data);
+                const newEditorState = updateEditorContent(data.updatedContent, editorState)
+                setEditorState(newEditorState);
+            });
+
+        }
+    }, [contentId, editorState, socket]);
 
     useEffect(() => {
         const handleKeyDown = (event) => {
@@ -207,12 +315,6 @@ const ContentArea = ({ contentData }) => {
         }
     };
 
-    const Image = (props) => {
-        const { contentState, block } = props;
-        const data = contentState.getEntity(block.getEntityAt(0)).getData();
-        return <img src={data.src} alt="" style={{ maxWidth: '100%' }} />;
-    };
-
 
     return (
         <div className="content-area">
@@ -238,12 +340,12 @@ const ContentArea = ({ contentData }) => {
 
             {showEditLinkBox &&
                 <UpdateLinkBox
-                    left={editLinkBoxPosition.x} 
-                    top={editLinkBoxPosition.y} 
-                    editorState={editorState} 
-                    editedURL={editedURL} 
-                    setEditorState={setEditorState} 
-                    setShowEditLinkBox={setShowEditLinkBox} 
+                    left={editLinkBoxPosition.x}
+                    top={editLinkBoxPosition.y}
+                    editorState={editorState}
+                    editedURL={editedURL}
+                    setEditorState={setEditorState}
+                    setShowEditLinkBox={setShowEditLinkBox}
                     setCurrentLinkKey={setCurrentLinkKey}
                     setEditedURL={setEditedURL}
                 />
