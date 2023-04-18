@@ -40,7 +40,7 @@ const SEOEditor = () => {
     return (
         <>
             <nav className="navbar">
-                <a href="#" className="navbar-brand">SEO Optimization Report</a>
+                <a href="/seo-optimisation-report" className="navbar-brand">SEO Optimization Report</a>
                 <ul className="navbar-nav">
                     <li className="nav-item">
                         <a href="/seo-editor/save" className="nav-link">Save <FaSave /></a>
