@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import io from "socket.io-client";
 import 'draft-js/dist/Draft.css';
+import { stateToHTML } from 'draft-js-export-html';
 import { stateFromHTML } from 'draft-js-import-html';
 import { Editor, EditorState } from 'draft-js';
 import { diff_match_patch, DIFF_DELETE, DIFF_INSERT, DIFF_EQUAL } from 'diff-match-patch';
@@ -20,7 +21,7 @@ const styleMap = {
 };
 
 
-const ContentArea = ({ contentData, contentId }) => {
+const ContentArea = ({ contentData, contentId, setGetContentHTML }) => {
     const [socket, setSocket] = useState(null);
     const [editorState, setEditorState] = useState(() =>
         EditorState.createWithContent(
@@ -40,6 +41,16 @@ const ContentArea = ({ contentData, contentId }) => {
     const [editorFocused, setEditorFocused] = useState(false);
     const [currentLinkKey, setCurrentLinkKey] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
+
+    useEffect(() => {
+        const getContentHTML = () => {
+            const contentState = editorState.getCurrentContent();
+            const html = stateToHTML(contentState);
+            return html;
+        };
+
+        setGetContentHTML(() => getContentHTML);
+    }, [editorState]);
 
     // Socket Connection
     useEffect(() => {
