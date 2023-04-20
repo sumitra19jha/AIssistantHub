@@ -1,30 +1,22 @@
+import React, { useState, useRef, useEffect } from 'react';
 import io from "socket.io-client";
-import { Map } from 'immutable';
 import 'draft-js/dist/Draft.css';
 import { stateFromHTML } from 'draft-js-import-html';
-import React, { useState, useRef, useEffect } from 'react';
-import { Editor, EditorState, RichUtils, getDefaultKeyBinding, Modifier, SelectionState } from 'draft-js';
+import { Editor, EditorState } from 'draft-js';
 import { diff_match_patch, DIFF_DELETE, DIFF_INSERT, DIFF_EQUAL } from 'diff-match-patch';
 
-import { AUTH_TOKEN } from '../../utils/constants';
+import { AUTH_TOKEN, SOCKET_API_BASE_URL } from '../../utils/constants';
 import { createLinkDecorator } from './linkDecorator';
 import Toolbar from './Toolbar/Toolbar';
 import LinkBox from './LinkBox/LinkBox';
 import UpdateLinkBox from './UpdateLinkBox/UpdateLinkBox';
-
+import { handleCursorPosition, handleLink, handleKeyDown, myKeyBindingFn, handleKeyCommand, imageRenderer } from "./function";
 import "./ContentArea.css";
 
 const styleMap = {
     HIGHLIGHT: {
-        backgroundColor: 'rgba(255, 255, 0, 0.3)', // Set the background color to a light yellow
+        backgroundColor: 'rgba(255, 255, 0, 0.3)',
     },
-};
-
-
-const Image = (props) => {
-    const { contentState, block } = props;
-    const data = contentState.getEntity(block.getEntityAt(0)).getData();
-    return <img src={data.src} alt="" style={{ maxWidth: '100%' }} />;
 };
 
 
@@ -47,10 +39,11 @@ const ContentArea = ({ contentData, contentId }) => {
     const [editedURL, setEditedURL] = useState('');
     const [editorFocused, setEditorFocused] = useState(false);
     const [currentLinkKey, setCurrentLinkKey] = useState(null);
+    const [isEditing, setIsEditing] = useState(false);
 
     // Socket Connection
     useEffect(() => {
-        const newSocket = io('http://localhost:3001', {
+        const newSocket = io(SOCKET_API_BASE_URL, {
             extraHeaders: {
                 authorization: `Bearer ${AUTH_TOKEN}`,
             },
@@ -114,200 +107,38 @@ const ContentArea = ({ contentData, contentId }) => {
             // CHANGE: Add the event listener for the 'EDIT_CONTENT' event
             socket.on('EDIT_CONTENT', handleContent);
 
+            const contentEditStatus = (data) => {
+                setIsEditing(data.isGoing);
+            };
+
+            // CHANGE: Add the event listener for the 'EDIT_CONTENT' event
+            socket.on('EDIT_STATUS', contentEditStatus);
+
             return () => {
                 // Cleanup function: Remove the event listener when the effect is cleaned up
                 socket.off('EDIT_CONTENT', handleContent);
+                socket.off('EDIT_STATUS', handleContent);
             };
         }
     }, [contentId, socket]);
 
     useEffect(() => {
-        const handleKeyDown = (event) => {
-            if (event.key === 'Escape') {
-                setShowLinkBox(false);
-            }
-        };
-
-        document.addEventListener('keydown', handleKeyDown);
+        document.addEventListener('keydown', (event) => handleKeyDown(event, setShowLinkBox));
 
         return () => {
-            document.removeEventListener('keydown', handleKeyDown);
+            document.removeEventListener('keydown', (event) => handleKeyDown(event, setShowLinkBox));
         };
     }, []);
-
-    const getCaretCoordinates = () => {
-        const sel = window.getSelection();
-        if (!sel.rangeCount) {
-            return null;
-        }
-        const range = sel.getRangeAt(0).cloneRange(); // Clone the range to avoid modifying the original range
-        const dummy = document.createElement("span");
-
-        range.collapse(false); // Collapse the range to the end point
-        range.insertNode(dummy);
-
-        const rect = dummy.getBoundingClientRect();
-        dummy.parentNode.removeChild(dummy);
-        return { x: rect.left, y: rect.top };
-    };
-
-    const handleCursorPosition = () => {
-        if (!editorFocused) {
-            return;
-        }
-
-        const selection = editorState.getSelection();
-        const startOffset = selection.getStartOffset();
-        const endOffset = selection.getEndOffset();
-        const contentState = editorState.getCurrentContent();
-        const blockKey = selection.getStartKey();
-        const block = contentState.getBlockForKey(blockKey);
-        const linkKey = block.getEntityAt(startOffset);
-
-        if (linkKey && startOffset === endOffset) {
-            const linkInstance = contentState.getEntity(linkKey);
-            const linkType = linkInstance.getType();
-
-            if (linkType === "LINK" && currentLinkKey !== linkKey) {
-                const caretCoordinates = getCaretCoordinates();
-                if (!caretCoordinates) {
-                    return;
-                }
-
-                const iconHeight = 20;
-                const x = caretCoordinates.x - editorContainerRef.current.scrollLeft;
-                const y = caretCoordinates.y - editorContainerRef.current.scrollTop + iconHeight;
-                setEditLinkBoxPosition({ x, y });
-                setShowEditLinkBox(true);
-                setCurrentLinkKey(linkKey);
-
-                const linkData = linkInstance.getData();
-                setEditedURL(linkData.url);
-            } else if (linkType !== "LINK" && currentLinkKey !== null) {
-                setShowEditLinkBox(false);
-                setCurrentLinkKey(null);
-            }
-        } else {
-            setShowEditLinkBox(false);
-            setCurrentLinkKey(null);
-        }
-    };
-
-
-    const handleLink = (event) => {
-        const caretCoordinates = getCaretCoordinates();
-        if (!caretCoordinates) {
-            return;
-        }
-        const iconHeight = 20; // Height of the link icon
-        const x = caretCoordinates.x - editorContainerRef.current.scrollLeft;
-        const y = caretCoordinates.y - editorContainerRef.current.scrollTop + iconHeight;
-        setLinkBoxPosition({ x, y });
-        setShowLinkBox(true);
-    };
-
-
-    const myKeyBindingFn = (e) => {
-        if (e.keyCode === 9 /* Tab */) {
-            e.preventDefault();
-            if (e.shiftKey) {
-                return 'tab-outdent';
-            }
-            return 'tab-indent';
-        }
-        return getDefaultKeyBinding(e);
-    };
-
-    const indentList = (editorState) => {
-        const contentState = editorState.getCurrentContent();
-        const selectionState = editorState.getSelection();
-        const startKey = selectionState.getStartKey();
-        const block = contentState.getBlockForKey(startKey);
-        const blockType = block.getType();
-
-        if (blockType === 'unordered-list-item') {
-            const currentDepth = block.getDepth();
-            if (currentDepth < 4) {
-                const newContentState = Modifier.setBlockData(
-                    contentState,
-                    selectionState,
-                    Map({ depth: currentDepth + 1 })
-                );
-                return EditorState.push(editorState, newContentState, 'change-block-data');
-            }
-        }
-
-        return editorState;
-    };
-
-    const outdentList = (editorState) => {
-        const contentState = editorState.getCurrentContent();
-        const selectionState = editorState.getSelection();
-        const startKey = selectionState.getStartKey();
-        const block = contentState.getBlockForKey(startKey);
-        const blockType = block.getType();
-
-        if (blockType === 'unordered-list-item') {
-            const currentDepth = block.getDepth();
-            if (currentDepth > 0) {
-                const newContentState = Modifier.setBlockData(
-                    contentState,
-                    selectionState,
-                    Map({ depth: currentDepth - 1 })
-                );
-                return EditorState.push(editorState, newContentState, 'change-block-data');
-            }
-        }
-
-        return editorState;
-    };
-
-
-    const handleKeyCommand = (command, editorState) => {
-        if (command === 'tab-indent') {
-            const newState = indentList(editorState);
-            if (newState !== editorState) {
-                setEditorState(newState);
-                return 'handled';
-            }
-        } else if (command === 'tab-outdent') {
-            const newState = outdentList(editorState);
-            if (newState !== editorState) {
-                setEditorState(newState);
-                return 'handled';
-            }
-        }
-
-        const newState = RichUtils.handleKeyCommand(editorState, command);
-        if (newState) {
-            setEditorState(newState);
-            return 'handled';
-        }
-        return 'not-handled';
-    };
-
-
-    const imageRenderer = (contentBlock) => {
-        const type = contentBlock.getType();
-        if (type === 'atomic') {
-            return {
-                component: Image,
-                editable: false,
-            };
-        }
-    };
 
 
     return (
         <div className="content-area">
-
             <Toolbar
                 contentData={contentData}
                 setEditorState={setEditorState}
                 editorState={editorState}
-                handleLink={handleLink}
+                handleLink={() => handleLink(editorState, setLinkBoxPosition, setShowLinkBox, editorContainerRef)}
             />
-
             {showLinkBox &&
                 <LinkBox
                     left={linkBoxPosition.x}
@@ -319,7 +150,6 @@ const ContentArea = ({ contentData, contentId }) => {
                     lastEditorSelection={lastEditorSelection}
                 />
             }
-
             {showEditLinkBox &&
                 <UpdateLinkBox
                     left={editLinkBoxPosition.x}
@@ -332,19 +162,31 @@ const ContentArea = ({ contentData, contentId }) => {
                     setEditedURL={setEditedURL}
                 />
             }
-
-
-            <div ref={editorContainerRef} className="editor fqelrj5" onClick={() => editorRef.current.focus()}>
+            <div
+                ref={editorContainerRef}
+                className={`editor fqelrj5`}
+                onClick={() => editorRef.current.focus()}
+            >
+                {isEditing && <div className="loading-animation"></div>}
                 <Editor
                     ref={editorRef}
                     editorState={editorState}
-                    handleKeyCommand={handleKeyCommand}
-                    keyBindingFn={myKeyBindingFn}
-                    blockRendererFn={imageRenderer}
+                    handleKeyCommand={(command, editorState) => handleKeyCommand(command, editorState, setEditorState)}
+                    keyBindingFn={(event) => myKeyBindingFn(event)}
+                    blockRendererFn={(contentBlock) => imageRenderer(contentBlock)}
                     onChange={(newState) => {
                         setLastEditorSelection(newState.getSelection());
                         setEditorState(newState);
-                        handleCursorPosition();
+                        handleCursorPosition(
+                            editorFocused,
+                            editorState,
+                            editorContainerRef,
+                            setEditLinkBoxPosition,
+                            setShowEditLinkBox,
+                            currentLinkKey,
+                            setCurrentLinkKey,
+                            setEditedURL
+                        );
                     }}
                     onBlur={() => setEditorFocused(false)}
                     onFocus={() => setEditorFocused(true)}

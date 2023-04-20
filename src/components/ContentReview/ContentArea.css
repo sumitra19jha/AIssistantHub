@@ -86,3 +86,48 @@
         font-size: 1rem;
     }
 }
+
+@keyframes animatedGradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.ai-editing {
+    background: linear-gradient(270deg, #ff0099, #493240, #0066ff);
+    background-size: 600% 600%;
+    animation: animatedGradient 8s ease infinite;
+}
+
+.typing-text {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Add this to your ContentArea.css file */
+.loading-animation {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    border: 6px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top-color: #3498db;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
