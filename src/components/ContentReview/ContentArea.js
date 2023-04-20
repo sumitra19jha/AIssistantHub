@@ -4,6 +4,7 @@ import 'draft-js/dist/Draft.css';
 import { stateFromHTML } from 'draft-js-import-html';
 import React, { useState, useRef, useEffect } from 'react';
 import { Editor, EditorState, RichUtils, getDefaultKeyBinding, Modifier, SelectionState } from 'draft-js';
+import { diff_match_patch, DIFF_DELETE, DIFF_INSERT, DIFF_EQUAL } from 'diff-match-patch';
 
 import { AUTH_TOKEN } from '../../utils/constants';
 import { createLinkDecorator } from './linkDecorator';
@@ -13,6 +14,12 @@ import UpdateLinkBox from './UpdateLinkBox/UpdateLinkBox';
 
 import "./ContentArea.css";
 
+const styleMap = {
+    HIGHLIGHT: {
+        backgroundColor: 'rgba(255, 255, 0, 0.3)', // Set the background color to a light yellow
+    },
+};
+
 
 const Image = (props) => {
     const { contentState, block } = props;
@@ -20,78 +27,6 @@ const Image = (props) => {
     return <img src={data.src} alt="" style={{ maxWidth: '100%' }} />;
 };
 
-const actionBreakdown = (action, words, firstBlock, contentState) => {
-    const { action: actionType, position, content: newContent } = action;
-    const index = position.index;
-
-    if (actionType === "update" || actionType === "add" || actionType === "remove") {
-        // Find the position in the content based on the index
-        let startOffset = 0;
-
-        for (let i = 0; i < Math.min(index, words.length); i++) {
-            startOffset += words[i].length + 1;
-        }
-
-        if (actionType === "update" || actionType === "remove") {
-            const startIndexForRemoval = position.start_index_for_removal;
-            const endIndexForRemoval = position.end_index_for_removal;
-
-            let endOffset = startOffset;
-
-            for (let i = startIndexForRemoval; i < Math.min(endIndexForRemoval, words.length); i++) {
-                endOffset += words[i].length + 1;
-            }
-
-            const targetRange = new SelectionState({
-                anchorKey: firstBlock.getKey(),
-                anchorOffset: startOffset,
-                focusKey: firstBlock.getKey(),
-                focusOffset: endOffset,
-            });
-
-            if (actionType === "update") {
-                contentState = Modifier.replaceText(contentState, targetRange, newContent);
-            } else {
-                contentState = Modifier.removeRange(contentState, targetRange, 'backward');
-            }
-        } else if (actionType === "add") {
-            const targetRange = new SelectionState({
-                anchorKey: firstBlock.getKey(),
-                anchorOffset: startOffset,
-                focusKey: firstBlock.getKey(),
-                focusOffset: startOffset,
-            });
-
-            contentState = Modifier.insertText(contentState, targetRange, ` ${newContent}`);
-        }
-    }
-
-    return contentState;
-}
-
-
-const updateEditorContent = (actionsJson, editorState) => {
-    let contentState = editorState.getCurrentContent();
-    const blockMap = contentState.getBlockMap();
-    const firstBlock = blockMap.first();
-
-    // Split the text into an array of words
-    const words = firstBlock.getText().split(/\s+/);
-
-    if (!actionsJson.actions) {
-        // If actions do not exist or the array is empty, return the current editor state
-        contentState = actionBreakdown(actionsJson, words, firstBlock, contentState);
-    } else {
-        // Loop through each action in the 'actions' array
-        for (const action of actionsJson.actions) {
-            contentState = actionBreakdown(action, words, firstBlock, contentState);
-        }
-    }
-
-    // Update the editor state with the updated content
-    const newEditorState = EditorState.push(editorState, contentState, 'insert-fragment');
-    return newEditorState;
-}
 
 const ContentArea = ({ contentData, contentId }) => {
     const [socket, setSocket] = useState(null);
@@ -120,24 +55,71 @@ const ContentArea = ({ contentData, contentId }) => {
                 authorization: `Bearer ${AUTH_TOKEN}`,
             },
         });
+
+        newSocket.on("connect", () => {
+            if (contentId) {
+                newSocket.emit('JOIN_EDIT_ROOM', { contentId: contentId }, () => {
+                    console.log('JOIN_CONTENT_ROOM event sent');
+                });
+            }
+        });
+
         setSocket(newSocket);
         return () => newSocket.close();
     }, []);
 
     useEffect(() => {
         if (socket) {
-            socket.emit('JOIN_EDIT_ROOM', { contentId: contentId }, () => {
-                console.log('JOIN_CONTENT_ROOM event sent');
+            socket.on('error', (error) => {
+                console.error('Socket error:', error);
             });
 
-            socket.on('CONTENT_UPDATED', (data) => {
-                console.log('CONTENT_UPDATED event received', data);
-                const newEditorState = updateEditorContent(data.updatedContent, editorState)
+            const handleContent = (data) => {
+                console.log('EDIT_CONTENT event received', data);
+                // Get the old content from the editor
+                const oldContent = editorState.getCurrentContent().getPlainText();
+
+                // Get the new content from the socket
+                const newContent = data.message;
+
+                // Compute the differences between the old and new content
+                const dmp = new diff_match_patch();
+                const diffs = dmp.diff_main(oldContent, newContent);
+                dmp.diff_cleanupSemantic(diffs);
+
+                // Add highlights to the new content based on the differences
+                let highlightedNewContent = '';
+                diffs.forEach(([operation, text]) => {
+                    switch (operation) {
+                        case DIFF_DELETE:
+                            highlightedNewContent += `<del style="background-color: #fdd">${text}</del>`;
+                            break;
+                        case DIFF_INSERT:
+                            highlightedNewContent += `<ins style="background-color: #dfd">${text}</ins>`;
+                            break;
+                        case DIFF_EQUAL:
+                            highlightedNewContent += text;
+                            break;
+                    }
+                });
+
+                // Update the entire content of the editor to the highlighted new content
+                const newEditorState = EditorState.createWithContent(
+                    stateFromHTML(highlightedNewContent),
+                    createLinkDecorator()
+                );
                 setEditorState(newEditorState);
-            });
+            };
 
+            // CHANGE: Add the event listener for the 'EDIT_CONTENT' event
+            socket.on('EDIT_CONTENT', handleContent);
+
+            return () => {
+                // Cleanup function: Remove the event listener when the effect is cleaned up
+                socket.off('EDIT_CONTENT', handleContent);
+            };
         }
-    }, [contentId, editorState, socket]);
+    }, [contentId, socket]);
 
     useEffect(() => {
         const handleKeyDown = (event) => {
@@ -366,7 +348,7 @@ const ContentArea = ({ contentData, contentId }) => {
                     }}
                     onBlur={() => setEditorFocused(false)}
                     onFocus={() => setEditorFocused(true)}
-                //customStyleMap={styleMap}
+                    customStyleMap={styleMap}
                 />
             </div>
         </div>

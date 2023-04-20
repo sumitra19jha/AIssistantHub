@@ -77,7 +77,6 @@ const useChat = (contentId) => {
             });
             
             const handleMessage = (data) => {
-                console.log("NEW_MESSAGE", data)
                 if (!data.streamEnd) {
                     aiMessageParts.push(data.message);
                     setCurrentAIMessage((prev) => (prev ? prev + data.message : data.message));
