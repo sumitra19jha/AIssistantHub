@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 import { FaSignOutAlt, FaHome, FaShoppingCart, FaCog, FaInfoCircle } from 'react-icons/fa';
 import "./Sidebar.css";
 
@@ -10,31 +11,31 @@ const Sidebar = () => {
             </div>
             <ul>
                 <li>
-                    <a href="/dashboard">
+                    <Link to="/dashboard">
                         <FaHome className="menu-icon" />
                         My Dashboard
-                    </a>
+                    </Link>
                 </li>
                 <li>
-                    <a href="/user-subscription">
+                    <Link to="/user-subscription">
                         <FaShoppingCart className="menu-icon" />
                         My Purchase
-                    </a>
+                    </Link>
                 </li>
                 <li>
-                    <a href="/settings">
+                    <Link to="/settings">
                         <FaCog className="menu-icon" />
                         My Settings
-                    </a>
+                    </Link>
                 </li>
                 <li>
-                    <a href="/help">
+                    <Link to="/help">
                         <FaInfoCircle className="menu-icon" />
                         Help Center
-                    </a>
+                    </Link>
                 </li>
                 <li>
-                    <a href="/logout" className="logout">
+                    <a className="logout">
                         <FaSignOutAlt className="menu-icon logout-icon" />
                         Logout
                     </a>
@@ -42,9 +43,9 @@ const Sidebar = () => {
             </ul>
             <div className="sidebar-bottom">
                 <div className="sidebar-bottom-text">Version 1.0.0</div>
-                <a href="/learn-more" className="sidebar-bottom-link">
+                <Link to="/learn-more" className="sidebar-bottom-link">
                     Learn More
-                </a>
+                </Link>
             </div>
         </div>
     );

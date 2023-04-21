@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import ProjectCard from '../ProjectCard/ProjectCard';
+import { ProjectContext } from '../../context/ProjectContext';
 import api from '../../services/api';
 import './ProjectHistory.css';
 
 const ProjectHistory = () => {
-    const [projects, setProjects] = useState([]);
     const [page, setPage] = useState(1);
-    const [perPage, setPerPage] = useState(10);
-    const [totalPages, setTotalPages] = useState(0);
+    const [perPage, setPerPage] = useState(12);
+    const { projects, setProjects, totalPages, setTotalPages } = useContext(ProjectContext);
 
     useEffect(() => {
         fetchProjects();
