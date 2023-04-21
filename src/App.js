@@ -13,6 +13,7 @@ import ExplorePage from './components/Explore/Explore';
 import Footer from './components/Footer/Footer';
 import UserSubscription from './pages/UserSubscription/UserSubscription';
 import { ProjectProvider } from './context/ProjectContext';
+import { SubscriptionProvider } from './context/SubscriptionContext';
 
 function App() {
   const storedSessionId = localStorage.getItem('session_id');
@@ -20,17 +21,19 @@ function App() {
   if (storedSessionId) {
     return (
       <ProjectProvider>
-        <Router>
-          <Routes>
-            <Route path="/" element={<Navigate to="/dashboard" replace />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/content-review" element={<ContentReview />} />
-            <Route path="/seo-editor" element={<SEOEditor />} />
-            <Route path="/user-subscription" element={<UserSubscription />} />
+        <SubscriptionProvider>
+          <Router>
+            <Routes>
+              <Route path="/" element={<Navigate to="/dashboard" replace />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/content-review" element={<ContentReview />} />
+              <Route path="/seo-editor" element={<SEOEditor />} />
+              <Route path="/user-subscription" element={<UserSubscription />} />
 
-            <Route path="*" element={<Navigate to="/dashboard" replace />} />
-          </Routes>
-        </Router>
+              <Route path="*" element={<Navigate to="/dashboard" replace />} />
+            </Routes>
+          </Router>
+        </SubscriptionProvider>
       </ProjectProvider>
     );
   }

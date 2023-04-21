@@ -1,7 +1,18 @@
+:root {
+    --dashboard-bg-color: #f0f2f5;
+    --new-project-title-color: #333;
+    --options-component-bg-color: linear-gradient(135deg, #9acfea 0%, #ff9a9e 100%);
+    --options-component-text-color: #ffffff;
+    --options-component-divider-color: #e0e0e0;
+    --box-shadow-light: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    --box-shadow-dark: 0px 10px 20px rgba(0, 0, 0, 0.2);
+}
+
 .subscription-container {
     display: flex;
     flex-direction: row;
     height: 100vh;
+    background-color: var(--dashboard-bg-color);
 }
 
 .subscription-content {
@@ -9,84 +20,176 @@
     padding: 30px;
 }
 
-.subscription-content h2 {
-    font-size: 2rem;
-    margin-bottom: 30px;
+.header-content {
+    display: flex;
+    align-items: self-start;
+    justify-content: space-between;
 }
 
-.subscription-table {
+.btn-purchase {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    background-color: var(--options-component-text-color);
+    color: white;
+    box-shadow: var(--box-shadow-light);
+    background-image: var(--options-component-bg-color);
+}
+
+.btn-purchase:hover {
+    background-color: #1a73e8;
+    color: #ffffff;
+}
+
+.subscription-header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+    height: fit-content;
+    justify-content: space-between;
+}
+
+.subscription-header h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--new-project-title-color);
+}
+
+.child-1,
+.child-2 {
+    display: flex;
+    align-items: center;
+}
+
+.child-2 {
+    justify-content: flex-end;
+}
+
+.separator {
+    margin: 1rem 1rem;
+}
+
+.btn-filter {
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    padding: 8px 12px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-filter:hover {
+    background-color: #1a73e8;
+    color: #ffffff;
+}
+
+.table-container {
     background-color: #fff;
     border-radius: 10px;
-    overflow: hidden;
     box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 1rem;
+}
+
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff;
+    padding: 0.5rem;
+    font-weight: bold;
+    border-radius: 10px;
+    margin-bottom: 1rem;
     width: 100%;
 }
 
-.subscription-table th {
-    background-color: #f7f7f7;
+.table-header span {
+    flex: 1;
     text-align: center;
-    font-size: 1.1rem;
-}
-
-.subscription-table td {
-    font-size: 0.9rem;
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.subscription-table tr:hover {
-    background-color: #f5f5f5;
+.table-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+    border-radius: 5px;
+    margin-bottom: 0.5rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    background-color: rgb(227, 227, 227);
+    width: 100%;
 }
 
-.subscription-table .success {
+.table-row span {
+    flex: 1;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.table-row:hover {
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.table-row.success {
     background-color: #d4edda;
 }
 
-.subscription-table .fail {
+.table-row.fail {
     background-color: #f8d7da;
 }
 
-.subscription-table .success td {
+.table-row.success span {
     color: #155724;
 }
 
-.subscription-table .fail td {
+.table-row.fail span {
     color: #721c24;
 }
 
-.subscription-table a {
+.table-row a {
     color: #007bff;
     text-decoration: none;
 }
 
-.subscription-btn-container {
-    justify-content: space-between;
-    margin-top: 2rem;
+.subscription-title {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    font-weight: bold;
+    color: black;
+}
+
+.child-components {
     display: flex;
-    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
 }
 
-.btn-purchase {
-
-    background: #1a73e8;
-    border: 1px solid transparent;
-    color: #ffffff;
-    border-color: #2e6fac;
-    border-radius: 25px;
-    font-size: 1.2rem;
-    font-weight: 500;
-    text-transform: capitalize;
-    letter-spacing: 1px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-    height: fit-content;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    padding-left: 20px;
-    padding-right: 20px;
+.calendar-transition-enter {
+    opacity: 0;
+    transform: translateY(-20px);
 }
 
-.btn-purchase:hover {
-    background-color: #3c628b;
-    border-color: #3c628b;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+.calendar-transition-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 300ms, transform 300ms;
+}
+
+.calendar-transition-exit {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.calendar-transition-exit-active {
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 300ms, transform 300ms;
 }
