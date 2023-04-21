@@ -1,4 +1,5 @@
 export const API_BASE_URL = 'http://localhost:5000/';
+export const SOCKET_API_BASE_URL = 'http://localhost:3001/';
 export const AUTH_TOKEN = localStorage.getItem('session_id');
 
 export const CONTENT_TYPES = {
@@ -66,4 +67,15 @@ export const CONTENT_TYPES = {
             "Entertaining"
         ]
     }
+};
+
+
+export const formatTime = (timestamp) => {
+    const date = new Date(timestamp);
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const amPm = hours >= 12 ? 'PM' : 'AM';
+    const formattedHours = hours % 12 || 12;
+    const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+    return `${formattedHours}:${formattedMinutes} ${amPm}`;
 };

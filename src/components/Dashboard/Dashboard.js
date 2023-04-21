@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Sidebar from "./Sidebar";
 import "./Dashboard.css";
-import { FaFileCode, FaSearch, FaImage} from 'react-icons/fa';
+import { FaFileCode, FaSearch, FaImage } from 'react-icons/fa';
 import ContentGenerationDialog from "../ContentCreationDialog/ContentGenerationDialog";
 import SeoOptimisationDialog from "../SeoOptimisationDialog/SeoOptimisationDialog";
 import ProjectHistory from "../ProjectHistory/ProjectHistory";
@@ -46,71 +46,77 @@ const Dashboard = () => {
                             <h2>New Project</h2>
 
                             <div className="dashboard-options">
-                                <div className="dashboard-options-list">
+                                <div className="dashboard-options-container">
+                                    <div className="dashboard-options-list">
 
-                                    {/* 1. Content Generation Component */}
-                                    <div className=".dashboard-documents-upload">
-                                        <OptionComponent
-                                            option="Content Generation"
-                                            icon={
-                                                <FaFileCode
-                                                    className="option-icon"
-                                                />
-                                            }
-                                            backgroundColor="#fff3cd"
-                                            showUpload={false}
-                                            onClick={handleOptionClick}
-                                            iconOption="Create"
-                                        />
-                                        <div className="options-component-upload-child">
-                                            <form>
-                                                <input
-                                                    id="file-upload"
-                                                    type="file"
-                                                    onChange={handleUploadClick}
-                                                />
-                                            </form>
+                                        {/* 1. Content Generation Component */}
+                                        <div className="dashboard-documents-upload">
+                                            <OptionComponent
+                                                option="Content Generation"
+                                                icon={
+                                                    <FaFileCode
+                                                        className="option-icon"
+                                                    />
+                                                }
+                                                backgroundColor="#FFA07A"
+                                                showUpload={false}
+                                                onClick={handleOptionClick}
+                                                iconOption="Create"
+                                                imageSrc="https://pigeon-website-images.s3.us-east-2.amazonaws.com/paper-robot.png"
+                                            />
+                                            <div className="options-component-upload-child">
+                                                <form>
+                                                    <input
+                                                        id="file-upload"
+                                                        type="file"
+                                                        onChange={handleUploadClick}
+                                                    />
+                                                </form>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    {/* 2. SEO Optimization */}
-                                    <div className=".dashboard-documents-upload">
-                                        <OptionComponent
-                                            option="SEO Optimization"
-                                            icon={
-                                                <FaSearch
-                                                    className="option-icon"
-                                                />
-                                            }
-                                            backgroundColor="#d4edda"
-                                            showUpload={false}
-                                            onClick={handleSeoOptionClick}
-                                            iconOption="Optimize"
-                                        />
-                                        <div className="options-component-upload-child" />
-                                    </div>
+                                        {/* 3. Social Media Post */}
+                                        <div className="dashboard-documents-upload">
+                                            <OptionComponent
+                                                option="Social Media Post"
+                                                icon={
+                                                    <FaImage
+                                                        className="option-icon"
+                                                    />
+                                                }
+                                                backgroundColor="#90EE90"
+                                                showUpload={false}
+                                                onClick={() => { }}
+                                                iconOption="Share"
+                                                imageSrc="https://pigeon-website-images.s3.us-east-2.amazonaws.com/social-media-ai.png"
+                                            />
+                                            <div className="options-component-upload-child" />
+                                        </div>
 
-                                    {/* 3. Social Media Post */}
-                                    <div className=".dashboard-documents-upload">
-                                        <OptionComponent
-                                            option="Social Media Post"
-                                            icon={
-                                                <FaImage
-                                                    className="option-icon"
-                                                />
-                                            }
-                                            backgroundColor="#cce5ff"
-                                            showUpload={false}
-                                            onClick={() => { }}
-                                            iconOption="Share"
-                                        />
-                                        <div className="options-component-upload-child" />
+                                        {/* 2. SEO Optimization */}
+                                        <div className="dashboard-documents-upload">
+                                            <OptionComponent
+                                                option="SEO Optimization"
+                                                icon={
+                                                    <FaSearch
+                                                        className="option-icon"
+                                                    />
+                                                }
+                                                backgroundColor="#ADD8E6"
+                                                showUpload={false}
+                                                onClick={handleSeoOptionClick}
+                                                iconOption="Optimize"
+                                                imageSrc="https://pigeon-website-images.s3.us-east-2.amazonaws.com/content-creator-ai.png"
+                                            />
+                                            <div className="options-component-upload-child" />
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
 
                             <h2>Project History</h2>
-                            <ProjectHistory/>
+                            <ProjectHistory />
                         </div>
                     </div>
                 </div>
@@ -130,20 +136,33 @@ const OptionComponent = ({
     icon,
     backgroundColor,
     onClick,
-    iconOption
+    iconOption,
+    imageSrc
 }) => {
-
     return (
         <div className="options-component" style={{ backgroundColor: backgroundColor }} onClick={onClick}>
-            <div className="options-component-text">{option}</div>
-            <div className="options-component-parent">
-                <div className="options-component-child">
-                    {icon}
-                    <span>{iconOption}</span>
+            <img
+                src={imageSrc}
+                alt={option}
+                style={{
+                    maxWidth: "100%",
+                    maxHeight: "100%",
+                    objectFit: "cover",
+                    borderTopLeftRadius: "10px",
+                    borderBottomLeftRadius: "10px"
+                }}
+            />
+            <div className="options-component-text-icon">
+                <div className="options-component-text">{option}</div>
+                <div className="options-component-parent">
+                    <div className="options-component-child">
+                        {icon}
+                        <span>{iconOption}</span>
+                    </div>
                 </div>
             </div>
         </div>
     );
 };
 
-export default Dashboard;
+export default Dashboard;                

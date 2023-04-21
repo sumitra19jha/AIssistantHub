@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from 'react-router-dom';
+import { FaSignOutAlt, FaHome, FaShoppingCart, FaCog, FaInfoCircle } from 'react-icons/fa';
 import "./Sidebar.css";
 
 const Sidebar = () => {
@@ -9,27 +11,44 @@ const Sidebar = () => {
             </div>
             <ul>
                 <li>
-                    <a href="/dashboard">My Dashboard</a>
+                    <Link to="/dashboard">
+                        <FaHome className="menu-icon" />
+                        My Dashboard
+                    </Link>
                 </li>
                 <li>
-                    <a href="/user-subscription">My Purchase</a>
+                    <Link to="/user-subscription">
+                        <FaShoppingCart className="menu-icon" />
+                        My Purchase
+                    </Link>
                 </li>
                 <li>
-                    <a href="/settings">My Settings</a>
+                    <Link to="/settings">
+                        <FaCog className="menu-icon" />
+                        My Settings
+                    </Link>
                 </li>
                 <li>
-                    <a href="/help">Help Center</a>
+                    <Link to="/help">
+                        <FaInfoCircle className="menu-icon" />
+                        Help Center
+                    </Link>
+                </li>
+                <li>
+                    <a className="logout">
+                        <FaSignOutAlt className="menu-icon logout-icon" />
+                        Logout
+                    </a>
                 </li>
             </ul>
             <div className="sidebar-bottom">
                 <div className="sidebar-bottom-text">Version 1.0.0</div>
-                <a href="/learn-more" className="sidebar-bottom-link">
+                <Link to="/learn-more" className="sidebar-bottom-link">
                     Learn More
-                </a>
+                </Link>
             </div>
         </div>
     );
 };
 
 export default Sidebar;
-
