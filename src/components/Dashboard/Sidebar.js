@@ -1,4 +1,5 @@
 import React from "react";
+import { FaSignOutAlt, FaHome, FaShoppingCart, FaCog, FaInfoCircle } from 'react-icons/fa';
 import "./Sidebar.css";
 
 const Sidebar = () => {
@@ -9,16 +10,34 @@ const Sidebar = () => {
             </div>
             <ul>
                 <li>
-                    <a href="/dashboard">My Dashboard</a>
+                    <a href="/dashboard">
+                        <FaHome className="menu-icon" />
+                        My Dashboard
+                    </a>
                 </li>
                 <li>
-                    <a href="/user-subscription">My Purchase</a>
+                    <a href="/user-subscription">
+                        <FaShoppingCart className="menu-icon" />
+                        My Purchase
+                    </a>
                 </li>
                 <li>
-                    <a href="/settings">My Settings</a>
+                    <a href="/settings">
+                        <FaCog className="menu-icon" />
+                        My Settings
+                    </a>
                 </li>
                 <li>
-                    <a href="/help">Help Center</a>
+                    <a href="/help">
+                        <FaInfoCircle className="menu-icon" />
+                        Help Center
+                    </a>
+                </li>
+                <li>
+                    <a href="/logout" className="logout">
+                        <FaSignOutAlt className="menu-icon logout-icon" />
+                        Logout
+                    </a>
                 </li>
             </ul>
             <div className="sidebar-bottom">
@@ -32,4 +51,3 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
-

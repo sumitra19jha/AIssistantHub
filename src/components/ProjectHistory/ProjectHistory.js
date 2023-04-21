@@ -5,24 +5,35 @@ import './ProjectHistory.css';
 
 const ProjectHistory = () => {
     const [projects, setProjects] = useState([]);
+    const [page, setPage] = useState(1);
+    const [perPage, setPerPage] = useState(10);
+    const [totalPages, setTotalPages] = useState(0);
 
     useEffect(() => {
         fetchProjects();
-    }, []);
+    }, [page]);
 
     const fetchProjects = async () => {
-        api.get('/dashboard/history/content')
+        api.get(`/dashboard/history/content?page=${page}&per_page=${perPage}`)
             .then((response) => {
                 if (response.data.success) {
                     setProjects(response.data.history);
+                    setTotalPages(response.data.pagination.total_pages);
                 } else {
                     alert(response.data.message);
                 }
-
             })
             .catch((error) => {
-                alert("Some issue occured!");
+                alert("Some issue occurred!");
             });
+    };
+
+    const handlePreviousPage = () => {
+        if (page > 1) setPage(page - 1);
+    };
+
+    const handleNextPage = () => {
+        if (page < totalPages) setPage(page + 1);
     };
 
     return (
@@ -34,26 +45,31 @@ const ProjectHistory = () => {
             ) : (
                 <div className="no-project-history">
                     <div className="no-project-history-icon">
-                        <svg
-                            aria-hidden="true"
-                            focusable="false"
-                            data-prefix="far"
-                            data-icon="folder"
-                            className="svg-inline--fa fa-folder fa-w-16"
-                            role="img"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 512 512"
-                        >
-                            <path
-                                fill="currentColor"
-                                d="M464 128H272l-64-64H48C21.5 64 0 85.5 0 112v288c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48V176c0-26.5-21.5-48-48-48zM48 432V112h192v80c0 13.3 10.7 24 24 24h200v216H48z"
-                            ></path>
-                        </svg>
+                        {/* ... */}
                     </div>
                     <h2>No Project History</h2>
                     <p>There are no projects in your history. Start by creating a new project.</p>
                 </div>
             )}
+            <div className="pagination">
+                <button
+                    className="pagination-button"
+                    onClick={handlePreviousPage}
+                    disabled={page === 1}
+                >
+                    Previous
+                </button>
+                <span className="pagination-info">
+                    Page {page} of {totalPages}
+                </span>
+                <button
+                    className="pagination-button"
+                    onClick={handleNextPage}
+                    disabled={page === totalPages}
+                >
+                    Next
+                </button>
+            </div>
         </div>
     );
 };
