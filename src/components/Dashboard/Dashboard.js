@@ -5,6 +5,7 @@ import { FaFileCode, FaSearch, FaImage } from 'react-icons/fa';
 import ContentGenerationDialog from "../ContentCreationDialog/ContentGenerationDialog";
 import SeoOptimisationDialog from "../SeoOptimisationDialog/SeoOptimisationDialog";
 import ProjectHistory from "../ProjectHistory/ProjectHistory";
+import SocialMediaPostDialog from "../SocialMediaPostDialog/SocialMediaPostDialog";
 
 const handleUploadClick = (event) => {
     event.preventDefault();
@@ -14,6 +15,17 @@ const handleUploadClick = (event) => {
 const Dashboard = () => {
     const [showContentGenerationDialog, setShowContentGenerationDialog] = useState(false);
     const [showSeoOptimisationDialog, setShowSeoOptimisationDialog] = useState(false);
+    const [showSocialMediaPostDialog, setShowSocialMediaPostDialog] = useState(false);
+
+    const handleSocialMediaPostOptionClick = (event) => {
+        if (event.target.tagName !== "BUTTON") {
+            setShowSocialMediaPostDialog(true);
+        }
+    };
+
+    const handleCloseSocialMediaPostDialog = () => {
+        setShowSocialMediaPostDialog(false);
+    };
 
     const handleOptionClick = (event) => {
         if (event.target.tagName !== "BUTTON") {
@@ -86,7 +98,7 @@ const Dashboard = () => {
                                                 }
                                                 backgroundColor="#90EE90"
                                                 showUpload={false}
-                                                onClick={() => { }}
+                                                onClick={handleSocialMediaPostOptionClick}
                                                 iconOption="Share"
                                                 imageSrc="https://pigeon-website-images.s3.us-east-2.amazonaws.com/social-media-ai.png"
                                             />
@@ -126,6 +138,9 @@ const Dashboard = () => {
             )}
             {showSeoOptimisationDialog && (
                 <SeoOptimisationDialog onClose={handleCloseSeoContentGenerationDialog} />
+            )}
+            {showSocialMediaPostDialog && (
+                <SocialMediaPostDialog onClose={handleCloseSocialMediaPostDialog} />
             )}
         </div>
     );
