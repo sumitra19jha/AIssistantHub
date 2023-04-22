@@ -1,0 +1,47 @@
+.pipeline-selection {
+    display: flex;
+    gap: 2rem;
+    width: 100%;
+}
+
+.pipeline-option {
+    display: flex;
+    gap: 1rem;
+    align-items: start;
+    cursor: pointer;
+    margin-bottom: 2rem;
+    width: 50%;
+}
+
+.pipeline-checkbox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+    border: 2px solid #3a7bd5;
+    border-radius: 4px;
+}
+
+.checkbox-inner {
+    width: 12px;
+    height: 12px;
+    background-color: #3a7bd5;
+    border-radius: 2px;
+    display: none;
+}
+
+.pipeline-text .pipeline-title {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.pipeline-text .pipeline-subtitle {
+    font-size: 16px;
+    color: #757575;
+    word-wrap: break-word;
+}
+
+.pipeline-option.selected .checkbox-inner {
+    display: block;
+}
