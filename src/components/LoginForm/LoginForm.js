@@ -18,6 +18,7 @@ import {
 } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { API_BASE_URL } from "../../utils/constants";
 
 import "./LoginForm.css";
 
@@ -125,7 +126,7 @@ export default function LoginForm({ open, handleClose, showCreateAccountHandler,
         setLoading(true);
 
         try {
-            const response = await fetch("http://localhost:5000/user/login", {
+            const response = await fetch(`${API_BASE_URL}/user/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

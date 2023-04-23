@@ -1,16 +1,23 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import SelectPlatformTab from "../SelectPlatformTab/SelectPlatformTab";
 import UrlInput from "../UrlInput/UrlInput";
 import LengthSelection from '../LengthSelection/LengthSelection';
 import PipelineSelection from "../PipelineSelection/PipelineSelection";
+import api from "../../../services/api";
+import SnackbarMessage from "../../SnackbarMessage";
+import { Spinner } from "react-bootstrap";
 import "./CreatePostTab.css";
 
-const CreatePostTab = () => {
+const CreatePostTab = ({loading, setLoading}) => {
     const [platform, setPlatform] = useState(null);
     const [topic, setTopic] = useState("");
     const [urls, setUrls] = useState([]);
     const [length, setLength] = useState("SHORT");
     const [createPipeline, setCreatePipeline] = useState(false);
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
+    const [apiError, setApiError] = useState("");
+    const history = useNavigate();
 
     // Validation states
     const [platformValid, setPlatformValid] = useState(true);
@@ -60,7 +67,40 @@ const CreatePostTab = () => {
             return;
         }
 
+        // Set loading to true when the form is submitted
+        setLoading(true);
+
         // Continue with form submission
+        api.post('/dashboard/generator/content', {
+            type: "SOCIAL MEDIA POST",
+            topic: topic,
+            keywords: '',
+            length: length.toUpperCase(),
+            platform: platform.toUpperCase(),
+            urls: urls,
+
+        })
+            .then((response) => {
+                setLoading(false);
+                if (response.data.success) {
+                    history(`/content-review?generatedContent=${encodeURIComponent(response.data.content)}&contentId=${encodeURIComponent(response.data.contentId)}&topic=${encodeURIComponent(topic)}`);
+                } else {
+                    setSnackbarOpen(true);
+                    setApiError(response.data.message);
+                }
+
+            })
+            .catch((error) => {
+                setLoading(false);
+                setApiError("Some issue occurred!");
+                setSnackbarOpen(true);
+                console.log(error)
+            });
+    };
+
+    // Add a function to close the snackbar
+    const handleCloseSnackbar = () => {
+        setSnackbarOpen(false);
     };
 
     const handleClearAll = () => {
@@ -127,10 +167,20 @@ const CreatePostTab = () => {
                         Clear All
                     </button>
                     <button type="submit" className="create-post">
-                        Create Post
+                        {loading ? ( // Conditionally render the spinner based on the loading state
+                            <Spinner animation="border" size="sm" />
+                        ) : (
+                            "Create Post"
+                        )}
                     </button>
                 </div>
             </form>
+            {/* Add the SnackbarMessage component */}
+            <SnackbarMessage
+                open={snackbarOpen}
+                onClose={handleCloseSnackbar}
+                message={apiError}
+            />
         </div>
     );
 };

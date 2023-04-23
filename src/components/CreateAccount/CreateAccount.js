@@ -10,6 +10,7 @@ import {
     Link,
 } from "@mui/material";
 import VerifyOTPDialog from "./VerifyOTPDialog";
+import { API_BASE_URL } from "../../utils/constants";
 
 /**
  * Component for creating a new user account
@@ -58,7 +59,7 @@ export default function CreateAccount({ open, handleClose, showLoginFormHandler 
 
         try {
             // Send registration request to server
-            const response = await fetch("http://localhost:5000/user/register", {
+            const response = await fetch(`${API_BASE_URL}/user/register`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
