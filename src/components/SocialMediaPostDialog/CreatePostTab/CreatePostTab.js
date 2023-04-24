@@ -148,7 +148,7 @@ const CreatePostTab = ({loading, setLoading}) => {
                     <div className="form-divider" />
 
                     {/** Providing the URL */}
-                    <label htmlFor="url">Proton will open URL to perform research before writing post</label>
+                    <label htmlFor="url">Proton will open URL to perform research before writing post (Optional)</label>
                     <UrlInput onUrlsChange={handleUrlsChange} />
                     <div className="form-divider" />
                     
