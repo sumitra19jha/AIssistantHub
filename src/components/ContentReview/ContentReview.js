@@ -1,6 +1,8 @@
 import React, { useCallback, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import queryString from 'query-string';
+import html2pdf from "html2pdf.js";
+
 import ContentArea from './ContentArea';
 import AIBot from '../AIBot/AIBot.js';
 import Header from './Header/Header';
@@ -29,9 +31,25 @@ const ContentReview = () => {
         }
     };
 
+    const handleExport = useCallback(async (htmlContent) => {
+        try {
+            const opt = {
+                margin: [10, 10, 10, 10],
+                filename: "social-media-post.pdf",
+                image: { type: "jpeg", quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+            };
+
+            html2pdf().set(opt).from(htmlContent).save();
+        } catch (error) {
+            console.error("Some issue occurred!", error);
+        }
+    }, [parsedQuery.contentId]);
+
     return (
         <div className="app-container">
-            <Header title={parsedQuery.topic} onSave={handleSave} getContentHTML={getContentHTML} />
+            <Header title={parsedQuery.topic} onSave={handleSave} getContentHTML={getContentHTML} onExport={handleExport} />
             <div className="area-split">
                 <ContentArea contentData={parsedQuery.generatedContent} contentId={parsedQuery.contentId} setGetContentHTML={(fn) => { getContentHTMLRef.current = fn; }} />
                 <AIBot contentId={parsedQuery.contentId} />
