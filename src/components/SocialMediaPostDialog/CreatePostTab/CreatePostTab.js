@@ -1,12 +1,14 @@
 import React, { useState } from "react";
+import { Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import SelectPlatformTab from "../SelectPlatformTab/SelectPlatformTab";
+
+import api from "../../../services/api";
 import UrlInput from "../UrlInput/UrlInput";
+import SnackbarMessage from "../../SnackbarMessage";
 import LengthSelection from '../LengthSelection/LengthSelection';
 import PipelineSelection from "../PipelineSelection/PipelineSelection";
-import api from "../../../services/api";
-import SnackbarMessage from "../../SnackbarMessage";
-import { Spinner } from "react-bootstrap";
+import SelectPlatformTab from "../SelectPlatformTab/SelectPlatformTab";
+
 import "./CreatePostTab.css";
 
 const CreatePostTab = ({loading, setLoading}) => {
@@ -121,6 +123,8 @@ const CreatePostTab = ({loading, setLoading}) => {
         <div className="post-tab">
             <form onSubmit={handleSubmit}>
                 <div className="form-content">
+
+                    {/** Platform selection */}
                     <label htmlFor="topic">Platform Type <span className="required">*</span></label>
                     <SelectPlatformTab
                         onPlatformSelect={handlePlatformSelect}
@@ -128,6 +132,8 @@ const CreatePostTab = ({loading, setLoading}) => {
                     />
                     {!platformValid && <div className="error-message">Please select a platform.</div>}
                     <div className="form-divider" />
+
+                    {/** Providing the topic */}
                     <label htmlFor="topic">Provide topic for your post<span className="required">*</span></label>
                     <textarea
                         type="text"
@@ -140,9 +146,12 @@ const CreatePostTab = ({loading, setLoading}) => {
                     ></textarea>
                     {!topicValid && <div className="error-message">Please provide a topic.</div>}
                     <div className="form-divider" />
+
+                    {/** Providing the URL */}
                     <label htmlFor="url">Proton will open URL to perform research before writing post</label>
                     <UrlInput onUrlsChange={handleUrlsChange} />
                     <div className="form-divider" />
+                    
                     <label htmlFor="length">Length of the Post<span className="required"></span></label>
                     <LengthSelection
                         onLengthSelect={handleLengthSelect}

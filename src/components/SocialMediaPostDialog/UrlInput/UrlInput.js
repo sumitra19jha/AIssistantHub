@@ -20,10 +20,16 @@ const UrlInput = ({ onUrlsChange }) => {
     const [urls, setUrls] = useState([]);
     const [inputValue, setInputValue] = useState("");
     const [urlError, setUrlError] = useState("");
+    const [urlType, setUrlType] = useState("Research");
 
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
     };
+
+    const handleTypeChange = (e) => {
+        setUrlType(e.target.value);
+    };
+
 
     const handleKeyDown = (e) => {
         if (e.key === "Enter" || e.key === "Tab") {
@@ -36,10 +42,10 @@ const UrlInput = ({ onUrlsChange }) => {
                 if (e.key === "Tab") {
                     e.preventDefault();
                 }
-
+    
                 setUrlError("");
-                setUrls([...urls, inputValue]);
-                onUrlsChange([...urls, inputValue]);
+                setUrls([...urls, { type: urlType, url: inputValue }]);
+                onUrlsChange([...urls, { type: urlType, url: inputValue }]);
                 setInputValue("");
             }
         }
@@ -51,33 +57,46 @@ const UrlInput = ({ onUrlsChange }) => {
         onUrlsChange(newUrls);
     };
 
+    const inputStyle = {
+        borderColor: urlType === "Research" ? "blue" : "red",
+    };
+
     return (
         <div className="url-input-container">
-            {urls.map((url, index) => (
-                <div className="url-box" key={index}>
-                    {url}
-                    <button
-                        className="remove-url"
-                        type="button"
-                        onClick={() => removeUrl(index)}
-                    >
-                        &times;
-                    </button>
-                </div>
-            ))}
-            {urls.length < 5 && (
-                <>
-                    <input
-                        type="text"
-                        value={inputValue}
-                        onChange={handleInputChange}
-                        onKeyDown={handleKeyDown}
-                        placeholder="Example: https://example.com/ai-healthcare"
-                        className="url-input"
-                    />
-                    <span className="url-error">{urlError}</span>
-                </>
-            )}
+            <div className="url-type-input-container">
+                <select value={urlType} onChange={handleTypeChange} style={{width: "fit-content"}}>
+                    <option value="Research">Research</option>
+                    <option value="Competition">Competition</option>
+                </select>
+                {urls.length < 5 && (
+                    <>
+                        <input
+                            type="text"
+                            value={inputValue}
+                            onChange={handleInputChange}
+                            onKeyDown={handleKeyDown}
+                            placeholder="Example: https://example.com/ai-healthcare"
+                            className="url-input"
+                            style={inputStyle}
+                        />
+                    </>
+                )}
+            </div>
+            <span className="url-error">{urlError}</span>
+            <div className="url-list">
+                {urls.map((url, index) => (
+                    <div className="url-box" key={index}>
+                        {url.type}: {url.url}
+                        <button
+                            className="remove-url"
+                            type="button"
+                            onClick={() => removeUrl(index)}
+                        >
+                            &times;
+                        </button>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };

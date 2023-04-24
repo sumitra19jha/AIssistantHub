@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import Sidebar from "./Sidebar";
-import "./Dashboard.css";
 import { FaFileCode, FaSearch, FaImage } from 'react-icons/fa';
-import ContentGenerationDialog from "../ContentCreationDialog/ContentGenerationDialog";
-import SeoOptimisationDialog from "../SeoOptimisationDialog/SeoOptimisationDialog";
+
+import "./Dashboard.css";
+import Sidebar from "./Sidebar";
 import ProjectHistory from "../ProjectHistory/ProjectHistory";
+import SeoOptimisationDialog from "../SeoOptimisationDialog/SeoOptimisationDialog";
 import SocialMediaPostDialog from "../SocialMediaPostDialog/SocialMediaPostDialog";
+import ContentGenerationDialog from "../ContentCreationDialog/ContentGenerationDialog";
 
 const handleUploadClick = (event) => {
     event.preventDefault();
-    // handle file upload logic here
 };
 
 const Dashboard = () => {

@@ -1,6 +1,12 @@
 .url-input-container {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.url-type-input-container {
+    display: flex;
     gap: 0.5rem;
     align-items: center;
     width: 100%;
@@ -41,6 +47,11 @@
     width: 100%;
     box-sizing: border-box;
     flex-grow: 1;
+    transition: box-shadow 0.2s;
+}
+
+.url-input:focus {
+    box-shadow: 0 0 5px rgba(0, 0, 255, 0.3);
 }
 
 .url-error {
@@ -48,4 +59,12 @@
     font-size: 0.9rem;
     margin-top: -1rem;
     margin-bottom: 1rem;
+}
+
+.url-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    width: 100%;
 }
