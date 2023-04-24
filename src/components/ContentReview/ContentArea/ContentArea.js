@@ -6,12 +6,19 @@ import { stateFromHTML } from 'draft-js-import-html';
 import { Editor, EditorState } from 'draft-js';
 import { diff_match_patch, DIFF_DELETE, DIFF_INSERT, DIFF_EQUAL } from 'diff-match-patch';
 
-import { AUTH_TOKEN, SOCKET_API_BASE_URL } from '../../utils/constants';
-import { createLinkDecorator } from './linkDecorator';
-import Toolbar from './Toolbar/Toolbar';
-import LinkBox from './LinkBox/LinkBox';
-import UpdateLinkBox from './UpdateLinkBox/UpdateLinkBox';
-import { handleCursorPosition, handleLink, handleKeyDown, myKeyBindingFn, handleKeyCommand, imageRenderer } from "./function";
+import { AUTH_TOKEN, SOCKET_API_BASE_URL } from '../../../utils/constants';
+import { createLinkDecorator } from '../linkDecorator';
+import Toolbar from '../Toolbar/Toolbar';
+import LinkBox from '../LinkBox/LinkBox';
+import UpdateLinkBox from '../UpdateLinkBox/UpdateLinkBox';
+import { 
+    handleCursorPosition, 
+    handleLink, 
+    handleKeyDown, 
+    myKeyBindingFn, 
+    handleKeyCommand, 
+    imageRenderer 
+} from "../function";
 import "./ContentArea.css";
 
 const styleMap = {

@@ -3,8 +3,9 @@
     align-items: center;
     justify-content: space-between;
     padding: 1rem 1.5rem;
-    background-color: #f8f8f8;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0);
+    background-image: linear-gradient(135deg, #9acfea 0%, #ff9a9e 100%);
+    background-color: transparent !important;
     position: sticky;
     top: 0;
     z-index: 100;
@@ -18,6 +19,11 @@
     height: 2em;
     border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.arrow-back-container:hover {
+    background-color: #333;
 }
 
 .vertical-divider {
@@ -29,7 +35,7 @@
 }
 
 .arrow-back-icon {
-    fill: #888;
+    fill: #fff;
     height: 2em;
     width: 2em;
 }
@@ -38,7 +44,7 @@
     flex-grow: 1;
     font-size: 1.4rem;
     font-weight: bold;
-    color: #000;
+    color: #fff;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -69,19 +75,18 @@
     color: #fff;
     border: 0.1px solid #ffffff00;
     margin-left: 1.4rem;
-
+    transition: background-color 0.2s ease;
 }
 
 .header-button-save:hover {
     background-color: #5747d6;
 }
 
-
 .loading-spinner {
     display: inline-block;
     width: 30px;
     height: 30px;
-    border: 4px solid rgba(0, 0, 0, 0.1);
+    border: 4px solid rgba(255, 255, 255, 0.1);
     border-left-color: #007bff;
     border-radius: 50%;
     animation: spinner 1.2s linear infinite;

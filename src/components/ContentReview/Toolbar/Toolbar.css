@@ -3,7 +3,7 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 2rem;
-    border-bottom: 0.5px solid #dfdfdf;
+    border-bottom: 1px solid #e1e1e1;
 }
 
 .toolbar-group,
@@ -17,25 +17,25 @@
     cursor: pointer;
     border-radius: 5px;
     padding: 4px;
+    color: #757575;
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.toolbar-icon-active {
-    background-color: #CCCCCC;
-}
-
+.toolbar-icon-active,
 .toolbar-icon:hover {
-    color: #777;
+    background-color: #f1f1f1;
+    color: #5a5a5a;
 }
 
 .vertical-divider {
     height: 40px;
-    border-right: 1px solid #CCCCCC;
+    border-right: 1px solid #e1e1e1;
     margin: 0 1rem;
 }
 
 .copy-button {
     background-color: #FFFFFF;
-    border: 1px solid #CCCCCC;
+    border: 1px solid #e1e1e1;
     border-radius: 0.5rem;
     font-size: 1rem;
     padding: 0.5rem 1rem;
@@ -44,9 +44,11 @@
     margin-bottom: 10px;
     display: flex;
     align-items: center;
+    color: #757575;
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .copy-button:hover {
-    background-color: #CCCCCC;
-    color: #FFFFFF;
+    background-color: #f1f1f1;
+    color: #5a5a5a;
 }

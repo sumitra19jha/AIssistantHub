@@ -14,6 +14,7 @@ import Footer from './components/Footer/Footer';
 import UserSubscription from './pages/UserSubscription/UserSubscription';
 import { ProjectProvider } from './context/ProjectContext';
 import { SubscriptionProvider } from './context/SubscriptionContext';
+import HelpCenter from './pages/HelpCenter/HelpCenter';
 
 function App() {
   const storedSessionId = localStorage.getItem('session_id');
@@ -29,6 +30,7 @@ function App() {
               <Route path="/content-review" element={<ContentReview />} />
               <Route path="/seo-editor" element={<SEOEditor />} />
               <Route path="/user-subscription" element={<UserSubscription />} />
+              <Route path="/help" element={<HelpCenter />} />
 
               <Route path="*" element={<Navigate to="/dashboard" replace />} />
             </Routes>
@@ -41,7 +43,7 @@ function App() {
   // Render the login components if the user is not logged in
   return (
     <Router>
-      <div style={{ height: "100vh" }}>
+      <div style={{ height: "100vh", overflow: "auto" }}>
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />

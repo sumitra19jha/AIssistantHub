@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import api from "../../services/api";
 import "./GradientBox.css";
 
 const GradientBox = () => {
@@ -8,9 +9,17 @@ const GradientBox = () => {
     useEffect(() => {
         const fetchKeywords = async () => {
             try {
-                const response = await fetch("http://127.0.0.1:5000/home/trends/keywords");
-                const data = await response.json();
-                setKeywords(data.keywords);
+                api.get('/home/trends/keywords')
+                    .then((response) => {
+                        if (response.data.success) {
+                            setKeywords(response.data.keywords);
+                        } else {
+                            console.log(response.data.message);
+                        }
+                    })
+                    .catch((error) => {
+                        console.log("Some issue occured!", error);
+                    });
             } catch (error) {
                 console.error("Error fetching keywords:", error);
             }
@@ -45,7 +54,7 @@ const GradientBox = () => {
                     <div className="explore-what">Empower creativity with</div>
                     <div className="india-box">
                         <div className="india">
-                        IntelliMate
+                            IntelliMate
                         </div>
                     </div>
                     <div className="is-searching-for">your versatile AI-driven partner.</div>

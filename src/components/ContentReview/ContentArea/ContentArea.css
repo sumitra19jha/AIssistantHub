@@ -1,7 +1,7 @@
 :root {
     --cardWidth: 400px;
     --rem: 14px;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .content-area {
@@ -9,16 +9,18 @@
     display: flex;
     flex-direction: column;
     padding: 2rem;
-    background-color: #FFFFFF;
+    background-color: #F5F7FA;
     overflow-y: auto;
     height: 100%;
-    border-right: 0.5px solid #dfdfdf;
 }
 
 .editor {
     cursor: text;
     min-height: 200px;
     padding: 10px;
+    background-color: #FFFFFF;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .public-DraftStyleDefault-ltr {
@@ -27,6 +29,7 @@
     font-weight: 400;
     letter-spacing: calc(0 * var(--rem));
     line-height: calc(2.1 * var(--rem));
+    font-family: 'Open Sans', sans-serif;
 }
 
 .row-alignment {
@@ -63,7 +66,6 @@
 .paragraph li {
     margin-bottom: 20px;
 }
-
 
 @media (max-width: 1279px) {
     .link-box {
@@ -114,7 +116,6 @@
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
-/* Add this to your ContentArea.css file */
 .loading-animation {
     display: inline-block;
     width: 80px;
@@ -123,11 +124,10 @@
     border-radius: 50%;
     border-top-color: #3498db;
     animation: spin 1s linear infinite;
-  }
-  
-  @keyframes spin {
+}
+
+@keyframes spin {
     to {
-      transform: rotate(360deg);
+        transform: rotate(360deg);
     }
-  }
-  
+}

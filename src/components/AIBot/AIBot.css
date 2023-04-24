@@ -4,13 +4,16 @@
     justify-content: space-between;
     align-items: center;
     width: 30%;
-    height: 100%;
+    height: calc(100% - 10px);
     background-color: #f4f4f4;
     padding-top: 0px;
     padding-bottom: 0px;
     padding-right: 0px;
-    border: 1px solid #e1e1e1;
     position: relative;
+    margin-top: 4px;
+    margin-bottom: 6px;
+    margin-right: 8px;
+    border-radius: 15px 15px 0 0;
     /* Add this */
 }
 
@@ -30,7 +33,7 @@
     background: linear-gradient(to right, #5c3bb5, #4395c6);
     width: 100%;
     padding: 10px;
-    border-radius: 0rem 0rem 0 0;
+    border-radius: 15px 15px 0 0; /* Update this */
 }
 
 .ai-bot-image {

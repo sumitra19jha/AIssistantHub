@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import api from "../../services/api";
 import io from "socket.io-client";
+import { SOCKET_API_BASE_URL } from "../../utils/constants";
 import { AUTH_TOKEN } from "../../utils/constants";
 
 const useChat = (contentId) => {
@@ -42,7 +43,8 @@ const useChat = (contentId) => {
 
     // Socket Connection
     useEffect(() => {
-        const newSocket = io('http://localhost:3001', {
+
+        const newSocket = io(SOCKET_API_BASE_URL, {
             extraHeaders: {
                 authorization: `Bearer ${AUTH_TOKEN}`,
             },
