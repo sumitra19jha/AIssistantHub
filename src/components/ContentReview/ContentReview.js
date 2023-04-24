@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import html2pdf from "html2pdf.js";
 
-import ContentArea from './ContentArea';
+import ContentArea from './ContentArea/ContentArea';
 import AIBot from '../AIBot/AIBot.js';
 import Header from './Header/Header';
 import api from "../../services/api";
