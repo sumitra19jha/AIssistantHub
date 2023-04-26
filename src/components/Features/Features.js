@@ -1,4 +1,4 @@
-import { FaUser, FaClock, FaCheckCircle } from 'react-icons/fa';
+import { FaGlobe, FaPencilAlt, FaEnvelopeOpenText, FaWrench } from 'react-icons/fa';
 import React from 'react';
 import './Features.css';
 
@@ -20,13 +20,7 @@ const FeatureList = () => (
     </div>
 );
 
-/**
- * A component that displays an individual feature item with an icon, title, and description.
- * @param {Object} props - The props for the component.
- * @param {Object} props.icon - The icon component to display.
- * @param {string} props.title - The title of the feature.
- * @param {string} props.description - The description of the feature.
- */
+
 const FeatureItem = ({ icon, title, description }) => (
     <div className="feature-item">
         <div className="feature-item-icon-container">
@@ -37,25 +31,30 @@ const FeatureItem = ({ icon, title, description }) => (
     </div>
 );
 
-// Define some dummy data for the feature list.
 const DummyData = [
     {
         id: 1,
-        icon: <FaUser />,
-        title: 'AI-Driven Content Strategy Suite',
-        description: 'Harness the power of AI to streamline your content marketing strategy with integrated topic and keyword research, content idea generation, and SEO optimization features. Discover trending topics, optimize content for search engines, and generate fresh ideas for blog posts, social media captions, and more.'
+        icon: <FaGlobe style={{fontSize:"32px"}}/>,
+        title: 'Real-time Internet Search',
+        description: 'Proton AI crafts targeted, real-time content with powerful search and generative AI, engaging your users effectively.'
     },
     {
         id: 2,
-        icon: <FaClock />,
-        title: 'Comprehensive Content Creation',
-        description: 'Enhance your content marketing efforts with our all-in-one platform that assists in content brief creation, social media post generation, content repurposing, and email/newsletter drafting. Seamlessly integrate with popular tools like WordPress, HubSpot, or Mailchimp, and maintain a consistent online presence across multiple channels.'
+        icon: <FaPencilAlt style={{fontSize:"32px"}}/>,
+        title: 'Edit and Publish',
+        description: 'Share feedback with Proton AI; our data-driven approach ensures tailored, captivating content for your audience.'
     },
     {
         id: 3,
-        icon: <FaCheckCircle />,
-        title: 'Content Performance & Originality Insights',
-        description: "Boost your content's effectiveness by analyzing performance metrics with integrated analytics tools like Google Analytics. Ensure originality and avoid duplicate content issues with our built-in plagiarism checker. Gain valuable insights into engagement and areas for improvement to continuously refine your content marketing strategy."
+        icon: <FaEnvelopeOpenText style={{fontSize:"32px"}}/>,
+        title: 'Daily Pipelines',
+        description: "Proton AI delivers curated content via email for review; share feedback, edit, and publish with ease."
+    },
+    {
+        id: 4,
+        icon: <FaWrench style={{fontSize:"32px"}}/>,
+        title: 'Broad Capabilities',
+        description: "Proton AI crafts diverse content—social media, blogs, newsletters, marketing emails—optimized for SEO success."
     },
 ];
 

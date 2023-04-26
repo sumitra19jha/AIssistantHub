@@ -38,10 +38,10 @@ const KeyFeatures = ({featureIcons}) => {
             <Header as="h2" textAlign="center" className="title">
                 Key Features
             </Header>
-            <div className="feature-container">
-                <div className="feature-list">
+            <div className="key-feature-container">
+                <div className="key-feature-list">
                     {featureIcons.map((feature) => (
-                        <div className="feature-item" key={feature.name}>
+                        <div className="key-feature-item" key={feature.name}>
                                 <IconWrapper>
                                     <FeatureIcon>
                                         <feature.icon />

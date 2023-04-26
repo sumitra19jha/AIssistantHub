@@ -1,14 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
+import { Spinner } from "react-bootstrap";
 import { Link, useLocation } from 'react-router-dom';
 import { FaSignOutAlt, FaHome, FaShoppingCart, FaCog, FaInfoCircle } from 'react-icons/fa';
+
+import api from "../../services/api";
+import SnackbarMessage from "../SnackbarMessage";
 import "./Sidebar.css";
 
 const Sidebar = () => {
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [apiError, setApiError] = useState("");
     const location = useLocation();
 
     const isActive = (path) => {
         return location.pathname === path ? "active-link" : "";
     }
+
+    // Add a function to close the snackbar
+    const handleCloseSnackbar = () => {
+        setSnackbarOpen(false);
+    };
+
+    const handleLogout = async () => {
+        try {
+            setLoading(true);
+            const response = await api.post('/user/logout');
+
+            if (response.data.success) {
+                localStorage.removeItem('session_id');
+                setLoading(false);
+                window.location.href = "/";
+            } else {
+                setSnackbarOpen(true);
+                setLoading(false);
+                setApiError(response.data.message);
+            }
+        } catch (error) {
+            setLoading(false);
+            setApiError("Some issue occurred!");
+            setSnackbarOpen(true);
+        }
+    };
 
     return (
         <div className="sidebar">
@@ -41,10 +74,13 @@ const Sidebar = () => {
                     </Link>
                 </li>
                 <li>
-                    <a className="logout">
-                        <FaSignOutAlt className="menu-icon logout-icon" />
+                    <Link className="logout" onClick={handleLogout}>
+                        {loading ? // Conditionally render the spinner based on the loading state
+                            <div className="loading-spinner" />
+                            : <FaSignOutAlt className="menu-icon logout-icon" />}
+
                         Logout
-                    </a>
+                    </Link>
                 </li>
             </ul>
             <div className="sidebar-bottom">
@@ -53,6 +89,11 @@ const Sidebar = () => {
                     Learn More
                 </Link>
             </div>
+            <SnackbarMessage
+                open={snackbarOpen}
+                onClose={handleCloseSnackbar}
+                message={apiError}
+            />
         </div>
     );
 };
