@@ -10,6 +10,7 @@
     flex-direction: row;
     height: 100%;
     overflow: hidden;
+    background-color: #F5F7FA;
 }
 
 @media screen and (max-width: 768px) {

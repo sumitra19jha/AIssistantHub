@@ -17,16 +17,14 @@ const AIBot = ({ contentId }) => {
                     <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }}>
                         <div className="loading-animation"></div>
                     </div>
-                ) : (
-                    <>
-                        <ChatWindow messages={messages} currentAIMessage={currentAIMessage} />
-                        <MessageForm
-                            userInput={userInput}
-                            setUserInput={setUserInput}
-                            handleSubmit={handleSubmit}
-                        />
-                    </>
-                )}
+                ) : 
+                    <ChatWindow messages={messages} currentAIMessage={currentAIMessage} />
+                }
+                <MessageForm
+                    userInput={userInput}
+                    setUserInput={setUserInput}
+                    handleSubmit={handleSubmit}
+                />
             </div>
         </div>
     );
