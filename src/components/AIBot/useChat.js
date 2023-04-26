@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
+import useSession from '../useToken';
 import api from "../../services/api";
 import io from "socket.io-client";
 import { SOCKET_API_BASE_URL } from "../../utils/constants";
-import { AUTH_TOKEN } from "../../utils/constants";
 
 const useChat = (contentId) => {
+    const session = useSession();
     const [isLoading, setIsLoading] = useState(true);
     const [userInput, setUserInput] = useState("");
     const [messages, setMessages] = useState([]);
@@ -15,9 +16,12 @@ const useChat = (contentId) => {
     const fetchChatHistory = async () => {
         try {
             api.get('/dashboard/content/chat/history', {
+                headers: {
+                    "Authorization": `Bearer ${session.session}`
+                },
                 params: {
                     content_id: contentId,
-                }
+                },
             })
                 .then((response) => {
                     if (response.data.success) {
@@ -46,7 +50,7 @@ const useChat = (contentId) => {
 
         const newSocket = io(SOCKET_API_BASE_URL, {
             extraHeaders: {
-                authorization: `Bearer ${AUTH_TOKEN}`,
+                authorization: `Bearer ${session.session}`,
             },
         });
 

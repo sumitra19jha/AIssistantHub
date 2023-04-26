@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BeatLoader } from "react-spinners";
 import api from "./../../services/api";
+import useSession from '../useToken';
 import { CONTENT_TYPES } from "./../../utils/constants"
 import "./ContentGenerationDialog.css";
 
@@ -17,6 +18,7 @@ const contentTypeList = [
 ];
 
 const ContentGenerationDialog = ({ onClose }) => {
+    const session = useSession();
     const [contentType, setContentType] = useState("");
     const [topic, setTopic] = useState("");
     const [purposeType, setPurposeType] = useState("");
@@ -57,6 +59,9 @@ const ContentGenerationDialog = ({ onClose }) => {
         setIsLoading(true);
 
         api.get('/dashboard/generator/content', {
+            headers: {
+                "Authorization": `Bearer ${session.session}`
+            },
             params: {
                 type: contentType.toUpperCase(),
                 topic: topic,

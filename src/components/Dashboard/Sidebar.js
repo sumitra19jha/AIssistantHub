@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import { Spinner } from "react-bootstrap";
 import { Link, useLocation } from 'react-router-dom';
 import { FaSignOutAlt, FaHome, FaShoppingCart, FaCog, FaInfoCircle } from 'react-icons/fa';
 
+import useSession from '../useToken';
 import api from "../../services/api";
 import SnackbarMessage from "../SnackbarMessage";
 import "./Sidebar.css";
 
 const Sidebar = () => {
+    const session = useSession();
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [loading, setLoading] = useState(false);
     const [apiError, setApiError] = useState("");
@@ -25,7 +26,15 @@ const Sidebar = () => {
     const handleLogout = async () => {
         try {
             setLoading(true);
-            const response = await api.post('/user/logout');
+            const response = await api.post(
+                '/user/logout',
+                {},
+                {
+                    headers: {
+                        "Authorization": `Bearer ${session.session}`,
+                    }
+                }
+            );
 
             if (response.data.success) {
                 localStorage.removeItem('session_id');

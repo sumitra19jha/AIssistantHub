@@ -18,7 +18,7 @@ import {
 } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { API_BASE_URL } from "../../utils/constants";
+import api from "../../services/api";
 
 import "./LoginForm.css";
 
@@ -103,7 +103,7 @@ function LoginFormUI({
     );
 }
 
-export default function LoginForm({ open, handleClose, showCreateAccountHandler, showForgetPasswordHandler }) {
+export default function LoginForm({ open, handleClose, showCreateAccountHandler, showForgetPasswordHandler, setSession }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
@@ -121,36 +121,34 @@ export default function LoginForm({ open, handleClose, showCreateAccountHandler,
         setSnackbarOpen(false);
     };
 
-    const handleLogin = async (e) => {
-        e.preventDefault();
+    const handleLogin = async (event) => {
+        event.preventDefault();
         setLoading(true);
 
         try {
-            const response = await fetch(`${API_BASE_URL}/user/login`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ email, password }),
+            const response = await api.post('/user/login', {
+                email,
+                password,
             });
 
-            const data = await response.json();
-            setLoading(false);
+            const data = response.data;
 
             if (data.success) {
-                setSnackbarOpen(true);
-                setSnackbarMessage("Login successful!");
-                localStorage.setItem('session_id', data.session_id);
-                navigate('/dashboard');
-                handleClose();
+                setSession(data.session_id);
+                setTimeout(() => {
+                    console.log('This message will be displayed after a 2-second delay');
+                    setLoading(false);
+                    handleClose();
+                }, 9000);
+
             } else {
+                setLoading(false);
                 setSnackbarOpen(true);
                 setSnackbarMessage(data.message);
                 setSnackbarSeverity("error");
             }
         } catch (error) {
             setLoading(false);
-            console.error("Error logging user:", error);
             setSnackbarOpen(true);
             setSnackbarMessage("An error occurred. Please try again.");
             setSnackbarSeverity("error");

@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import AuthDialog from '../AuthDialog/AuthDialog';
-import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai'; // Import hamburger menu icon
+import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
 import './Header.css';
 
-const Header = () => {
+const Header = ({setSession}) => {
   const [authDialogOpen, setAuthDialogOpen] = useState(false);
   const location = useLocation();
   const [activePath, setActivePath] = useState(location.pathname);
-  const [mobileNavOpen, setMobileNavOpen] = useState(false); // State for mobile nav menu
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
-  const toggleMobileNav = () => { // Toggle mobile nav menu
+  const toggleMobileNav = () => {
     setMobileNavOpen(!mobileNavOpen);
   };
 
@@ -52,7 +52,7 @@ const Header = () => {
 
 
       <button className="header__login-btn" onClick={handleAuthDialogOpen}>Log In</button>
-      <AuthDialog open={authDialogOpen} handleClose={handleAuthDialogClose} />
+      <AuthDialog open={authDialogOpen} handleClose={handleAuthDialogClose} setSession={setSession} />
     </header>
   );
 };

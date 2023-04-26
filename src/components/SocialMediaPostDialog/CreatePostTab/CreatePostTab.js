@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
+import useSession from '../../useToken';
 import api from "../../../services/api";
 import UrlInput from "../UrlInput/UrlInput";
 import SnackbarMessage from "../../SnackbarMessage";
@@ -11,7 +12,8 @@ import SelectPlatformTab from "../SelectPlatformTab/SelectPlatformTab";
 
 import "./CreatePostTab.css";
 
-const CreatePostTab = ({loading, setLoading}) => {
+const CreatePostTab = ({ loading, setLoading }) => {
+    const session = useSession();
     const [platform, setPlatform] = useState(null);
     const [topic, setTopic] = useState("");
     const [urls, setUrls] = useState([]);
@@ -79,7 +81,12 @@ const CreatePostTab = ({loading, setLoading}) => {
             length: length.toUpperCase(),
             platform: platform.toUpperCase(),
             urls: urls,
-        })
+        }, {
+            headers: {
+                "Authorization": `Bearer ${session.session}`,
+            }
+        }
+        )
             .then((response) => {
                 setLoading(false);
                 if (response.data.success) {
@@ -149,7 +156,7 @@ const CreatePostTab = ({loading, setLoading}) => {
                     <label htmlFor="url">Proton will open URL to perform research before writing post (Optional)</label>
                     <UrlInput onUrlsChange={handleUrlsChange} />
                     <div className="form-divider" />
-                    
+
                     <label htmlFor="length">Length of the Post<span className="required"></span></label>
                     <LengthSelection
                         onLengthSelect={handleLengthSelect}

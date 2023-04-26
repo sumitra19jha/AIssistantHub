@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap';
 import 'react-calendar/dist/Calendar.css';
 
 import Tab from "./Tab";
+import useSession from '../../components/useToken';
 import api from "./../../services/api";
 import Sidebar from "../../components/Dashboard/Sidebar";
 import { SubscriptionContext } from "../../context/SubscriptionContext";
@@ -66,6 +67,7 @@ const AIComponent = ({ tableData }) => {
 }
 
 const UserSubscription = () => {
+    const session = useSession();
     const [activeTab, setActiveTab] = useState('all');
     const { subscriptionData, tableData, setSubscriptionData, setTableData } = useContext(SubscriptionContext);
 
@@ -76,7 +78,11 @@ const UserSubscription = () => {
 
 
     const fetchSubscriptions = async () => {
-        api.get(`/user/subscriptions`)
+        api.get(`/user/subscriptions`, {
+            headers: {
+                "Authorization": `Bearer ${session.session}`
+            }
+        })
             .then((response) => {
                 if (response.data.success) {
                     setSubscriptionData(response.data.subscriptions);
