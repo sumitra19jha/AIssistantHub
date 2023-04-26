@@ -6,7 +6,6 @@ import { CONTENT_TYPES } from "./../../utils/constants"
 import "./ContentGenerationDialog.css";
 
 const contentTypeList = [
-    "Social Media Post",
     "Blog Post",
     "Article",
     "Email Marketing",
@@ -21,7 +20,6 @@ const ContentGenerationDialog = ({ onClose }) => {
     const [contentType, setContentType] = useState("");
     const [topic, setTopic] = useState("");
     const [purposeType, setPurposeType] = useState("");
-    const [platformType, setPlatformType] = useState("");
     const [contentLength, setContentLength] = useState("");
     const [advancedSettings, setAdvancedSettings] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -35,10 +33,6 @@ const ContentGenerationDialog = ({ onClose }) => {
 
     const handlePurposeTypeChange = (event) => {
         setPurposeType(event.target.value);
-    };
-
-    const handlePlatformTypeChange = (event) => {
-        setPlatformType(event.target.value);
     };
 
     const handleTopicChange = (event) => {
@@ -68,7 +62,6 @@ const ContentGenerationDialog = ({ onClose }) => {
                 topic: topic,
                 keywords: '',
                 length: contentLength.toUpperCase(),
-                platform: platformType.toUpperCase(),
                 purpose: purposeType.toUpperCase(),
             }
         })
@@ -120,18 +113,6 @@ const ContentGenerationDialog = ({ onClose }) => {
                         ))}
                     </select>
                 </div>
-
-                {contentType && CONTENT_TYPES[contentType].platformOptions && (
-                    <div className="content-generation-dialog-field">
-                        <label className="content-generation-dialog-label" htmlFor="content-platform-select">
-                            Select Platform:
-                        </label>
-                        <select className="content-generation-dialog-select" id="content-platform-select" value={platformType} onChange={handlePlatformTypeChange}>
-                            <option value="">Select Platform</option>
-                            {renderPlatformOptions()}
-                        </select>
-                    </div>
-                )}
 
                 <div className="content-generation-dialog-field">
                     <label className="content-generation-dialog-label" htmlFor="topic-input">

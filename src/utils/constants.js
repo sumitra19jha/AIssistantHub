@@ -3,14 +3,6 @@ export const SOCKET_API_BASE_URL = "http://3.13.43.214:3001/";
 export const AUTH_TOKEN = localStorage.getItem('session_id');
 
 export const CONTENT_TYPES = {
-    "Social Media Post": {
-        platformOptions: [
-            "LinkedIn",
-            "Twitter",
-            "Facebook",
-            "Instagram"
-        ]
-    },
     "Blog Post": {
         purposeOptions: [
             "Educate",

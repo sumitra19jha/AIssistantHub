@@ -73,14 +73,12 @@ const CreatePostTab = ({loading, setLoading}) => {
         setLoading(true);
 
         // Continue with form submission
-        api.post('/dashboard/generator/content', {
-            type: "SOCIAL MEDIA POST",
+        api.post('/dashboard/social_media_post/generator/content', {
             topic: topic,
             keywords: '',
             length: length.toUpperCase(),
             platform: platform.toUpperCase(),
             urls: urls,
-
         })
             .then((response) => {
                 setLoading(false);

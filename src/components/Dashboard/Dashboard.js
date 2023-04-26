@@ -3,6 +3,7 @@ import { FaFileCode, FaSearch, FaImage } from 'react-icons/fa';
 
 import "./Dashboard.css";
 import Sidebar from "./Sidebar";
+import AiSelector from "../AiSelector/AiSelector";
 import ProjectHistory from "../ProjectHistory/ProjectHistory";
 import SeoOptimisationDialog from "../SeoOptimisationDialog/SeoOptimisationDialog";
 import SocialMediaPostDialog from "../SocialMediaPostDialog/SocialMediaPostDialog";
@@ -16,6 +17,11 @@ const Dashboard = () => {
     const [showContentGenerationDialog, setShowContentGenerationDialog] = useState(false);
     const [showSeoOptimisationDialog, setShowSeoOptimisationDialog] = useState(false);
     const [showSocialMediaPostDialog, setShowSocialMediaPostDialog] = useState(false);
+    const [selectedAI, setSelectedAI] = useState("Proton");
+
+    const handleAIChange = (event) => {
+        setSelectedAI(event.target.value);
+    };
 
     const handleSocialMediaPostOptionClick = (event) => {
         if (event.target.tagName !== "BUTTON") {
@@ -52,6 +58,17 @@ const Dashboard = () => {
             <div className={`dashboard ${(showContentGenerationDialog || showSeoOptimisationDialog) ? "dashboard-blur" : ""}`}>
                 <Sidebar />
                 <div className="dashboard-main">
+                    <div className="ai-selection">
+                        <select
+                            name="ai"
+                            id="ai-select"
+                            value={selectedAI}
+                            onChange={handleAIChange}
+                            className="ai-select"
+                        >
+                            <option value="Proton">Proton AI</option>
+                        </select>
+                    </div>
                     <div className="dashboard-content">
                         <div className="dashboard-documents">
 
