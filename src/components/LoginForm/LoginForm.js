@@ -1,40 +1,14 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { GoogleLogin } from "react-google-login";
-import {
-    Button,
-    Dialog,
-    DialogContent,
-    DialogTitle,
-    TextField,
-    Divider,
-    Typography,
-    CircularProgress,
-    Link,
-    IconButton,
-    InputAdornment,
-    Snackbar,
-    SnackbarContent,
-} from "@mui/material";
+import { Button, Dialog, DialogContent, DialogTitle, TextField, Divider, Typography, CircularProgress, Link, IconButton, InputAdornment } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import api from "../../services/api";
 
+import api from "../../services/api";
+import SnackbarMessage from "../SnackbarMessage";
 import "./LoginForm.css";
 
-function LoginFormUI({
-    email,
-    setEmail,
-    password,
-    setPassword,
-    loading,
-    onSubmit,
-    onShowForgetPassword,
-    onShowCreateAccount,
-    passwordVisible,
-    togglePasswordVisibility,
-    googleLogin,
-}) {
+function LoginFormUI({ email, setEmail, password, setPassword, loading, onSubmit, onShowForgetPassword, onShowCreateAccount, passwordVisible, togglePasswordVisibility, googleLogin }) {
     return (
         <form onSubmit={onSubmit}>
             <TextField
@@ -103,14 +77,23 @@ function LoginFormUI({
     );
 }
 
-export default function LoginForm({ open, handleClose, showCreateAccountHandler, showForgetPasswordHandler, setSession }) {
+export default function LoginForm({
+    open,
+    handleClose,
+    showCreateAccountHandler,
+    showForgetPasswordHandler,
+    setSession,
+}) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
+    const [googleLoading, setGoogleLoading] = useState(false);
     const [passwordVisible, setPasswordVisible] = useState(false);
+
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState("");
     const [snackbarSeverity, setSnackbarSeverity] = useState("success");
+
     const navigate = useNavigate();
 
     const togglePasswordVisibility = () => {
@@ -135,12 +118,9 @@ export default function LoginForm({ open, handleClose, showCreateAccountHandler,
 
             if (data.success) {
                 setSession(data.session_id);
-                setTimeout(() => {
-                    console.log('This message will be displayed after a 2-second delay');
-                    setLoading(false);
-                    handleClose();
-                }, 9000);
-
+                setLoading(false);
+                navigate("/dashboard");
+                handleClose();
             } else {
                 setLoading(false);
                 setSnackbarOpen(true);
@@ -155,33 +135,64 @@ export default function LoginForm({ open, handleClose, showCreateAccountHandler,
         }
     };
 
-    const googleLogin = useMemo(
-        () => {
-            const handleGoogleLoginSuccess = (response) => {
-                console.log("Google login successful:", response);
+    const handleGoogleLogin = async (tokenId) => {
+        setGoogleLoading(true);
+        try {
+            const response = await api.post('/user/oauth/google', {
+                token_id: tokenId,
+            });
+
+            const data = response.data;
+            if (data.success) {
+                setSession(data.session_id);
                 navigate("/dashboard");
                 handleClose();
-            };
+            } else {
+                setSnackbarOpen(true);
+                setSnackbarMessage(data.message);
+                setSnackbarSeverity("error");
+            }
+        } catch (error) {
+            setSnackbarOpen(true);
+            setSnackbarMessage("An Error occurred, Please try again!");
+            setSnackbarSeverity("error");
+        }
+        finally {
+            setGoogleLoading(false);
+        }
+    };
 
-            const handleGoogleLoginFailure = (error) => {
-                console.log("Google login failed:", error);
-            };
+    const handleGoogleCallbackResponse = (response) => {
+        const idToken = response.credential;
+        handleGoogleLogin(idToken);
+    };
 
-            return (
-                <div className="google-login">
-                    <GoogleLogin
-                        clientId="1018941777246-aslpbg70n0nk7aa25616g5jf71mmcdhj.apps.googleusercontent.com"
-                        buttonText="Login with Google"
-                        onSuccess={handleGoogleLoginSuccess}
-                        onFailure={handleGoogleLoginFailure}
-                        cookiePolicy={"single_host_origin"}
-                        style={{ width: "100%" }}
-                    />
-                </div>
-            );
-        },
-        [navigate, handleClose]
-    );
+    useEffect(() => {
+        const loadGoogleApi = () => {
+            /* global google */
+            google.accounts.id.initialize({
+                client_id: "1018941777246-aslpbg70n0nk7aa25616g5jf71mmcdhj.apps.googleusercontent.com",
+                callback: handleGoogleCallbackResponse,
+            });
+
+            google.accounts.id.renderButton(document.getElementById("google-login-button"), {
+                theme: "outline",
+                size: "large",
+            });
+        };
+
+        if (open) {
+            if (window.gapi) {
+                loadGoogleApi();
+            } else {
+                window.gapiLoadCallback = loadGoogleApi;
+                const script = document.createElement("script");
+                script.src = "https://apis.google.com/js/api.js?onload=gapiLoadCallback";
+                document.head.appendChild(script);
+            }
+        }
+    }, [open]);
+
 
     return (
         <Dialog open={open} onClose={handleClose}>
@@ -198,14 +209,21 @@ export default function LoginForm({ open, handleClose, showCreateAccountHandler,
                     onShowCreateAccount={showCreateAccountHandler}
                     passwordVisible={passwordVisible}
                     togglePasswordVisibility={togglePasswordVisibility}
-                    googleLogin={googleLogin}
+                    googleLogin={
+                        googleLoading ? (
+                            <CircularProgress size={24} />
+                        ) : (
+                            <div id="google-login-button" />
+                        )
+                    }
                 />
             </DialogContent>
-            <Snackbar autoHideDuration={5000} anchorOrigin={{ vertical: "bottom", horizontal: "center" }} open={snackbarOpen} onClose={handleSnackbarClose}>
-                <SnackbarContent
-                    message={snackbarMessage}
-                    severity={snackbarSeverity} />
-            </Snackbar>
+            <SnackbarMessage
+                open={snackbarOpen}
+                onClose={handleSnackbarClose}
+                message={snackbarMessage}
+                severity={snackbarSeverity}
+            />
         </Dialog>
     );
 }
