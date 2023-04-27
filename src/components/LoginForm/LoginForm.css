@@ -8,3 +8,12 @@
 .google-login>* {
     margin-bottom: 8px;
 }
+
+.google-login-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}

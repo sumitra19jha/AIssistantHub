@@ -1,24 +1,9 @@
 import React, { useState, useEffect } from "react";
-import {
-    Button,
-    Dialog,
-    DialogContent,
-    DialogTitle,
-    TextField,
-    Typography,
-    Link,
-    CircularProgress,
-    Snackbar,
-} from "@mui/material";
+import { Button, Dialog, DialogContent, DialogTitle, TextField, Typography, Link, CircularProgress } from "@mui/material";
+import api from "../../services/api";
+import SnackbarMessage from "../SnackbarMessage";
 
-/**
- * VerifyOTPDialog is a dialog box that prompts the user to enter an OTP to verify their email address
- * @param {Boolean} open - determines whether the dialog box is open or closed
- * @param {Function} handleClose - function to close the dialog box
- * @param {String} email - email address to which the OTP was sent
- */
-export default function VerifyOTPDialog({ open, handleClose, email }) {
-    // State variables
+export default function VerifyOTPDialog({ open, handleClose, email, setSession }) {
     const [otp, setOtp] = useState("");
     const [loading, setLoading] = useState(false);
     const [resendLoading, setResendLoading] = useState(false);
@@ -28,28 +13,20 @@ export default function VerifyOTPDialog({ open, handleClose, email }) {
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState("");
 
-    /**
-     * handleVerifyOTP is called when the user submits the OTP verification form
-     * @param {Object} e - form submit event object
-     */
     const handleVerifyOTP = async (e) => {
         e.preventDefault();
         setLoading(true);
 
         try {
-            const response = await fetch("http://127.0.0.1:5000/user/verify-otp", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ email, otp }),
+            const response = await api.post("/user/verify-otp", {
+                email,
+                otp,
             });
-            const data = await response.json();
-            setLoading(false);
+            const data = await response.data;
 
+            setLoading(false);
             if (data.success) {
-                setSnackbarMessage("OTP verification successful!");
-                setSnackbarOpen(true);
+                setSession(data.session_id);
                 handleClose();
             } else {
                 setError(data.message);
@@ -60,20 +37,12 @@ export default function VerifyOTPDialog({ open, handleClose, email }) {
         }
     };
 
-    /**
-     * handleResendOTP is called when the user clicks the "Resend OTP" link
-     */
     const handleResendOTP = async () => {
         setResendLoading(true);
         try {
-            const response = await fetch("http://127.0.0.1:5000/user/resend-otp", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ email }),
-            });
-            const data = await response.json();
+            const response = await api.post("/user/resend-otp", { email });
+            const data = await response.data;
+
             if (data.success) {
                 setSnackbarMessage("OTP has been resent to your email.");
                 setSnackbarOpen(true);
@@ -90,9 +59,6 @@ export default function VerifyOTPDialog({ open, handleClose, email }) {
         }
     };
 
-    /**
-     * useEffect hook to update the timer for resending OTP every second
-     */
     useEffect(() => {
         let intervalId;
         if (timer > 0 && resendDisabled) {
@@ -105,23 +71,6 @@ export default function VerifyOTPDialog({ open, handleClose, email }) {
         return () => clearInterval(intervalId);
     }, [timer, resendDisabled]);
 
-    /**
-     * Snackbar to show success/error messages
-     */
-
-    const snackbar = (
-        <Snackbar
-            open={snackbarOpen}
-            autoHideDuration={5000}
-            onClose={() => setSnackbarOpen(false)}
-            message={snackbarMessage}
-            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-        />
-    );
-
-    /**
-     * JSX for the VerifyOTPDialog component
-     */
     return (
         <>
             <Dialog open={open} onClose={handleClose}>
@@ -166,7 +115,11 @@ export default function VerifyOTPDialog({ open, handleClose, email }) {
                     </Typography>
                 </DialogContent>
             </Dialog>
-            {snackbar}
+            <SnackbarMessage
+                open={snackbarOpen}
+                onClose={() => setSnackbarOpen(false)}
+                message={snackbarMessage}
+            />
         </>
     );
 }

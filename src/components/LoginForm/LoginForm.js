@@ -51,7 +51,7 @@ function LoginFormUI({ email, setEmail, password, setPassword, loading, onSubmit
                 {loading ? <CircularProgress size={24} /> : "Login"}
             </Button>
             <Typography variant="body2" align="right" sx={{ mt: 1 }}>
-                <Link color="primary" onClick={onShowForgetPassword}>
+                <Link className="cursor-pointer" color="primary" onClick={onShowForgetPassword}>
                     Forgot password?
                 </Link>
             </Typography>
@@ -69,7 +69,7 @@ function LoginFormUI({ email, setEmail, password, setPassword, loading, onSubmit
             {googleLogin}
             <Typography variant="body2" align="center" sx={{ mt: 2 }}>
                 Don't have an account?{" "}
-                <Link color="primary" onClick={onShowCreateAccount}>
+                <Link className="cursor-pointer" color="primary" onClick={onShowCreateAccount}>
                     Create your account
                 </Link>
             </Typography>
@@ -213,7 +213,9 @@ export default function LoginForm({
                         googleLoading ? (
                             <CircularProgress size={24} />
                         ) : (
-                            <div id="google-login-button" />
+                            <div className="google-login-wrapper">
+                                <div id="google-login-button" />
+                            </div>
                         )
                     }
                 />
