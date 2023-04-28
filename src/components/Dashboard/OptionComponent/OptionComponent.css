@@ -1,0 +1,194 @@
+:root {
+    --options-component-bg-color: linear-gradient(135deg, #9acfea 0%, #ff9a9e 100%);
+    --options-component-text-color: #ffffff;
+    --options-component-divider-color: #e0e0e0;
+    --box-shadow-light: 0px 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+
+.options-component {
+    cursor: pointer;
+    background-image: var(--options-component-bg-color);
+    background-color: transparent !important;
+    border-radius: 10px;
+    box-shadow: var(--box-shadow-light);
+    padding: 0rem;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    transition: all 0.2s ease-in-out;
+    width: 100%;
+    height: 125px;
+}
+
+.options-component {
+    animation: fadeIn 1s ease-in-out;
+}
+
+.options-component:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--box-shadow-dark);
+}
+
+.options-component:before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+    z-index: -1;
+}
+
+.options-component:hover:before {
+    opacity: 1;
+}
+
+.options-component-text-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 1rem;
+    width: 100%;
+    height: 100%;
+}
+
+.options-component-text {
+    font-size: 22px;
+    font-weight: bold;
+    color: var(--options-component-text-color);
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.options-component-parent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.options-component-child {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.options-component-child span {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--options-component-text-color);
+}
+
+/* Add animation */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.options-component:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.options-component:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+.options-component:nth-child(4) {
+    animation-delay: 0.6s;
+}
+
+.options-component:nth-child(5) {
+    animation-delay: 0.8s;
+}
+
+.options-component:nth-child(6) {
+    animation-delay: 1s;
+}
+
+.options-component:nth-child(7) {
+    animation-delay: 1.2s;
+}
+
+.options-component:nth-child(8) {
+    animation-delay: 1.4s;
+}
+
+@media screen and (max-width: 1024px) {
+    .options-component {
+        height: 100px;
+    }
+
+    .options-component-text {
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .options-component {
+        height: 80px;
+    }
+
+    .options-component-text {
+        font-size: 0.9rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .options-component {
+        height: 60px;
+    }
+
+    .options-component-text {
+        font-size: 0.8rem;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .options-component {
+        height: 110px;
+    }
+
+    .options-component-text {
+        font-size: 20px;
+    }
+
+    .options-component-child {
+        font-size: 1.5rem;
+    }
+
+    .options-component-child span {
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .options-component {
+        height: 100px;
+    }
+
+    .options-component-text {
+        font-size: 18px;
+    }
+
+    .options-component-child {
+        font-size: 1.3rem;
+    }
+
+    .options-component-child span {
+        font-size: 0.9rem;
+    }
+}
