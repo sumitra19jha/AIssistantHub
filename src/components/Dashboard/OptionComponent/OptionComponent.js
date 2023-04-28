@@ -21,10 +21,10 @@ const OptionComponent = ({
                     borderBottomLeftRadius: "10px"
                 }}
             />
-            <div className="options-component-text-icon">
-                <div className="options-component-text">{option}</div>
-                <div className="options-component-parent">
-                    <div className="options-component-child">
+            <div className="options-component__text-icon">
+                <div className="options-component__text">{option}</div>
+                <div className="options-component__detail-container">
+                    <div className="options-component__text-icon-container">
                         {icon}
                         <span>{iconOption}</span>
                     </div>

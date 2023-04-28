@@ -16,14 +16,14 @@ const ProjectCard = forwardRef(({ project }, ref) => {
 
     return (
         <div className="project-card" onClick={onCardClick} ref={ref}>
-            <div className="project-gradient-overlay"></div>
-            <div className="project-header">
-                <div className="project-type">{type}</div>
-                <div className="project-date">{created_at}</div>
+            <div className="project-card__gradient-overlay"></div>
+            <div className="project-card__header">
+                <div className="project-card__project-type">{type}</div>
+                <div className="project-card__project-date">{created_at}</div>
             </div>
-            <div className="project-topic">{topic}</div>
-            <div className="project-length">{length}</div>
-            <div className="project-description">{model_response}</div>
+            <div className="project-card__project-topic">{topic}</div>
+            <div className="project-card__project-length">{length}</div>
+            <div className="project-card__project-description">{model_response}</div>
         </div>
     );
 });

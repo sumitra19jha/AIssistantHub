@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext, useRef } from 'react';
-import ProjectCard from '../ProjectCard/ProjectCard';
+import ProjectCard from './ProjectCard/ProjectCard';
 import { ProjectContext } from '../../context/ProjectContext';
 import useSession from '../useToken';
 import api from '../../services/api';
@@ -72,8 +72,8 @@ const ProjectHistory = () => {
                     />
                 ))
             ) : (
-                <div className="no-project-history">
-                    <div className="no-project-history-icon">
+                <div className="project-history__no-project-history">
+                    <div className="project-history__no-project-history-icon">
                         {/* ... */}
                     </div>
                     <h2>No Project History</h2>

@@ -5,7 +5,6 @@
     --box-shadow-light: 0px 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-
 .options-component {
     cursor: pointer;
     background-image: var(--options-component-bg-color);
@@ -48,7 +47,7 @@
     opacity: 1;
 }
 
-.options-component-text-icon {
+.options-component__text-icon {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -58,7 +57,7 @@
     height: 100%;
 }
 
-.options-component-text {
+.options-component__text {
     font-size: 22px;
     font-weight: bold;
     color: var(--options-component-text-color);
@@ -66,13 +65,13 @@
     margin-bottom: 10px;
 }
 
-.options-component-parent {
+.options-component__detail-container {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.options-component-child {
+.options-component__text-icon-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -80,7 +79,7 @@
     margin-bottom: 1rem;
 }
 
-.options-component-child span {
+.options-component__text-icon-container span {
     font-size: 1.2rem;
     font-weight: bold;
     color: var(--options-component-text-color);
@@ -132,7 +131,7 @@
         height: 100px;
     }
 
-    .options-component-text {
+    .options-component__text {
         font-size: 1rem;
     }
 }
@@ -142,7 +141,7 @@
         height: 80px;
     }
 
-    .options-component-text {
+    .options-component__text {
         font-size: 0.9rem;
     }
 }
@@ -152,43 +151,45 @@
         height: 60px;
     }
 
-    .options-component-text {
+    .options-component__text {
         font-size: 0.8rem;
     }
+
 }
 
 @media screen and (max-width: 425px) {
     .options-component {
-        height: 110px;
+        height: 100px;
     }
 
-    .options-component-text {
-        font-size: 20px;
+    .options-component__text {
+        font-size: 18px;
     }
 
-    .options-component-child {
+    .options-component__text-icon-container {
         font-size: 1.5rem;
     }
 
-    .options-component-child span {
+    .options-component__text-icon-container span {
         font-size: 1rem;
     }
+
 }
 
 @media screen and (max-width: 320px) {
     .options-component {
-        height: 100px;
+        height: 90px;
     }
 
-    .options-component-text {
-        font-size: 18px;
+    .options-component__text {
+        font-size: 16px;
     }
 
-    .options-component-child {
+    .options-component__text-icon-container {
         font-size: 1.3rem;
     }
 
-    .options-component-child span {
+    .options-component__text-icon-container span {
         font-size: 0.9rem;
     }
 }

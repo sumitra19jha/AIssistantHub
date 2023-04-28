@@ -1,9 +1,9 @@
 import React, { useState } from "react";
+import { FaBars } from 'react-icons/fa';
 import { FaFileCode, FaSearch, FaImage } from 'react-icons/fa';
 
 import "./Dashboard.css";
 import Sidebar from "./Sidebar";
-import AiSelector from "../AiSelector/AiSelector";
 import ProjectHistory from "../ProjectHistory/ProjectHistory";
 import SeoOptimisationDialog from "../SeoOptimisationDialog/SeoOptimisationDialog";
 import SocialMediaPostDialog from "../SocialMediaPostDialog/SocialMediaPostDialog";
@@ -19,6 +19,14 @@ const Dashboard = () => {
     const [showSeoOptimisationDialog, setShowSeoOptimisationDialog] = useState(false);
     const [showSocialMediaPostDialog, setShowSocialMediaPostDialog] = useState(false);
     const [selectedAI, setSelectedAI] = useState("Proton");
+
+    // Add state for mobile sidebar
+    const [showMobileSidebar, setShowMobileSidebar] = useState(false);
+
+    // Add toggleMobileSidebar function
+    const toggleMobileSidebar = () => {
+        setShowMobileSidebar(!showMobileSidebar);
+    };
 
     const handleAIChange = (event) => {
         setSelectedAI(event.target.value);
@@ -56,36 +64,40 @@ const Dashboard = () => {
 
     return (
         <div>
-            <div className={`dashboard ${(showContentGenerationDialog || showSeoOptimisationDialog) ? "dashboard-blur" : ""}`}>
-                <Sidebar />
-                <div className="dashboard-main">
-                    <div className="ai-selection">
+            <div className={`dashboard ${(showContentGenerationDialog || showSeoOptimisationDialog) ? "dashboard__background-blur" : ""}`}>
+                <Sidebar showMobileSidebar={showMobileSidebar} toggleMobileSidebar={toggleMobileSidebar} />
+                <div className="dashboard__dashboard-main">
+                    {/* Add Hamburger icon */}
+                    <div className="dashboard__ai-selection">
+                        <div className="dashboard__hamburger-icon" onClick={toggleMobileSidebar}>
+                            <FaBars />
+                        </div>
                         <select
                             name="ai"
                             id="ai-select"
                             value={selectedAI}
                             onChange={handleAIChange}
-                            className="ai-select"
+                            className="dashboard__ai-select"
                         >
                             <option value="Proton">Proton AI</option>
                         </select>
                     </div>
-                    <div className="dashboard-content">
-                        <div className="dashboard-documents">
+
+                    <div className="dashboard__dashboard-content">
+                        <div className="dashboard__dashboard-documents">
 
                             <h2>New Project</h2>
-
-                            <div className="dashboard-options">
-                                <div className="dashboard-options-container">
-                                    <div className="dashboard-options-list">
+                            <div className="dashboard__dashboard-options">
+                                <div className="dashboard__dashboard-options-container">
+                                    <div className="dashboard__dashboard-options-list">
 
                                         {/* 1. Content Generation Component */}
-                                        <div className="dashboard-documents-upload">
+                                        <div className="dashboard__dashboard-documents-upload">
                                             <OptionComponent
                                                 option="Content Generation"
                                                 icon={
                                                     <FaFileCode
-                                                        className="option-icon"
+                                                        className="dashboard__option-icon"
                                                     />
                                                 }
                                                 backgroundColor="#FFA07A"
@@ -94,7 +106,7 @@ const Dashboard = () => {
                                                 iconOption="Create"
                                                 imageSrc="https://pigeon-website-images.s3.us-east-2.amazonaws.com/paper-robot.png"
                                             />
-                                            <div className="options-component-upload-child">
+                                            <div className="dashboard__options-component-upload-child">
                                                 <form>
                                                     <input
                                                         id="file-upload"
@@ -106,12 +118,12 @@ const Dashboard = () => {
                                         </div>
 
                                         {/* 3. Social Media Post */}
-                                        <div className="dashboard-documents-upload">
+                                        <div className="dashboard__dashboard-documents-upload">
                                             <OptionComponent
                                                 option="Social Media Post"
                                                 icon={
                                                     <FaImage
-                                                        className="option-icon"
+                                                        className="dashboard__option-icon"
                                                     />
                                                 }
                                                 backgroundColor="#90EE90"
@@ -120,16 +132,16 @@ const Dashboard = () => {
                                                 iconOption="Share"
                                                 imageSrc="https://pigeon-website-images.s3.us-east-2.amazonaws.com/social-media-ai.png"
                                             />
-                                            <div className="options-component-upload-child" />
+                                            <div className="dashboard__options-component-upload-child" />
                                         </div>
 
                                         {/* 2. SEO Optimization */}
-                                        <div className="dashboard-documents-upload">
+                                        <div className="dashboard__dashboard-documents-upload">
                                             <OptionComponent
                                                 option="SEO Optimization"
                                                 icon={
                                                     <FaSearch
-                                                        className="option-icon"
+                                                        className="dashboard__option-icon"
                                                     />
                                                 }
                                                 backgroundColor="#ADD8E6"
@@ -138,13 +150,12 @@ const Dashboard = () => {
                                                 iconOption="Optimize"
                                                 imageSrc="https://pigeon-website-images.s3.us-east-2.amazonaws.com/content-creator-ai.png"
                                             />
-                                            <div className="options-component-upload-child" />
+                                            <div className="dashboard__options-component-upload-child" />
                                         </div>
 
                                     </div>
                                 </div>
                             </div>
-
                             <h2>Project History</h2>
                             <ProjectHistory />
                         </div>
@@ -164,4 +175,4 @@ const Dashboard = () => {
     );
 };
 
-export default Dashboard;                
+export default Dashboard;
