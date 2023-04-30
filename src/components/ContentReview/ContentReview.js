@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import html2pdf from "html2pdf.js";
 
+import useSession from '../useToken';
 import ContentArea from './ContentArea/ContentArea';
 import AIBot from '../AIBot/AIBot.js';
 import Header from './Header/Header';
@@ -10,13 +11,23 @@ import api from "../../services/api";
 import "./ContentReview.css";
 
 const ContentReview = () => {
+    const session = useSession();
     const getContentHTMLRef = useRef(null);
     const location = useLocation();
     const parsedQuery = queryString.parse(location.search);
 
     const handleSave = useCallback(async (content) => {
         try {
-            const response = await api.post('/dashboard/content/save', { content, contentId: parsedQuery.contentId });
+            const response = await api.post(
+                '/dashboard/content/save', 
+                { content, contentId: parsedQuery.contentId },
+                {
+                    headers: {
+                        "Authorization": `Bearer ${session.session}`,
+                    }
+                }
+            );
+
             if (!response.data.success) {
                 console.error(response.data.content);
             }

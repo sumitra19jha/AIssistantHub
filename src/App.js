@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 
 import Header from './components/Header/Header';
@@ -15,11 +15,12 @@ import UserSubscription from './pages/UserSubscription/UserSubscription';
 import { ProjectProvider } from './context/ProjectContext';
 import { SubscriptionProvider } from './context/SubscriptionContext';
 import HelpCenter from './pages/HelpCenter/HelpCenter';
+import useSession from './components/useToken';
 
 function App() {
-  const storedSessionId = localStorage.getItem('session_id');
+  const {session, setSession} = useSession();
 
-  if (storedSessionId) {
+  if (session) {
     return (
       <ProjectProvider>
         <SubscriptionProvider>
@@ -44,7 +45,7 @@ function App() {
   return (
     <Router>
       <div style={{ height: "100vh", overflow: "auto" }}>
-        <Header />
+        <Header setSession={setSession}/>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/explore" element={<ExplorePage />} />

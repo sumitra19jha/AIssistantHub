@@ -1,10 +1,12 @@
 .parent {
-    height: 400px;
+    height: 600px;
     position: relative;
+    background-color: #f5f5f5;
 }
 
 .gradient {
-    background: linear-gradient(to bottom right, #A8E6CE, #FFD3B5);
+    background-image: linear-gradient(135deg, #9acfea 0%, #ff9a9e 100%);
+    background-color: transparent !important;
     height: 100%;
     width: 100%;
     position: absolute;
@@ -57,16 +59,12 @@
 }
 
 .child1 {
-    max-width: 576px;
+    max-width: 50%;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    align-items: flex-start;
 }
 
 
@@ -87,6 +85,7 @@
     padding: 0 5px;
     display: inline-block;
     border-radius: 1px;
+    font-weight: bold;
 }
 
 .india {
@@ -133,4 +132,83 @@
     padding: 10px 20px;
     border-radius: 32px;
     cursor: pointer;
+}
+
+.content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+}
+
+.laptop-image {
+    max-width: 45%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    z-index: 2;
+}
+
+.zoomed {
+    transform: scale(1.5);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.5);
+    z-index: 3;
+}
+
+.laptop-image img {
+    width: 100%;
+    height: auto;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Add the following media query at the bottom of the file */
+@media screen and (max-width: 768px) {
+    .content-wrapper {
+        flex-direction: column;
+    }
+
+    .child1 {
+        max-width: 100%;
+        text-align: center;
+    }
+
+    .child3 {
+        margin-top: 30px;
+        width: 100%;
+        margin-bottom: 30px;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+    .laptop-image {
+        max-width: 100%;
+    }
+
+    .explore-what,
+    .india,
+    .is-searching-for {
+        font-size: 1.5rem;
+    }
+
+    .search-box input {
+        font-size: 1rem;
+        width: 100%;
+    }
+
+    .explore-btn {
+        font-size: 1rem;
+        padding: 8px 16px;
+    }
 }

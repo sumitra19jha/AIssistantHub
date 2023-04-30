@@ -4,7 +4,7 @@ import './UserSubscriptionTabs.css';
 const Tab = ({ title, active, onClick }) => {
     return (
         <div
-            className={`subscription-tab ${active ? 'active' : ''}`}
+            className={`user-subscription-tab__subscription-tab ${active ? 'active' : ''}`}
             onClick={onClick}
         >
             {title}

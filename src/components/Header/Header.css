@@ -49,43 +49,17 @@
     color: #4a4af7;
 }
 
-.header__search {
-    position: relative;
-}
-
-.header__search-input {
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    border: 1px solid #dfe1e5;
-    border-radius: 24px;
-    /* Updated border-radius for a rounded search box */
-    outline: none;
-    width: 250px;
-    transition: box-shadow 0.3s ease, width 0.3s ease;
-    /* Added width transition for smoother animation */
-}
-
-.header__search-input::placeholder {
-    color: #5f6368;
-}
-
-.header__search-input:focus {
-    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
-    width: 300px;
-    /* Increased the width on focus */
-}
-
 .header__login-btn {
     background: #1a73e8;
     border: 1px solid transparent;
     color: #ffffff;
-    font-weight: 500;
-    font-size: 14px;
+    font-weight: 600;
+    font-size: 20px;
     letter-spacing: 0.25px;
     line-height: 16px;
     margin-left: 10px;
     margin-right: 8px;
-    min-width: 96px;
+    min-width: 110px;
     padding: 9px 23px;
     text-align: center;
     vertical-align: middle;
@@ -100,4 +74,83 @@
 .header__login-btn:hover {
     background: #1565c0;
     border-color: #1565c0;
+}
+
+.header__mobile-nav-toggle {
+    display: none;
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    outline: none;
+}
+
+.header__nav--mobile-open {
+    display: none;
+}
+
+.header__mobile-nav-close {
+    display: none;
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+@media (max-width: 768px) {
+    .header__logo h1 {
+        font-size: 1.25rem;
+    }
+
+    .header__nav {
+        display: none;
+    }
+
+    .header__nav--mobile-open {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.7);
+        padding: 1rem;
+        z-index: 10;
+        width: 80%;
+        max-width: 300px;
+    }
+
+    .header__mobile-nav-close {
+        display: block;
+        color: white;
+    }
+
+    .header__nav-list {
+        display: flex;
+        flex-direction: column;
+        margin-top: 2rem;
+    }
+
+    .header__nav-item {
+        margin-bottom: 1rem;
+        margin-right: 0;
+    }
+
+    .header__nav-link {
+        font-size: 0.875rem;
+    }
+
+    .header__mobile-nav-toggle {
+        display: block;
+    }
+
+    .header__login-btn {
+        font-size: 0.875rem;
+        padding: 6px 12px;
+        min-width: 80px;
+    }
 }

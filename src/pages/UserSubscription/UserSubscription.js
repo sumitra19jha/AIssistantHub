@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { FaBars } from 'react-icons/fa';
 import { Button } from 'react-bootstrap';
 import 'react-calendar/dist/Calendar.css';
 
 import Tab from "./Tab";
+import useSession from '../../components/useToken';
 import api from "./../../services/api";
 import Sidebar from "../../components/Dashboard/Sidebar";
 import { SubscriptionContext } from "../../context/SubscriptionContext";
@@ -19,7 +21,6 @@ const DataComponent = ({ subscriptionData }) => {
                 <span>Salary Cycle</span>
                 <span>Salary</span>
                 <span>Salary Status</span>
-                <span>Resume</span>
             </div>
             {subscriptionData.map((subscription) => (
                 <div key={subscription.date} className={"table-row"}>
@@ -28,11 +29,6 @@ const DataComponent = ({ subscriptionData }) => {
                     <span>{subscription.cycle}</span>
                     <span>{subscription.salary}</span>
                     <span>{subscription.status}</span>
-                    <span>
-                        <a href={subscription.resume} target="_blank" rel="noopener noreferrer">
-                            View
-                        </a>
-                    </span>
                 </div>
             ))}
         </div>
@@ -66,8 +62,14 @@ const AIComponent = ({ tableData }) => {
 }
 
 const UserSubscription = () => {
+    const session = useSession();
     const [activeTab, setActiveTab] = useState('all');
     const { subscriptionData, tableData, setSubscriptionData, setTableData } = useContext(SubscriptionContext);
+    const [showMobileSidebar, setShowMobileSidebar] = useState(false);
+
+    const toggleMobileSidebar = () => {
+        setShowMobileSidebar(!showMobileSidebar);
+    };
 
     useEffect(() => {
         fetchSubscriptions();
@@ -76,7 +78,11 @@ const UserSubscription = () => {
 
 
     const fetchSubscriptions = async () => {
-        api.get(`/user/subscriptions`)
+        api.get(`/user/subscriptions`, {
+            headers: {
+                "Authorization": `Bearer ${session.session}`
+            }
+        })
             .then((response) => {
                 if (response.data.success) {
                     setSubscriptionData(response.data.subscriptions);
@@ -90,7 +96,11 @@ const UserSubscription = () => {
     };
 
     const fetchAIDetails = async () => {
-        api.get(`/user/ai/details`)
+        api.get(`/user/ai/details`, {
+            headers: {
+                "Authorization": `Bearer ${session.session}`
+            }
+        })
             .then((response) => {
                 if (response.data.success) {
                     console.log(response.data.details)
@@ -100,7 +110,8 @@ const UserSubscription = () => {
                 }
             })
             .catch((error) => {
-                alert("Some issue occurred!");
+                console.log(error)
+                alert(error);
             });
     };
 
@@ -109,32 +120,39 @@ const UserSubscription = () => {
     };
 
     return (
-        <div className="subscription-container">
-            <Sidebar />
-            <div className="subscription-content">
-                <div className="subscription-header">
-                    <div className="header-content">
-                        <h2 className="subscription-title">Purchase History</h2>
-                        <Button variant="outline-primary" className="btn-purchase">
-                            Purchase
-                        </Button>
+        <div className="user-subscription">
+            <Sidebar showMobileSidebar={showMobileSidebar} toggleMobileSidebar={toggleMobileSidebar} />
+
+            <div className="user-subscription__subscription-content">
+                <div className="dashboard__ai-selection">
+                    <div className="dashboard__hamburger-icon" onClick={toggleMobileSidebar}>
+                        <FaBars />
                     </div>
-                    <div className="child-components">
-                        <div className="child-1">
+                    <Button variant="outline-primary" className="user-subscription__btn-purchase">
+                        Purchase
+                    </Button>
+                </div>
+
+                <div className="user-subscription__header">
+
+                    <div className="user-subscription__header-content">
+                        <h2 className="user-subscription__subscription-title">Purchase History</h2>
+                    </div>
+
+                    <div className="user-subscription__tab-components">
+                        <div className="user-subscription__tab-components__tab1">
                             <Tab
-                                title="All Purchase"
+                                title="Purchase"
                                 active={activeTab === 'all'}
                                 onClick={() => handleTabClick('all')}
                             />
                             <Tab
-                                title="AI Colleagues"
+                                title="AGIs"
                                 active={activeTab === 'successful'}
                                 onClick={() => handleTabClick('successful')}
                             />
                         </div>
-                        <div className="child-2">
-
-                        </div>
+                        <div className="user-subscription__tab-components__conatiner" />
                     </div>
                 </div>
                 {

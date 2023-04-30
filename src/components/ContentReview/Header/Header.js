@@ -38,9 +38,6 @@ const Header = ({ title, onSave, getContentHTML, onExport }) => {
     };
 
     const shareOnLinkedIn = () => {
-        const url = encodeURIComponent("https://github.com/sumitra19jha");
-        const title = encodeURIComponent(document.title);
-        const summary = encodeURIComponent("Check out this amazing post!");
         const shareUrl = `https://www.linkedin.com/`;
         window.open(shareUrl, '_blank');
     };

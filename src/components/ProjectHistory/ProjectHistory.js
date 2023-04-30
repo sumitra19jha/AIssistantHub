@@ -1,15 +1,17 @@
 import React, { useEffect, useState, useContext, useRef } from 'react';
-import ProjectCard from '../ProjectCard/ProjectCard';
+import ProjectCard from './ProjectCard/ProjectCard';
 import { ProjectContext } from '../../context/ProjectContext';
+import useSession from '../useToken';
 import api from '../../services/api';
 import './ProjectHistory.css';
 
 const ProjectHistory = () => {
-    const [firstloading, setFirstLoading] = useState(true);
-    const [page, setPage] = useState(1);
     const perPage = 12;
-    const { projects, setProjects, totalPages, setTotalPages } = useContext(ProjectContext);
+    const session = useSession();
     const lastProjectCardRef = useRef();
+    const [page, setPage] = useState(1);
+    const [firstloading, setFirstLoading] = useState(true);
+    const { projects, setProjects, totalPages, setTotalPages } = useContext(ProjectContext);
 
     useEffect(() => {
         fetchProjects();
@@ -28,7 +30,7 @@ const ProjectHistory = () => {
         if (lastProjectCardRef.current) {
             observer.observe(lastProjectCardRef.current);
         }
-        
+
         return () => {
             if (lastProjectCardRef.current) {
                 observer.unobserve(lastProjectCardRef.current);
@@ -38,7 +40,11 @@ const ProjectHistory = () => {
 
     const fetchProjects = async () => {
         if (page > totalPages && !firstloading) { return; }
-        api.get(`/dashboard/history/content?page=${page}&per_page=${perPage}`)
+        api.get(`/dashboard/history/content?page=${page}&per_page=${perPage}`, {
+            headers: {
+                "Authorization": `Bearer ${session.session}`
+            }
+        })
             .then((response) => {
                 if (response.data.success) {
                     setProjects((prevProjects) => [...prevProjects, ...response.data.history]);
@@ -66,8 +72,8 @@ const ProjectHistory = () => {
                     />
                 ))
             ) : (
-                <div className="no-project-history">
-                    <div className="no-project-history-icon">
+                <div className="project-history__no-project-history">
+                    <div className="project-history__no-project-history-icon">
                         {/* ... */}
                     </div>
                     <h2>No Project History</h2>

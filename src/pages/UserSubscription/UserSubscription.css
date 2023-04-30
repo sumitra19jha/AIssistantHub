@@ -8,25 +8,25 @@
     --box-shadow-dark: 0px 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-.subscription-container {
+.user-subscription {
     display: flex;
     flex-direction: row;
     height: 100vh;
     background-color: var(--dashboard-bg-color);
 }
 
-.subscription-content {
+.user-subscription__subscription-content {
     flex: 1;
     padding: 30px;
 }
 
-.header-content {
+.user-subscription__header-content {
     display: flex;
     align-items: self-start;
     justify-content: space-between;
 }
 
-.btn-purchase {
+.user-subscription__btn-purchase {
     display: flex;
     align-items: center;
     font-size: 1.5rem;
@@ -34,18 +34,16 @@
     padding: 8px 16px;
     border-radius: 4px;
     transition: background-color 0.3s ease, color 0.3s ease;
-    background-color: var(--options-component-text-color);
+    background-color: #1a73e8;
     color: white;
-    box-shadow: var(--box-shadow-light);
-    background-image: var(--options-component-bg-color);
 }
 
-.btn-purchase:hover {
+.user-subscription__btn-purchase:hover {
     background-color: #1a73e8;
     color: #ffffff;
 }
 
-.subscription-header {
+.user-subscription__header {
     display: flex;
     flex-direction: column;
     margin-bottom: 30px;
@@ -53,19 +51,19 @@
     justify-content: space-between;
 }
 
-.subscription-header h2 {
+.user-subscription__header h2 {
     font-size: 2rem;
     font-weight: bold;
     color: var(--new-project-title-color);
 }
 
-.child-1,
-.child-2 {
+.user-subscription__tab-components__tab1,
+.user-subscription__tab-components__conatiner {
     display: flex;
     align-items: center;
 }
 
-.child-2 {
+.user-subscription__tab-components__conatiner {
     justify-content: flex-end;
 }
 
@@ -158,14 +156,14 @@
     text-decoration: none;
 }
 
-.subscription-title {
+.user-subscription__subscription-title {
     font-size: 2rem;
     margin-bottom: 30px;
     font-weight: bold;
     color: black;
 }
 
-.child-components {
+.user-subscription__tab-components {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -192,4 +190,42 @@
     opacity: 0;
     transform: translateY(-20px);
     transition: opacity 300ms, transform 300ms;
+}
+
+@media (max-width: 480px) {
+    .user-subscription__subscription-content {
+        padding: 15px;
+    }
+
+    .user-subscription__subscription-title {
+        font-size: 1.3rem;
+    }
+
+    .user-subscription__btn-purchase {
+        font-size: 1.2rem;
+        padding: 6px 12px;
+    }
+
+    .user-subscription__header h2 {
+        font-size: 1.5rem;
+    }
+
+    .table-header span,
+    .table-row span {
+        font-size: 0.8rem;
+    }
+
+    .table-container {
+        padding: 0.5rem;
+    }
+
+    .table-header {
+        padding: 0.2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .table-row {
+        padding: 0.3rem;
+        margin-bottom: 0.3rem;
+    }
 }

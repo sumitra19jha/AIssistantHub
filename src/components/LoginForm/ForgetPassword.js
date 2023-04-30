@@ -1,17 +1,12 @@
 import React, { useState } from "react";
-import {
-    Button,
-    Dialog,
-    DialogContent,
-    DialogTitle,
-    TextField,
-    CircularProgress,
-    InputLabel,
-    FormControl,
-} from "@mui/material";
+import { Button, Dialog, DialogContent, DialogTitle, TextField, CircularProgress } from "@mui/material";
+import { Box, Typography } from "@mui/material";
+import Alert from "@mui/material/Alert";
+
+import api from "../../services/api";
 import VerifyOTPDialog from "../CreateAccount/VerifyOTPDialog";
 
-export default function ForgetPassword({ open, handleClose }) {
+export default function ForgetPassword({ open, handleClose, setSession }) {
     const [email, setEmail] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
@@ -25,14 +20,11 @@ export default function ForgetPassword({ open, handleClose }) {
         setError("");
 
         try {
-            const response = await fetch("http://127.0.0.1:5000/user/forget-password", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ email }),
+            const response = await api.post('/user/forget-password', {
+                email
             });
-            const data = await response.json();
+
+            const data = await response.data;
             setLoading(false);
 
             if (data.success) {
@@ -56,33 +48,40 @@ export default function ForgetPassword({ open, handleClose }) {
     return (
         <>
             {showForgetPassword ? (
-                <Dialog open={open} onClose={handleClose}>
+                <Dialog open={open} onClose={handleClose} maxWidth="xs" fullWidth>
                     <DialogTitle>Forget Password</DialogTitle>
                     <DialogContent>
                         <form onSubmit={handleForgetPassword}>
-                            <FormControl fullWidth margin="dense" error={Boolean(error)}>
-                                <InputLabel>Email</InputLabel>
-                                <TextField
-                                    type="email"
-                                    name="email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    fullWidth
-                                    required
-                                    autoFocus
-                                />
-                            </FormControl>
+                            <Box mb={2}>
+                                <Typography variant="body2">
+                                    Enter your email address and we will send you an OTP to reset your password.
+                                </Typography>
+                            </Box>
+                            <TextField
+                                label="Email"
+                                type="email"
+                                name="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                fullWidth
+                                required
+                                autoFocus
+                                error={Boolean(error)}
+                            />
                             <Button
                                 type="submit"
                                 fullWidth
                                 variant="contained"
+                                color="primary"
                                 sx={{ mt: 2 }}
                                 disabled={loading}
                             >
                                 {loading ? <CircularProgress size={24} /> : "Send OTP"}
                             </Button>
                             {error && (
-                                <div style={{ color: "red", marginTop: "10px" }}>{error}</div>
+                                <Box mt={2}>
+                                    <Alert severity="error">{error}</Alert>
+                                </Box>
                             )}
                         </form>
                     </DialogContent>
@@ -93,6 +92,7 @@ export default function ForgetPassword({ open, handleClose }) {
                 handleClose={handleVerifyOTPClose}
                 email={email}
                 setError={setError}
+                setSession={setSession}
             />
         </>
     );
