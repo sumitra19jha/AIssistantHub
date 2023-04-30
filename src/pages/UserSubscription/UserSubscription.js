@@ -65,11 +65,8 @@ const UserSubscription = () => {
     const session = useSession();
     const [activeTab, setActiveTab] = useState('all');
     const { subscriptionData, tableData, setSubscriptionData, setTableData } = useContext(SubscriptionContext);
-
-    // Add state for mobile sidebar
     const [showMobileSidebar, setShowMobileSidebar] = useState(false);
 
-    // Add toggleMobileSidebar function
     const toggleMobileSidebar = () => {
         setShowMobileSidebar(!showMobileSidebar);
     };
@@ -125,7 +122,7 @@ const UserSubscription = () => {
     return (
         <div className="user-subscription">
             <Sidebar showMobileSidebar={showMobileSidebar} toggleMobileSidebar={toggleMobileSidebar} />
-            
+
             <div className="user-subscription__subscription-content">
                 <div className="dashboard__ai-selection">
                     <div className="dashboard__hamburger-icon" onClick={toggleMobileSidebar}>
@@ -155,7 +152,7 @@ const UserSubscription = () => {
                                 onClick={() => handleTabClick('successful')}
                             />
                         </div>
-                        <div className="user-subscription__tab-components__conatiner"/>
+                        <div className="user-subscription__tab-components__conatiner" />
                     </div>
                 </div>
                 {
