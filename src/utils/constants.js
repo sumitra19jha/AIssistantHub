@@ -1,5 +1,5 @@
-export const API_BASE_URL = "http://backend.assistanthub.in";
-export const SOCKET_API_BASE_URL = "http://rtc.assistanthub.in";
+export const API_BASE_URL = "https://backend.assistanthub.in";
+export const SOCKET_API_BASE_URL = "https://rtc.assistanthub.in";
 export const AUTH_TOKEN = localStorage.getItem('session_id');
 
 export const CONTENT_TYPES = {
