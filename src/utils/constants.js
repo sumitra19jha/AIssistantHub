@@ -1,5 +1,5 @@
-export const API_BASE_URL = "http://3.13.43.214:5000/";
-export const SOCKET_API_BASE_URL = "http://3.13.43.214:3001/";
+export const API_BASE_URL = "http://backend.assistanthub.in";
+export const SOCKET_API_BASE_URL = "http://rtc.assistanthub.in";
 export const AUTH_TOKEN = localStorage.getItem('session_id');
 
 export const CONTENT_TYPES = {
