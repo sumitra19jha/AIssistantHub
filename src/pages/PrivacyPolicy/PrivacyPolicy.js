@@ -9,7 +9,7 @@ const PrivacyPolicy = () => {
                 <p>Last updated: 25th Mar 2023</p>
                 <h2>Introduction</h2>
                 <p>
-                    At KeywordIQ ("we," "us," or "our"), we are committed to protecting the privacy of our users. This Privacy Policy outlines how we collect, use, disclose, and protect your personal information when you use our website and AI-powered writing assistant services (collectively, the "Services").
+                    At AIssitantHub ("we," "us," or "our"), we are committed to protecting the privacy of our users. This Privacy Policy outlines how we collect, use, disclose, and protect your personal information when you use our website and AI-powered writing assistant services (collectively, the "Services").
                 </p>
                 <p>
                     By using our Services, you agree to the collection and use of information in accordance with this Privacy Policy. If you do not agree with this Privacy Policy, please do not use our Services.
@@ -53,10 +53,10 @@ const PrivacyPolicy = () => {
                 <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page. Your continued use of our Services after any changes constitutes your acceptance of the updated Privacy Policy.</p>
 
                 <h2>9. Contact Us</h2>
-                <p>If you have any questions or concerns about this Privacy Policy or our privacy practices, please contact us at sumitra19jha@gmail.com.</p>
+                <p>If you have any questions or concerns about this Privacy Policy or our privacy practices, please contact us at info@assistanthub.in.</p>
 
 
-                <p>KeywordIQ</p>
+                <p>AIssistantHub</p>
             </div>
         </div>
     );

@@ -25,7 +25,7 @@ function Footer() {
                     </a>
                     <a
                         className="content-info__link"
-                        href="mailto:sumitra19jha@gmail.com?body=Feedback"
+                        href="mailto:info@assistanthub.in?body=Feedback"
                         aria-label="Email send to a new tab"
                         target="_new"
                     >
