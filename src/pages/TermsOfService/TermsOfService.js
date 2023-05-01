@@ -52,9 +52,9 @@ const TermsOfService = () => {
                 <p>You may not assign this Agreement or any rights or obligations hereunder, whether by operation of law or otherwise, without our prior written consent. We may assign this Agreement or any rights or obligations hereunder without your prior written consent.</p>
 
                 <h2>15. CONTACT US</h2>
-                <p>If you have any questions or concerns about this Agreement, please contact us at sumitra19jha@gmail.com.</p>
+                <p>If you have any questions or concerns about this Agreement, please contact us at info@assistanthub.in.</p>
 
-                <p>KeywordIQ</p>
+                <p>AIssistantHub</p>
             </div>
         </div>
     );
