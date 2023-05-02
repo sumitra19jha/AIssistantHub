@@ -10,7 +10,7 @@ const Message = ({ message }) => {
             </div>
             <div className="message-content">
                 {`${message.content}`.split("\n").map((part, index) => (
-                    <p key={index}>{part}</p>
+                    <p key={index} className="message-p">{part}</p>
                 ))}
             </div>
         </div>

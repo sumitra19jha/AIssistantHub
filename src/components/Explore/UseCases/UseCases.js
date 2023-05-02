@@ -12,9 +12,9 @@ const UseCases = ({ useCaseImages }) => {
                 <Grid container columns={3} stackable>
                     {useCaseImages.map((useCase) => (
                         <Grid.Column key={useCase.title}>
-                            <div className='image-wrapper'>
+                            <div className='use-cases__image-wrapper'>
                                 <Image src={useCase.image} size='medium' centered />
-                                <div className='title-wrapper'>
+                                <div className='use-cases__title-wrapper'>
                                     <Header
                                         as='h3'
                                         textAlign='center'
@@ -22,7 +22,7 @@ const UseCases = ({ useCaseImages }) => {
                                     >
                                         {useCase.title}
                                     </Header>
-                                    <div className='description-wrapper'>
+                                    <div className='use-cases__description-wrapper'>
                                         <p>{useCase.description}</p>
                                     </div>
                                 </div>

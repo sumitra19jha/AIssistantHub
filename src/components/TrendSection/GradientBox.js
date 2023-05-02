@@ -51,29 +51,29 @@ const GradientBox = () => {
 
     return (
         <>
-            <div className="parent">
-                <div className="gradient">
-                    <div className="animation">
+            <div className="gradient_box">
+                <div className="gradient_box__gradient">
+                    <div className="gradient_box__animation">
                     </div>
                 </div>
-                <div className="content-wrapper">
-                    <div className="child1">
-                        <div className="child2">
-                            <div className="explore-what">Empower creativity with</div>
-                            <div className="india-box">
-                                <div className="india">Proton</div>
+                <div className="gradient_box__content-wrapper">
+                    <div className="gradient_box__tagline">
+                        <div className="gradient_box__tagline_text">
+                            <div className="gradient_box__tagline_text__explore-what">Unleashing Digital Genius: AI-driven</div>
+                            <div className="gradient_box__tagline_text__india-box">
+                                <div className="gradient_box__tagline_text__india">SEO, Blogs & Social Media.</div>
                             </div>
-                            <div className="is-searching-for">your versatile <div className="india-box">Generative AI</div>.</div>
+                            <div className="gradient_box__tagline_text__explore-what">You write the goals, we script the <div className="gradient_box__tagline_text__india-box">success!</div>.</div>
                         </div>
-                        <div className="child3">
-                            <div className="search-box">
+                        <div className="gradient_box__tagline__search">
+                            <div className="gradient_box__tagline__search-box">
                                 <input
                                     type="text"
                                     placeholder="Search"
                                     value={keyword}
                                     onChange={handleInputChange}
                                 />
-                                <button className="explore-btn">Explore</button>
+                                <button className="gradient_box__tagline__explore-btn">Explore</button>
                             </div>
                         </div>
                     </div>

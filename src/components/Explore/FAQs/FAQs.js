@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Button, Header, Segment, Accordion } from 'semantic-ui-react';
-import { FaChevronDown, FaChevronUp, FaBook } from 'react-icons/fa';
+import { Header, Segment, Accordion } from 'semantic-ui-react';
+import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import './FAQs.css';
 
 const FAQs = () => {
@@ -13,17 +13,17 @@ const FAQs = () => {
     };
 
     return (
-        <Segment basic className="faq-container">
-            <Header as="h2" textAlign="center" className="faq-header">
+        <Segment basic className="explore__faq-container">
+            <Header as="h2" textAlign="center" className="explore__faq-container__faq-header">
                 Frequently Asked Questions
             </Header>
-            <Accordion styled className="faq-accordion">
+            <Accordion styled className="explore__faq-container__faq-accordion">
                 <Accordion.Title
                     active={activeIndex === 0}
                     index={0}
                     onClick={handleAccordionClick}
                 >
-                    {activeIndex === 0 ? <FaChevronUp className="faq-icon" /> : <FaChevronDown className="faq-icon" />}
+                    {activeIndex === 0 ? <FaChevronUp className="explore__faq-container__faq-icon" /> : <FaChevronDown className="explore__faq-container__faq-icon" />}
                     What is our platform all about?
                 </Accordion.Title>
                 <Accordion.Content active={activeIndex === 0}>
@@ -49,7 +49,7 @@ const FAQs = () => {
                     index={1}
                     onClick={handleAccordionClick}
                 >
-                    <FaChevronDown className="faq-icon" />
+                    <FaChevronDown className="explore__faq-container__faq-icon" />
                     How do I sign up for a free trial?
                 </Accordion.Title>
                 <Accordion.Content active={activeIndex === 1}>
@@ -77,7 +77,7 @@ const FAQs = () => {
                     index={2}
                     onClick={handleAccordionClick}
                 >
-                    <FaChevronDown className="faq-icon" />
+                    <FaChevronDown className="explore__faq-container__faq-icon" />
                     What integrations do you support?
                 </Accordion.Title>
                 <Accordion.Content active={activeIndex === 2}>

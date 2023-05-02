@@ -1,4 +1,4 @@
-.pricing-plan {
+.explore__pricing-plan {
     margin-bottom: 80px;
     flex: 1;
     margin: 20px;
@@ -12,7 +12,7 @@
     overflow: hidden;
 }
 
-.pricing-plan-title {
+.explore__pricing-plan__pricing-plan-title {
     font-size: 36px;
     font-weight: bold;
     text-align: center;
@@ -20,13 +20,13 @@
     color: #fff;
 }
 
-.pricing-plan-grid {
+.explore__pricing-plan__pricing-plan-grid {
     display: flex;
     justify-content: space-evenly;
     gap: 40px;
 }
 
-.pricing-plan-card {
+.explore__pricing-plan__pricing-plan-card {
     position: relative;
     width: max-content;
     height: fit-content;
@@ -38,15 +38,15 @@
     transition: transform 0.3s ease-in-out;
 }
 
-.pricing-plan-card:hover {
+.explore__pricing-plan__pricing-plan-card:hover {
     transform: translateY(-10px);
 }
 
-.pricing-plan-card.recommended {
+.explore__pricing-plan__pricing-plan-card.recommended {
     box-shadow: 0 0 20px rgba(0, 123, 255, 0.5);
 }
 
-.pricing-plan-card:before {
+.explore__pricing-plan__pricing-plan-card:before {
     content: '';
     position: absolute;
     top: -20px;
@@ -58,29 +58,29 @@
     background-color: #007bff;
 }
 
-.pricing-plan-card-title {
+.explore__pricing-plan__pricing-plan-card-title {
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 20px;
 }
 
-.pricing-plan-card-price {
+.explore__pricing-plan__pricing-plan-card-price {
     font-size: 36px;
     font-weight: bold;
     margin-bottom: 40px;
 }
 
-.pricing-plan-card-features {
+.explore__pricing-plan__pricing-plan-card-features {
     margin-bottom: 40px;
 }
 
-.pricing-plan-card-features p {
+.explore__pricing-plan__pricing-plan-card-features p {
     font-size: 18px;
     margin-bottom: 20px;
     text-align: start;
 }
 
-.pricing-plan-card-button {
+.explore__pricing-plan__pricing-plan-card-button {
     position: absolute;
     bottom: 20px;
     left: 50%;
@@ -96,27 +96,27 @@
     transition: background-color 0.3s ease;
 }
 
-.pricing-plan-card-button:hover {
+.explore__pricing-plan__pricing-plan-card-button:hover {
     background-color: #0062cc;
 }
 
 @media screen and (max-width: 768px) {
-    .pricing-plan-grid {
+    .explore__pricing-plan__pricing-plan-grid {
         flex-direction: column;
         align-items: center;
     }
 
-    .pricing-plan-card {
+    .explore__pricing-plan__pricing-plan-card {
         width: 100%;
         height: auto;
         margin-bottom: 40px;
     }
 
-    .pricing-plan-card:before {
+    .explore__pricing-plan__pricing-plan-card:before {
         display: none;
     }
 
-    .pricing-plan-card-button {
+    .explore__pricing-plan__pricing-plan-card-button {
         font-size: 20px;
     }
 }

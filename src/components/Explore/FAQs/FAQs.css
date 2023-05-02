@@ -1,15 +1,15 @@
-.faq-container {
+.explore__faq-container {
     background-color: #ffffff;
     padding: 4rem 0;
 }
 
-.faq-header {
+.explore__faq-container__faq-header {
     font-size: 3rem;
     color: #303030;
     margin-bottom: 2rem;
 }
 
-.faq-accordion {
+.explore__faq-container__faq-accordion {
     font-size: 1.6rem;
     color: #303030;
     border: none;
@@ -24,7 +24,7 @@
     padding-bottom: 20px;
 }
 
-.faq-accordion .title {
+.explore__faq-container__faq-accordion .title {
     font-weight: 600;
     color: #303030;
     padding: 1rem 0;
@@ -34,19 +34,19 @@
     cursor: pointer;
 }
 
-.faq-accordion .title:hover {
+.explore__faq-container__faq-accordion .title:hover {
     background-color: #e5e5e5;
 }
 
-.faq-accordion .title.active {
+.explore__faq-container__faq-accordion .title.active {
     background-color: #fff;
 }
 
-.faq-accordion .title.active:hover {
+.explore__faq-container__faq-accordion .title.active:hover {
     background-color: #fff;
 }
 
-.faq-accordion .title .faq-icon {
+.explore__faq-container__faq-accordion .title .explore__faq-container__faq-icon {
     margin-right: 1rem;
     font-size: 1.6rem;
     display: flex;
@@ -55,13 +55,13 @@
     height: 100%;
 }
 
-.faq-accordion .content {
+.explore__faq-container__faq-accordion .content {
     padding: 1rem 0;
     display: none;
     text-align: justify;
 }
 
-.faq-accordion .content.active {
+.explore__faq-container__faq-accordion .content.active {
     display: block;
     align-self: flex-start;
 }

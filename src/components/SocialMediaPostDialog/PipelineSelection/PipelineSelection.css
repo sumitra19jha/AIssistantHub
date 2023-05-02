@@ -32,12 +32,12 @@
 }
 
 .pipeline-text .pipeline-title {
-    font-size: 22px;
+    font-size: 18px;
     font-weight: bold;
 }
 
 .pipeline-text .pipeline-subtitle {
-    font-size: 16px;
+    font-size: 14px;
     color: #757575;
     word-wrap: break-word;
 }

@@ -33,6 +33,7 @@
     font-weight: bold;
     color: #2c3e50;
     text-align: right;
+    font-size: 12px;
 }
 
 .project-card__project-type {
@@ -42,7 +43,7 @@
 }
 
 .project-card__project-topic {
-    font-size: 18px;
+    font-size: 14px;
     font-weight: bold;
     color: #34495e;
 }

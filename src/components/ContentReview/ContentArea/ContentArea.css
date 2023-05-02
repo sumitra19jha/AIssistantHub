@@ -1,7 +1,7 @@
 :root {
     --cardWidth: 400px;
     --rem: 14px;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .content-area {
@@ -25,10 +25,10 @@
 
 .public-DraftStyleDefault-ltr {
     color: rgb(14, 16, 26);
-    font-size: calc(1.3 * var(--rem));
+    font-size: calc(1 * var(--rem));
     font-weight: 400;
     letter-spacing: calc(0 * var(--rem));
-    line-height: calc(2.1 * var(--rem));
+    line-height: calc(1.7 * var(--rem));
     font-family: 'Open Sans', sans-serif;
 }
 

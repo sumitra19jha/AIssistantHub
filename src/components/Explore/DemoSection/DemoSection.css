@@ -1,4 +1,4 @@
-.demo-section {
+.explore__demo-section {
     background-image: linear-gradient(to bottom, #ed6ea0, #ec8c69);
     padding: 0;
     box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.07);
@@ -8,13 +8,13 @@
     text-align: center;
 }
 
-.demo-section h2 {
+.explore__demo-section h2 {
     margin-top: 0;
     align-items: center;
     text-align: center;
 }
 
-.demo-header {
+.explore__demo-section__demo-header {
     margin-bottom: 0px;
     font-family: 'Poppins', sans-serif;
     color: rgb(255, 255, 255);
@@ -23,14 +23,14 @@
     width: 100%;
 }
 
-.demo-video {
+.explore__demo-section__demo-video {
     width: 100%;
     height: 0;
     padding-bottom: 56.25%;
     position: relative;
 }
 
-.demo-video iframe {
+.explore__demo-section__demo-video iframe {
     position: absolute;
     top: 0;
     left: 0;
@@ -38,7 +38,7 @@
     height: 100%;
 }
 
-.demo-button {
+.explore__demo-section__demo-button {
     margin-top: 0px;
     background: none;
     color: white;
@@ -52,12 +52,12 @@
     align-self: center;
 }
 
-.demo-button:hover {
+.explore__demo-section__demo-button:hover {
     background: white;
     color: #ed6ea0;
     transition: all ease-in-out 0.3s;
 }
 
-.demo-button .icon {
+.explore__demo-section__demo-button .icon {
     margin-left: 10px;
 }

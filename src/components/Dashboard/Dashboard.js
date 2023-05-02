@@ -203,17 +203,6 @@ const Dashboard = () => {
                     iconOption={iconOption}
                     imageSrc={imageSrc}
                 />
-                <div className="dashboard__options-component-upload-child">
-                    {handleUploadClick && (
-                        <form>
-                            <input
-                                id="file-upload"
-                                type="file"
-                                onChange={handleUploadClick}
-                            />
-                        </form>
-                    )}
-                </div>
             </div>
         );
     };
