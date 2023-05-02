@@ -17,7 +17,7 @@
     align-items: flex-start;
     transition: all 0.2s ease-in-out;
     width: 100%;
-    height: 125px;
+    height: 100px;
 }
 
 .options-component {
@@ -58,17 +58,17 @@
 }
 
 .options-component__text {
-    font-size: 22px;
+    font-size: 16px;
     font-weight: bold;
     color: var(--options-component-text-color);
-    text-align: center;
+    text-align: left;
     margin-bottom: 10px;
 }
 
 .options-component__detail-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .options-component__text-icon-container {
@@ -80,7 +80,7 @@
 }
 
 .options-component__text-icon-container span {
-    font-size: 1.2rem;
+    font-size: 14px;
     font-weight: bold;
     color: var(--options-component-text-color);
 }

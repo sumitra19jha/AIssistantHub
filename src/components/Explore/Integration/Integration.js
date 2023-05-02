@@ -4,19 +4,19 @@ import './Integration.css';
 
 const IntegrationPartners = ({ integrations }) => {
     return (
-        <Segment className="integrationPartners">
-            <Header as="h2" textAlign="center" className="header">
+        <Segment className="explore__integrationPartners">
+            <Header as="h2" textAlign="center" className="explore__integrationPartners__header">
                 We Partner With These Leading Platforms
             </Header>
-            <List horizontal relaxed className="list">
+            <List horizontal relaxed className="explore__integrationPartners__list">
                 {integrations.map((integration) => (
-                    <List.Item key={integration.name} className="list-item">
+                    <List.Item key={integration.name} className="explore__integrationPartners__list-item">
                         <Image src={integration.logo} size="small" style={{ width: '100px', height: '100px', objectFit: 'contain' }}/>
                         <List.Content style={{ textAlign: 'center' }}>
-                            <List.Header className="list-header">
+                            <List.Header className="explore__integrationPartners__list-header">
                                 {integration.name}
                             </List.Header>
-                            <List.Description className="list-description">
+                            <List.Description className="explore__integrationPartners__list-description">
                                 {integration.description}
                             </List.Description>
                         </List.Content>

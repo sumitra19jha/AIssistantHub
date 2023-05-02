@@ -42,7 +42,7 @@
 
 .header-title {
     flex-grow: 1;
-    font-size: 1.4rem;
+    font-size: 18px;
     font-weight: bold;
     color: #fff;
     white-space: nowrap;
@@ -53,14 +53,14 @@
 
 .header-button {
     font-weight: 500;
-    padding: 0.8rem 1.4rem;
+    padding: 0.6rem 1.4rem;
     border-radius: 8px;
     border: 0.1px solid #888;
     box-shadow: 0 0 0 rgba(0, 0, 0, 0.0);
     background-color: #f8f8f8;
     cursor: pointer;
     transition: background-color 0.2s ease, color 0.2s ease;
-    font-size: 1.1rem;
+    font-size: 16px;
     font-family: 'Open Sans', sans-serif;
     width: fit-content;
 }

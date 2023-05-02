@@ -57,14 +57,14 @@ export const PricingPlan = () => {
     ];
 
     return (
-        <div className="pricing-plan">
-            <h3 className="pricing-plan-title">Choose a plan that best fits your need</h3>
-            <div className="pricing-plan-grid">
+        <div className="explore__pricing-plan">
+            <h3 className="explore__pricing-plan__pricing-plan-title">Choose a plan that best fits your need</h3>
+            <div className="explore__pricing-plan__pricing-plan-grid">
                 {plans.map((plan, idx) => (
-                    <div className={`pricing-plan-card ${plan.recommended ? 'recommended' : ''}`} key={idx}>
-                        <h4 className="pricing-plan-card-title">{plan.name}</h4>
-                        <p className="pricing-plan-card-price">{plan.price} {plan.billingCycle}</p>
-                        <ul className="pricing-plan-card-features">
+                    <div className={`explore__pricing-plan__pricing-plan-card ${plan.recommended ? 'recommended' : ''}`} key={idx}>
+                        <h4 className="explore__pricing-plan__pricing-plan-card-title">{plan.name}</h4>
+                        <p className="explore__pricing-plan__pricing-plan-card-price">{plan.price} {plan.billingCycle}</p>
+                        <ul className="explore__pricing-plan__pricing-plan-card-features">
                             {plan.features.map((feature, idx) => (
                                 <div key={idx} style={{ display: "flex" }}>
                                     {feature.isAvailable ? <FaCheck color='green' style={{ marginRight: "1em", fontSize: "18px" }} /> : <FaTimes color='red' style={{ marginRight: "1em", fontSize: "18px" }} />}
@@ -73,7 +73,7 @@ export const PricingPlan = () => {
                                 </div>
                             ))}
                         </ul>
-                        <button className="pricing-plan-card-button">Subscribe</button>
+                        <button className="explore__pricing-plan__pricing-plan-card-button">Subscribe</button>
                     </div>
                 ))}
             </div>

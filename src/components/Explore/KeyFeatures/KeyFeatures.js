@@ -34,14 +34,14 @@ const FeatureDescription = styled.p`
 
 const KeyFeatures = ({featureIcons}) => {
     return (
-        <Segment basic className="key-features">
-            <Header as="h2" textAlign="center" className="title">
+        <Segment basic className="explore__key-features">
+            <Header as="h2" textAlign="center" className="explore__key-features__title">
                 Key Features
             </Header>
-            <div className="key-feature-container">
-                <div className="key-feature-list">
+            <div className="explore__key-features__key-feature-container">
+                <div className="explore__key-features__key-feature-list">
                     {featureIcons.map((feature) => (
-                        <div className="key-feature-item" key={feature.name}>
+                        <div className="explore__key-features__key-feature-item" key={feature.name}>
                                 <IconWrapper>
                                     <FeatureIcon>
                                         <feature.icon />

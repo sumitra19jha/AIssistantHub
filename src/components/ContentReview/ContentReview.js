@@ -20,7 +20,7 @@ const ContentReview = () => {
         try {
             const response = await api.post(
                 '/dashboard/content/save', 
-                { content, contentId: parsedQuery.contentId },
+                { content, contentId: parseInt(parsedQuery.contentId) },
                 {
                     headers: {
                         "Authorization": `Bearer ${session.session}`,

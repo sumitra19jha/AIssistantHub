@@ -4,16 +4,15 @@
     justify-content: space-between;
     align-items: center;
     width: 30%;
-    height: calc(100% - 4rem);
+    height: calc(100% - 3rem);
     background-color: #f4f4f4;
     padding-top: 0px;
     padding-bottom: 0px;
     padding-right: 0px;
     position: relative;
     border-radius: 15px 15px 0 0;
-    border: 2px solid #ced4da;
-    /* Add this */
-    margin: 2rem;
+    border: 1px solid #ced4da;
+    margin: 1rem;
 }
 
 .ai-bot-image {
@@ -48,7 +47,7 @@
     align-items: center;
     justify-content: center;
     padding: 0.5rem 1rem;
-    font-size: 1rem;
+    font-size: 14px;
     font-weight: bold;
     color: #fff;
     border-radius: 8px;
@@ -123,7 +122,7 @@
     padding-bottom: 1rem;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.0);
     position: absolute;
-    top: 70px;
+    top: 60px;
     bottom: 50px;
     flex:1;
 }
@@ -148,7 +147,7 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 1rem;
-    max-width: 80%;
+    max-width: 90%;
 }
 
 .message.user {
@@ -268,10 +267,7 @@
 }
 
 .message-content {
-    padding: 0.5rem 0.5rem;
     border-radius: 1rem;
-    margin-left: 0.1rem;
-    margin-right: 0.1rem;
 }
 
 .message.user .message-content {
@@ -280,16 +276,24 @@
     color: #fff;
 }
 
-.message.user .message-content p {
+.message.user .message-content .message-p {
     align-self: flex-end;
     background-color: transparent;
     color: #fff;
+    font-size: 12px;
 }
 
 .message.ai .message-content {
     align-self: flex-start;
     background-color: transparent;
     color: #000;
+}
+
+.message.ai .message-content .message-p {
+    align-self: flex-start;
+    background-color: transparent;
+    color: #000;
+    font-size: 12px;
 }
 
 .loading-animation {
@@ -315,15 +319,14 @@
 .tab-container {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    width: 50%;
+    justify-content: center;
+    width: 100%;
 }
 
 .tab {
     display: flex;
     align-items: center;
     cursor: pointer;
-    margin-right: 20px;
 }
 
 .tab:hover .tab-text {
@@ -333,7 +336,7 @@
 .tab-text {
     margin-left: 5px;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 16px;
     color: #000;
     transition: color 0.2s;
 }
