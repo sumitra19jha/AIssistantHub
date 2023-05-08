@@ -101,7 +101,7 @@ const CreatePostTab = ({ loading, setLoading }) => {
                 setLoading(false);
                 setApiError("Some issue occurred!");
                 setSnackbarOpen(true);
-                console.log(error)
+                console.log(error);
             });
     };
 
@@ -176,7 +176,9 @@ const CreatePostTab = ({ loading, setLoading }) => {
                     />
                     {!pipelineValid && <div className="error-message">Please select if you want to create a pipeline or not.</div>}
                     <div className="form-divider" />
-                </div><div className="button-container">
+                </div>
+
+                <div className="button-container">
                     <button type="button" className="clear-all" onClick={handleClearAll}>
                         Clear All
                     </button>

@@ -1,0 +1,184 @@
+.appBar {
+    background-color: #ffffff;
+    box-shadow: none;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #3f51b5;
+    padding: 1rem 0;
+    color: #ffffff;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.content {
+    display: flex;
+    flex-grow: row;
+    height: 100%;
+    overflow: hidden;
+    background-color: #F5F7FA;
+}
+
+.leftSide {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    overflow-y: scroll;
+}
+
+.rightSide {
+    flex: 1;
+}
+
+.card {
+    background-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.gridItem {
+    background-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 1rem;
+    position: relative;
+}
+
+.sectionTitle {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    font-size: 16px;
+    color: #3f51b5;
+}
+
+.list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.listItem {
+    margin-bottom: 1rem;
+    display: flex;
+}
+
+.listItemLink {
+    display: flex;
+    width: 100%;
+    text-decoration: none;
+    color: inherit;
+    background-color: #ffffff;
+    border-radius: 5px;
+    padding: 8px;
+    transition: all 0.3s ease;
+}
+
+.listItemLink:hover {
+    background-color: #f5f5f5;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    /* Add this line */
+}
+
+.listItemImage {
+    width: 150px;
+    height: 100px;
+    object-fit: contain;
+    border-radius: 5px;
+    margin-right: 1rem;
+    background-color: #f5f5f5;
+}
+
+.listItemContent {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+}
+
+.listItemTitle {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: calc(100% - 1.5rem);
+}
+
+.listItemDescription {
+    margin: 0;
+    font-size: 14px;
+    color: #333;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.backButton,
+.downloadButton {
+    font-size: 0.9rem;
+}
+
+.seeMoreButton {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #3f51b5;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+    position: absolute;
+    bottom: 8px;
+    right: 16px;
+}
+
+.tabs {
+    display: flex;
+    justify-content: space-around;
+    background-color: #F5F7FA;
+    border-bottom: 1px solid #ccc;
+    padding: 1rem 0;
+}
+
+.tab {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.tab:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+}
+
+.activeTab {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+}
+
+.seo-icon {
+    font-size: 24px;
+    margin-right: 5px;
+}

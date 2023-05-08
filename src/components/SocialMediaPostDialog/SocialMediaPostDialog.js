@@ -10,7 +10,7 @@ const SocialMediaPostDialog = ({ onClose }) => {
     return (loading ? <LoadingScreen /> :
         (<div className="social-media-post-dialog-overlay">
             <div className="social-media-post-dialog">
-                <Header onClose={onClose} />
+                <Header name="Social Media Post" onClose={onClose} />
                 <div className="dialog-content">
                     <CreatePostTab loading={loading} setLoading={setLoading} />
                 </div>

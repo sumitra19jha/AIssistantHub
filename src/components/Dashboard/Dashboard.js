@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FaBars } from "react-icons/fa";
-import { FaFileCode, FaSearch, FaImage, FaBlogger, FaFileAlt, FaEnvelope } from "react-icons/fa";
+import { FaSearch, FaImage, FaBlogger, FaFileAlt, FaEnvelope } from "react-icons/fa";
 
 import "./Dashboard.css";
 import Sidebar from "./Sidebar";
@@ -17,9 +17,11 @@ const Dashboard = () => {
     const [selectedAI, setSelectedAI] = useState("Proton");
     const [showMobileSidebar, setShowMobileSidebar] = useState(false);
 
+    /*
     const handleUploadClick = (event) => {
         event.preventDefault();
     };
+    */
 
     const toggleMobileSidebar = () => {
         setShowMobileSidebar(!showMobileSidebar);
@@ -39,11 +41,13 @@ const Dashboard = () => {
         setShowSocialMediaPostDialog(false);
     };
 
+    /*
     const handleOptionClick = (event) => {
         if (event.target.tagName !== "BUTTON") {
             setShowContentGenerationDialog(true);
         }
     };
+    */
 
     const handleSeoOptionClick = (event) => {
         if (event.target.tagName !== "BUTTON") {

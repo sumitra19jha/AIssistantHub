@@ -16,6 +16,7 @@ import { ProjectProvider } from './context/ProjectContext';
 import { SubscriptionProvider } from './context/SubscriptionContext';
 import HelpCenter from './pages/HelpCenter/HelpCenter';
 import useSession from './components/useToken';
+import SeoAnalysis from './components/SeoAnalysis/SeoAnalysis';
 
 function App() {
   const {session, setSession} = useSession();
@@ -30,6 +31,7 @@ function App() {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/content-review" element={<ContentReview />} />
               <Route path="/seo-editor" element={<SEOEditor />} />
+              <Route path="/seo" element={<SeoAnalysis />} />
               <Route path="/user-subscription" element={<UserSubscription />} />
               <Route path="/help" element={<HelpCenter />} />
 
