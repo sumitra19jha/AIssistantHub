@@ -1,0 +1,51 @@
+.empty-component-bg {
+    background-color: transparent;
+    padding: 2rem 0;
+    border-radius: 1rem;
+    width: 100%;
+}
+
+
+.lead {
+    color: var(--text-color);
+    text-align: center;
+}
+
+.features {
+    margin-top: 2rem;
+    background-color: transparent;
+    margin-top: 80px;
+    margin-bottom: 25px;
+}
+
+.feature {
+    text-align: center;
+    padding: 1rem;
+}
+
+.feature h3 {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.feature p {
+    font-size: 0.9rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    color: var(--text-color);
+}
+
+/* Add button styling */
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--text-color);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.btn-primary:hover {
+    background-color: var(--hover-color);
+    border-color: var(--hover-color);
+    color: var(--text-color);
+}

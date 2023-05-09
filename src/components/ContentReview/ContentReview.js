@@ -8,7 +8,7 @@ import ContentArea from './ContentArea/ContentArea';
 import AIBot from '../AIBot/AIBot.js';
 import Header from './Header/Header';
 import api from "../../services/api";
-import "./ContentReview.css";
+import styles from "./ContentReview.module.css";
 
 const ContentReview = () => {
     const session = useSession();
@@ -59,10 +59,19 @@ const ContentReview = () => {
     }, [parsedQuery.contentId]);
 
     return (
-        <div className="app-container">
-            <Header title={parsedQuery.topic} onSave={handleSave} getContentHTML={getContentHTML} onExport={handleExport} />
-            <div className="area-split">
-                <ContentArea contentData={parsedQuery.generatedContent} contentId={parsedQuery.contentId} setGetContentHTML={(fn) => { getContentHTMLRef.current = fn; }} />
+        <div className={styles.app_container}>
+            <Header 
+                title={parsedQuery.topic} 
+                onSave={handleSave} 
+                getContentHTML={getContentHTML} 
+                onExport={handleExport} 
+            />
+            <div className={styles.area_split}>
+                <ContentArea 
+                    contentData={parsedQuery.generatedContent} 
+                    contentId={parsedQuery.contentId} 
+                    setGetContentHTML={(fn) => { getContentHTMLRef.current = fn; }} 
+                />
                 <AIBot contentId={parsedQuery.contentId} />
             </div>
         </div>

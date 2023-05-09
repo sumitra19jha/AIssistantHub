@@ -1,14 +1,15 @@
 .container {
-    background-color: #fff;
+    background-color: var(--background-color);
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .title {
-    font-size: 24px;
-    color: #333;
+    font-size: 16px;
+    color: var(--text-color);
     margin-bottom: 20px;
+    margin-top: 0px;
 }
 
 .mapList {
@@ -19,14 +20,15 @@
 }
 
 .mapItem {
-    flex: 0 0 300px;
-    background-color: #fff;
+    flex: 0 0 200px;
+    background-color: var(--text-color);
+    border: 1px solid var(--text-color);
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s;
-    display: flex;
-    flex-direction: column;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .mapItem:hover {
@@ -56,18 +58,19 @@
 }
 
 .createContentButton {
-    background-color: #333;
-    color: #fff;
-    padding: 10px;
-    border-radius: 0 0 10px 10px;
+    background-color:  var(--background-color);
+    color: var(--text-color);
+    padding: 7px 15px;
+    border-radius: 5px;
     border: none;
-    font-size: 16px;
+    font-size: 14px;
     cursor: pointer;
+    font-weight: 700;
     transition: background-color 0.3s;
 }
 
 .createContentButton:hover {
-    background-color: #555;
+    background-color: var(--hover-color);
 }
 
 .showMoreButton {

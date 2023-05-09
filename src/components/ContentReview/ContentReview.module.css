@@ -1,20 +1,20 @@
-.app-container {
+.app_container {
     display: flex;
     flex-direction: column;
     height: 100vh;
     font-family: 'Open Sans', sans-serif;
 }
 
-.area-split {
+.area_split {
     display: flex;
     flex-direction: row;
     height: 100%;
     overflow: hidden;
-    background-color: #F5F7FA;
+    background-color: var(--background-color-3);
 }
 
 @media screen and (max-width: 768px) {
-    .area-split {
+    .area_split {
         flex-direction: column;
     }
 }

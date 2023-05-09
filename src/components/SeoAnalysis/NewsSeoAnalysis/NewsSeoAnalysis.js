@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './NewsSeoAnalysis.module.css';
+import classes from '../SearchAnalysis.module.css';
 
 const NewsSeoAnalysis = ({ newsData, suggestionTitles, onCreateContent }) => {
   if (newsData.loading) {

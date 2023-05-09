@@ -1,13 +1,14 @@
 import React from 'react';
-import './Header.css';
+import styles from './Header.module.css';
 
-const Header = ({name, onClose}) => {
+const Header = ({ name, onClose }) => {
     return (
-        <div className="headerContainer">
-            <button className="close-button-social-media-dialog" onClick={onClose}>
+        <div className={styles.headerContainer}>
+
+            <h1 className={styles.title_social_media_dialog}>{name}</h1>
+            <button className={styles.close_button_social_media_dialog} onClick={onClose}>
                 &times;
             </button>
-            <h1 className="title-social-media-dialog">{name}</h1>
         </div>
     );
 };

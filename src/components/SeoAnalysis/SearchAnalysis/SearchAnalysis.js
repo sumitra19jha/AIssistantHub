@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './SearchAnalysis.module.css';
+import classes from '../SearchAnalysis.module.css';
 
 const SearchAnalysis = ({ searchData, suggestionTitles, onCreateContent }) => {
   if (searchData.loading) {
@@ -45,7 +45,7 @@ const SearchAnalysis = ({ searchData, suggestionTitles, onCreateContent }) => {
     <div className={classes.container}>
       <h2 className={classes.title}>Search SEO Analysis</h2>
       <div className={classes.newsList}>
-        {searchData.data.data.slice(0, 3).map(renderNewsItem)}
+        {searchData.data.data.slice(0, 5).map(renderNewsItem)}
         <button className={classes.showMoreButton}>Show more</button>
       </div>
       <h3 className={classes.suggestionTitle}>Suggested Titles:</h3>

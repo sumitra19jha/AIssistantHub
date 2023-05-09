@@ -8,7 +8,7 @@ import api from "../../services/api";
 import Header from "../SocialMediaPostDialog/Header/Header";
 import LoadingScreen from "../LoadingScreen/LoadingScreen";
 
-import "./SeoOptimisationDialog.css";
+import styles from "./SeoOptimisationDialog.module.css";
 
 const SeoOptimisationDialog = ({ onClose }) => {
     const session = useSession();
@@ -16,7 +16,6 @@ const SeoOptimisationDialog = ({ onClose }) => {
     const [businessType, setBusinessType] = useState('');
     const [targetAudience, setTargetAudience] = useState('');
     const [industry, setIndustry] = useState('');
-    //const [goals, setGoals] = useState([]);
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [apiError, setApiError] = useState("");
     const history = useNavigate();
@@ -25,13 +24,12 @@ const SeoOptimisationDialog = ({ onClose }) => {
     const [businessTypeValid, setBusinessTypeValid] = useState(true);
     const [targetAudienceValid, setTargetAudienceValid] = useState(true);
     const [industryValid, setIndustryValid] = useState(true);
-    // const [goalsValid, setGoalsValid] = useState(true);
 
     // Add a function to close the snackbars
     const handleCloseSnackbar = () => {
         setSnackbarOpen(false);
     };
-    
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -51,11 +49,6 @@ const SeoOptimisationDialog = ({ onClose }) => {
             setIndustryValid(false);
             formValid = false;
         }
-
-        // if (goals.length === 0) {
-        //     setGoalsValid(false);
-        //     formValid = false;
-        // }
 
         if (!formValid) {
             return;
@@ -80,7 +73,7 @@ const SeoOptimisationDialog = ({ onClose }) => {
                 setLoading(false);
                 if (response.data.success) {
                     // Continue with form submission
-                    console.log("Project Id:",response.data.data.id)
+                    console.log("Project Id:", response.data.data.id)
                     history('/seo', {
                         state: {
                             data: {
@@ -107,23 +100,24 @@ const SeoOptimisationDialog = ({ onClose }) => {
         setTargetAudience('');
         setTargetAudience('');
         setIndustry('');
-        //setGoals([]);
 
         // Reset validation states
         setBusinessTypeValid(true);
         setTargetAudienceValid(true);
         setIndustryValid(true);
-        //setGoalsValid(true);
     };
 
     return (loading ? <LoadingScreen /> :
-        (<div className="seo-dialog__overlay">
-            <div className="seo-dialog">
+        (<div className={styles.seo_dialog__overlay}>
+            <div className={styles.seo_dialog}>
+
                 <Header name="SEO Optimisation" onClose={onClose} />
-                <div className="seo-dialog__dialog-content">
-                    <div className="seo-dialog__form-elements">
+
+                <div className={styles.seo_dialog__dialog_content}>
+                    <div className={styles.seo_dialog__form_elements}>
                         <form onSubmit={handleSubmit}>
-                            <div className="seo-dialog__form-content">
+                            <div className={styles.seo_dialog__form_content}>
+
                                 {/* Business Type */}
                                 <label htmlFor="businessType">Business Type:</label>
                                 <textarea
@@ -133,8 +127,7 @@ const SeoOptimisationDialog = ({ onClose }) => {
                                     onChange={(e) => setBusinessType(e.target.value)}
                                     placeholder="Enter type of business"
                                 />
-                                {!businessTypeValid && <div className="error-message">Please provide a Business Type.</div>}
-                                <div className="form-divider" />
+                                {!businessTypeValid && <div className={styles.error_message}>Please provide a Business Type.</div>}
 
                                 {/* Target Audience */}
                                 <label htmlFor="targetAudience">Target Audience:</label>
@@ -145,8 +138,7 @@ const SeoOptimisationDialog = ({ onClose }) => {
                                     onChange={(e) => setTargetAudience(e.target.value)}
                                     placeholder="Enter target audience"
                                 />
-                                {!targetAudienceValid && <div className="error-message">Please provide your target audience.</div>}
-                                <div className="form-divider" />
+                                {!targetAudienceValid && <div className={styles.error_message}>Please provide your target audience.</div>}
 
                                 {/* Industry */}
                                 <label htmlFor="industry">Industry:</label>
@@ -157,105 +149,16 @@ const SeoOptimisationDialog = ({ onClose }) => {
                                     onChange={(e) => setIndustry(e.target.value)}
                                     placeholder="Enter type of Industry"
                                 />
-                                {!industryValid && <div className="error-message">Please provide a Industry.</div>}
-                                <div className="form-divider" />
-
-                                {/* Goals 
-                                <label>Goals:</label>
-                                <div className="seo-dialog__form-content--checkboxes">
-                                    <div className="seo-dialog__form-content--checkbox">
-                                        <input
-                                            type="checkbox"
-                                            id="increaseRanking"
-                                            value="Increase Website Ranking"
-                                            checked={goals.includes('Increase Website Ranking')}
-                                            onChange={(e) => {
-                                                const isChecked = e.target.checked;
-                                                setGoals((prevGoals) => {
-                                                    if (isChecked) {
-                                                        return [...prevGoals, e.target.value];
-                                                    } else {
-                                                        return prevGoals.filter((goal) => goal !== e.target.value);
-                                                    }
-                                                });
-                                            }}
-                                        />
-                                        <label type="checkbox-title" htmlFor="increaseRanking">Increase Website Ranking</label>
-                                    </div>
-                                    <div className="seo-dialog__form-content--checkbox">
-                                        <input
-                                            type="checkbox"
-                                            id="driveTraffic"
-                                            value="Drive More Traffic"
-                                            checked={goals.includes('Drive More Traffic')}
-                                            onChange={(e) => {
-                                                const isChecked = e.target.checked;
-                                                setGoals((prevGoals) => {
-                                                    if (isChecked) {
-                                                        return [...prevGoals, e.target.value];
-                                                    } else {
-                                                        return prevGoals.filter((goal) => goal !== e.target.value);
-                                                    }
-                                                });
-                                            }}
-                                        />
-                                        <label type="checkbox-title" htmlFor="driveTraffic">Drive More Traffic</label>
-                                    </div>
-                                    <div className="seo-dialog__form-content--checkbox">
-                                        <input
-                                            type="checkbox"
-                                            id="improveConversion"
-                                            value="Improve Conversion Rate"
-                                            checked={goals.includes('Improve Conversion Rate')}
-                                            onChange={(e) => {
-                                                const isChecked = e.target.checked;
-                                                setGoals((prevGoals) => {
-                                                    if (isChecked) {
-                                                        return [...prevGoals, e.target.value];
-                                                    } else {
-                                                        return prevGoals.filter((goal) => goal !== e.target.value);
-                                                    }
-                                                });
-                                            }}
-                                        />
-                                        <label type="checkbox-title" htmlFor="improveConversion">Improve Conversion Rate</label>
-                                    </div>
-                                    <div className="seo-dialog__form-content--checkbox">
-                                        <input
-                                            type="checkbox"
-                                            id="buildBrandAwareness"
-                                            value="Build Brand Awareness"
-                                            checked={goals.includes('Build Brand Awareness')}
-                                            onChange={(e) => {
-                                                const isChecked = e.target.checked;
-                                                setGoals((prevGoals) => {
-                                                    if (isChecked) {
-                                                        return [...prevGoals, e.target.value];
-                                                    } else {
-                                                        return prevGoals.filter((goal) => goal !== e.target.value);
-                                                    }
-                                                });
-                                            }}
-                                        />
-                                        <label type="checkbox-title" htmlFor="buildBrandAwareness">Build Brand Awareness</label>
-                                    </div>
-                                </div>
-                                {!goalsValid && <div className="error-message">Please select goals.</div>}
-                                <div className="form-divider" />
-                                */}
+                                {!industryValid && <div className={styles.error_message}>Please provide a Industry.</div>}
                             </div>
 
                             {/* Add Buttons */}
-                            <div className="seo-dialog__button-container">
-                                <button type="button" className="seo-dialog__clear-all" onClick={handleClearAll}>
+                            <div className={styles.seo_dialog__button_container}>
+                                <button type="button" className={styles.seo_dialog__clear_all} onClick={handleClearAll}>
                                     Clear All
                                 </button>
-                                <button type="submit" className="seo-dialog__create-post">
-                                    {loading ? ( // Conditionally render the spinner based on the loading state
-                                        <Spinner animation="border" size="sm" />
-                                    ) : (
-                                        "Analyse SEO"
-                                    )}
+                                <button type="submit" className={styles.seo_dialog__create_post}>
+                                    Analyse SEO
                                 </button>
                             </div>
                         </form>

@@ -26,7 +26,7 @@
     flex-grow: row;
     height: 100%;
     overflow: hidden;
-    background-color: #F5F7FA;
+    background-color: var(--background-color-2);
 }
 
 .leftSide {
@@ -153,8 +153,9 @@
 .tabs {
     display: flex;
     justify-content: space-around;
-    background-color: #F5F7FA;
-    border-bottom: 1px solid #ccc;
+    background-color: var(--background-color-2);
+    border: 1px solid var(--text-color);
+    border-radius: 25px;
     padding: 1rem 0;
 }
 

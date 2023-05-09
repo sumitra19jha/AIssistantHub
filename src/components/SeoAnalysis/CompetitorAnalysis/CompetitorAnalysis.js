@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './CompetitorAnalysis.module.css';
+import classes from '../SearchAnalysis.module.css';
 
 const CompetitorAnalysis = ({ compData, suggestionTitles, onCreateContent }) => {
   if (compData.loading) {

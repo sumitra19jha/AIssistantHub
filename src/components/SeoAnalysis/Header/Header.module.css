@@ -1,17 +1,16 @@
-.content-editor-header {
+.content_editor_header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 1rem 1.5rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0);
-    background-image: linear-gradient(135deg, #9acfea 0%, #ff9a9e 100%);
-    background-color: transparent !important;
+    background-color: var(--background-color-2);
     position: sticky;
     top: 0;
     z-index: 100;
 }
 
-.arrow-back-container {
+.arrow_back_container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -22,11 +21,11 @@
     transition: background-color 0.2s ease;
 }
 
-.arrow-back-container:hover {
+.arrow_back_container:hover {
     background-color: #333;
 }
 
-.vertical-divider {
+.vertical_divider {
     height: 2.8rem;
     width: 1px;
     background-color: #888;
@@ -34,13 +33,13 @@
     margin-right: 1.4rem;
 }
 
-.arrow-back-icon {
+.arrow_back_icon {
     fill: #fff;
     height: 2em;
     width: 2em;
 }
 
-.header-title {
+.header_title {
     flex-grow: 1;
     font-size: 18px;
     font-weight: bold;
@@ -51,7 +50,7 @@
     margin: 0 1rem;
 }
 
-.header-button {
+.header_button {
     font-weight: 500;
     padding: 0.6rem 1.4rem;
     border-radius: 8px;
@@ -65,12 +64,12 @@
     width: fit-content;
 }
 
-.header-button-cancel:hover,
-.header-button-create-new:hover {
+.header_button_cancel:hover,
+.header_button_create_new:hover {
     background-color: #f0f0f0;
 }
 
-.header-button-save {
+.header_button_save {
     background-color: #6b5be2;
     color: #fff;
     border: 0.1px solid #ffffff00;
@@ -78,11 +77,11 @@
     transition: background-color 0.2s ease;
 }
 
-.header-button-save:hover {
+.header_button_save:hover {
     background-color: #5747d6;
 }
 
-.loading-spinner {
+.loading_spinner {
     display: inline-block;
     width: 30px;
     height: 30px;

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { IoIosArrowBack } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
 
-import './Header.css';
+import styles from './Header.module.css';
 
 const Header = ({ title, onSave, getContentHTML, onExport }) => {
     const navigate = useNavigate();
@@ -43,21 +43,21 @@ const Header = ({ title, onSave, getContentHTML, onExport }) => {
     };
 
     return (
-        <div className="content-editor-header">
-            <div className="arrow-back-container" onClick={handleArrowBackClick}>
-                <IoIosArrowBack className="arrow-back-icon" />
+        <div className={styles.content_editor_header}>
+            <div className={styles.arrow_back_container} onClick={handleArrowBackClick}>
+                <IoIosArrowBack className={styles.arrow_back_icon} />
             </div>
 
             {/* Title */}
-            <h2 className="header-title" title={title}>{title}</h2>
+            <h2 className={styles.header_title} title={title}>{title}</h2>
 
             {/* Buttons */}
-            <button className="header-button header-button-cancel" onClick={shareOnLinkedIn}>Share</button>
-            
-            <div className="vertical-divider" />
+            <button className={`${styles.header_button} ${styles.header_button_cancel}`} onClick={shareOnLinkedIn}>Share</button>
 
-            <button className="header-button header-button-create-new" onClick={exportContent}>{isExportLoading ? <div className="loading-spinner" /> : "Export"}</button>
-            <button className="header-button header-button-save" onClick={saveContent}>{isLoading ? <div className="loading-spinner" /> : "Save"}</button>
+            <div className={styles.vertical_divider} />
+
+            <button className={`${styles.header_button} ${styles.header_button_create_new}`} onClick={exportContent}>{isExportLoading ? <div className={styles.loading_spinner} /> : "Export"}</button>
+            <button className={`${styles.header_button} ${styles.header_button_save}`} onClick={saveContent}>{isLoading ? <div className={styles.loading_spinner} /> : "Save"}</button>
         </div>
     );
 };

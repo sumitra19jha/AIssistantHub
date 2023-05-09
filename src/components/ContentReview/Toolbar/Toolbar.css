@@ -17,7 +17,7 @@
     cursor: pointer;
     border-radius: 5px;
     padding: 4px;
-    color: #757575;
+    color: var(--text-color);
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
@@ -34,21 +34,20 @@
 }
 
 .copy-button {
-    background-color: #FFFFFF;
+    background-color: var(--primary-color);
     border: 1px solid #e1e1e1;
     border-radius: 0.5rem;
     font-size: 1rem;
     padding: 0.5rem 1rem;
     cursor: pointer;
-    margin-right: 1rem;
+    margin-right: 0rem;
     margin-bottom: 10px;
     display: flex;
     align-items: center;
-    color: #757575;
+    color: var(--text-color);
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .copy-button:hover {
-    background-color: #f1f1f1;
-    color: #5a5a5a;
+    background-color: var(--hover-color);
 }

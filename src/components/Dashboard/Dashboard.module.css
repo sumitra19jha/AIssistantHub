@@ -1,0 +1,106 @@
+:root {
+  --dashboard-bg-color: #f0f2f5;
+  --new-project-title-color: #333;
+  --options-component-bg-color: linear-gradient(135deg, #9acfea 0%, #ff9a9e 100%);
+  --options-component-text-color: #ffffff;
+  --options-component-divider-color: #e0e0e0;
+  --box-shadow-light: 0px 5px 15px rgba(0, 0, 0, 0.1);
+  --box-shadow-dark: 0px 10px 20px rgba(0, 0, 0, 0.2);
+
+  --primary-color: #3b4b5d;
+  --background-color: #222831;
+  --background-color-2: rgba(86,88,105,1);
+  --hover-color: #f6c90e;
+  --text-color: #f8f9fa;
+  --text-color-2: #acb9c7;
+  --divider-color: rgba(255, 255, 255, 0.1);
+
+  --font-family: 'Open Sans', sans-serif;
+  --font-size-base: 14px;
+}
+
+.dashboard {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  background-color: rgba(86,88,105,1);
+}
+
+.dashboard__dashboard_main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0rem;
+  overflow-y: scroll;
+  background-color: var(--background-color-2);
+}
+
+.dashboard__dashboard_content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dashboard__dashboard_documents {
+  flex: 1;
+  margin-bottom: 3rem;
+  width: 100%;
+}
+
+.dashboard__dashboard_documents h2 {
+  font-size: 28px;
+  font-weight: bold;
+  color: var(--new-project-title-color);
+  text-align: left;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+@media screen and (max-width: 425px) {
+  .dashboard__dashboard_main {
+    padding: 1rem;
+  }
+}
+
+.sidebar__desktop_view {
+  display: flex;
+  width: 100%;
+  max-width: 300px;
+}
+
+.sidebar__mobile_view {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: fit-content;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10;
+  padding: 0rem;
+  justify-content: center;
+  /* Add transition for the transform property */
+  transition: transform 0.3s ease-in-out;
+}
+
+.sidebar__mobile_view.open {
+  display: flex;
+}
+
+.sidebar__mobile_view__close_icon {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  cursor: pointer;
+  color: white;
+}
+
+@media screen and (max-width: 768px) {
+  .sidebar__mobile_view {
+    display: flex;
+  }
+
+  .sidebar__desktop_view {
+    display: none;
+  }
+}

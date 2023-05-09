@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './ProjectCard.css';
+import styles from './ProjectCard.module.css';
 
 const ProjectCard = forwardRef(({ project }, ref) => {
     const { content_id, created_at, type, topic, length, model_response, html_form } = project;
@@ -15,15 +15,15 @@ const ProjectCard = forwardRef(({ project }, ref) => {
     };
 
     return (
-        <div className="project-card" onClick={onCardClick} ref={ref}>
-            <div className="project-card__gradient-overlay"></div>
-            <div className="project-card__header">
-                <div className="project-card__project-type">{type}</div>
-                <div className="project-card__project-date">{created_at}</div>
+        <div className={styles.project_card} onClick={onCardClick} ref={ref}>
+            <div className={styles.project_card__gradient_overlay}></div>
+            <div className={styles.project_card__header}>
+                <div className={styles.project_card__project_type}>{type}</div>
+                <div className={styles.project_card__project_date}>{created_at}</div>
             </div>
-            <div className="project-card__project-topic">{topic}</div>
-            <div className="project-card__project-length">{length}</div>
-            <div className="project-card__project-description">{model_response}</div>
+            <div className={styles.project_card__project_topic}>{topic}</div>
+            <div className={styles.project_card__project_length}>{length}</div>
+            <div className={styles.project_card__project_description}>{model_response}</div>
         </div>
     );
 });

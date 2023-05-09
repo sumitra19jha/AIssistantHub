@@ -3,7 +3,8 @@ import ProjectCard from './ProjectCard/ProjectCard';
 import { ProjectContext } from '../../context/ProjectContext';
 import useSession from '../useToken';
 import api from '../../services/api';
-import './ProjectHistory.css';
+import EmptyComponent from './EmptyComponent';
+import styles from './ProjectHistory.module.css';
 
 const ProjectHistory = () => {
     const perPage = 12;
@@ -62,25 +63,19 @@ const ProjectHistory = () => {
     };
 
     return (
-        <div className="project-history">
-            {projects.length > 0 ? (
-                projects.map((project, index) => (
-                    <ProjectCard
-                        key={index}
-                        project={project}
-                        ref={index === projects.length - 1 ? lastProjectCardRef : null}
-                    />
-                ))
-            ) : (
-                <div className="project-history__no-project-history">
-                    <div className="project-history__no-project-history-icon">
-                        {/* ... */}
-                    </div>
-                    <h2>No Project History</h2>
-                    <p>There are no projects in your history. Start by creating a new project.</p>
-                </div>
-            )}
-        </div>
+        <>
+            {projects.length > 0 ? (<div className={styles.project_history}>
+                {
+                    projects.map((project, index) => (
+                        <ProjectCard
+                            key={index}
+                            project={project}
+                            ref={index === projects.length - 1 ? lastProjectCardRef : null}
+                        />
+                    ))
+                }
+            </div>) : <EmptyComponent />}
+        </>
     );
 };
 

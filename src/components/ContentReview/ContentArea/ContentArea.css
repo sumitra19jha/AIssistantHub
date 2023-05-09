@@ -9,7 +9,7 @@
     display: flex;
     flex-direction: column;
     padding: 2rem;
-    background-color: #F5F7FA;
+    background-color: var(--background-color-2);
     overflow-y: auto;
     height: 100%;
 }
@@ -17,14 +17,14 @@
 .editor {
     cursor: text;
     min-height: 200px;
-    padding: 10px;
-    background-color: #FFFFFF;
+    padding: 20px;
+    background-color: var(--background-color);
     border-radius: 6px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .public-DraftStyleDefault-ltr {
-    color: rgb(14, 16, 26);
+    color: var(--text-color);
     font-size: calc(1 * var(--rem));
     font-weight: 400;
     letter-spacing: calc(0 * var(--rem));
