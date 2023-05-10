@@ -164,7 +164,7 @@ const SidebarComponent = () => {
                                     Social Media Post
                                 </Link>
                             </li>
-                            <li>
+                            {/* <li>
                                 <Link to="/seo-optimization" className={`${sidebarStyle.sidebar__page_link} ${isActive("/seo-optimization")}`}>
                                     <FaPlus className={sidebarStyle.sidebar__menu_icon} />
                                     Blog Creation
@@ -193,7 +193,7 @@ const SidebarComponent = () => {
                                     <FaPlus className={sidebarStyle.sidebar__menu_icon} />
                                     Product Description
                                 </Link>
-                            </li>
+                            </li> */}
                         </div>
 
                     </li>

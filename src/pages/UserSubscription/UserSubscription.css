@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: row;
     height: 100vh;
-    background-color: var(--dashboard-bg-color);
+    background-color: var(--background-color);
 }
 
 .user-subscription__subscription-content {
@@ -24,13 +24,13 @@
     padding: 8px 16px;
     border-radius: 4px;
     transition: background-color 0.3s ease, color 0.3s ease;
-    background-color: #1a73e8;
-    color: white;
+    background-color: var(--primary-color);
+    color: var(--text-color);
 }
 
 .user-subscription__btn-purchase:hover {
-    background-color: #1a73e8;
-    color: #ffffff;
+    background-color: var(--hover-color);
+    color: var(--text-color);
 }
 
 .user-subscription__header {
@@ -44,7 +44,7 @@
 .user-subscription__header h2 {
     font-size: 2rem;
     font-weight: bold;
-    color: var(--new-project-title-color);
+    color: var(--text-color);
 }
 
 .user-subscription__tab-components__tab1,
@@ -70,12 +70,12 @@
 }
 
 .btn-filter:hover {
-    background-color: #1a73e8;
-    color: #ffffff;
+    background-color: var(--hover-color);
+    color: var(--text-color);
 }
 
 .table-container {
-    background-color: #fff;
+    background-color: var(--background-color-2);
     border-radius: 10px;
     box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
@@ -85,12 +85,13 @@
 .table-header {
     display: flex;
     justify-content: space-between;
-    background-color: #fff;
+    background-color: var(--background-color-2);
     padding: 0.5rem;
     font-weight: bold;
     border-radius: 10px;
     margin-bottom: 1rem;
     width: 100%;
+    color: var(--text-color);
 }
 
 .table-header span {
@@ -108,7 +109,7 @@
     border-radius: 5px;
     margin-bottom: 0.5rem;
     transition: background-color 0.3s ease, color 0.3s ease;
-    background-color: rgb(227, 227, 227);
+    background-color: rgba(255, 255, 255, 0.1);
     width: 100%;
 }
 
@@ -118,6 +119,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    color: var(--text-color-2);
 }
 
 .table-row:hover {
@@ -142,7 +144,7 @@
 }
 
 .table-row a {
-    color: #007bff;
+    color: var(--hover-color);
     text-decoration: none;
 }
 
@@ -150,7 +152,7 @@
     font-size: 2rem;
     margin-bottom: 30px;
     font-weight: bold;
-    color: black;
+    color: var(--text-color);
 }
 
 .user-subscription__tab-components {
@@ -218,4 +220,15 @@
         padding: 0.3rem;
         margin-bottom: 0.3rem;
     }
+}
+
+
+.dashboard__ai-selection {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
 }

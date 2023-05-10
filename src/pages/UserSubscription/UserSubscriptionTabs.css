@@ -6,19 +6,20 @@
     letter-spacing: 1px;
     padding: 0.5rem 1rem;
     border-radius: 25px;
-    background-color: #f7f7f7;
-    transition: #f7f7f7 0.3s ease, color 0.3s ease;
+    background-color: var(--background-color-2);
+    transition: background-color 0.3s ease, color 0.3s ease;
     margin-right: 1rem;
+    color: var(--text-color-2);
 }
 
 .user-subscription-tab__subscription-tab:hover {
-    background-color: #c7c716e3;
-    color: #ffffff;
+    background-color: var(--hover-color);
+    color: var(--text-color);
 }
 
 .user-subscription-tab__subscription-tab.active {
-    background-color: #c7c716e3;
-    color: #ffffff;
+    background-color: var(--hover-color);
+    color: var(--text-color);
     position: relative;
 }
 
@@ -32,7 +33,7 @@
     height: 0;
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
-    border-bottom: 5px solid #1a73e8;
+    border-bottom: 5px solid var(--hover-color);
 }
 
 @media (max-width: 768px) {

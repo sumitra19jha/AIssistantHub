@@ -16,18 +16,16 @@ const DataComponent = ({ subscriptionData }) => {
     return (
         <div className="table-container">
             <div className="table-header">
-                <span>Started on</span>
-                <span>AI Name</span>
-                <span>Salary Cycle</span>
-                <span>Salary</span>
-                <span>Salary Status</span>
+                <span>Date</span>
+                <span>Points</span>
+                <span>Price</span>
+                <span>Status</span>
             </div>
             {subscriptionData.map((subscription) => (
                 <div key={subscription.date} className={"table-row"}>
                     <span>{subscription.date}</span>
-                    <span>{subscription.name}</span>
-                    <span>{subscription.cycle}</span>
-                    <span>{subscription.salary}</span>
+                    <span>{subscription.points}</span>
+                    <span>{subscription.price}</span>
                     <span>{subscription.status}</span>
                 </div>
             ))}
@@ -125,9 +123,13 @@ const UserSubscription = () => {
 
             <div className="user-subscription__subscription-content">
                 <div className="dashboard__ai-selection">
-                    <div className="dashboard__hamburger-icon" onClick={toggleMobileSidebar}>
-                        <FaBars />
-                    </div>
+                    {showMobileSidebar &&
+                        (
+                            <div className="dashboard__hamburger-icon" onClick={toggleMobileSidebar}>
+                                <FaBars />
+                            </div>
+                        )}
+
                     <Button variant="outline-primary" className="user-subscription__btn-purchase">
                         Purchase
                     </Button>
