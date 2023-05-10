@@ -182,7 +182,7 @@ const SeoAnalysis = () => {
                     {/* Render active tab content */}
                     {renderSectionContent(sections[activeTab])}
                 </div>
-                <AIBotForSEO contentId={1} />
+                {/* <AIBotForSEO contentId={1} /> */}
             </div>
 
             <Dialog isOpen={dialogData.isOpen} title={dialogData.title} data={dialogData.data} renderItem={sections.find(s => s.title === dialogData.title)?.renderItem} onClose={handleCloseDialog} />

@@ -1,11 +1,12 @@
 // Import dependencies
 import React, { useEffect, useState, useContext, useRef } from 'react';
-import ProjectCard from './ProjectCard/ProjectCard';
-import { ProjectContext } from '../../context/ProjectContext';
-import useSession from '../useToken';
+
 import api from '../../services/api';
+import useSession from '../useToken';
 import EmptyComponent from './EmptyComponent';
 import styles from './ProjectHistory.module.css';
+import ProjectCard from './ProjectCard/ProjectCard';
+import { ProjectContext } from '../../context/ProjectContext';
 
 // Main component
 const ProjectHistory = () => {
@@ -17,17 +18,20 @@ const ProjectHistory = () => {
     const lastSeoProjectCardRef = useRef();
 
     const [page, setPage] = useState(1);
+    const [pageSeo, setPageSeo] = useState(1);
 
     const [firstLoadingProjects, setFirstLoadingProjects] = useState(true);
     const [firstLoadingSeoProjects, setFirstLoadingSeoProjects] = useState(true);
 
-    const { projects, setProjects, totalPages, setTotalPages } = useContext(ProjectContext);
+    const {
+        projects, setProjects,
+        totalPages, setTotalPages,
+        seoProjects, setSeoProjects,
+        totalPagesSeo, setTotalPagesSeo
+    } = useContext(ProjectContext);
 
     // Add a new state variable for the active tab and SEO projects
     const [activeTab, setActiveTab] = useState('projects');
-    const [seoProjects, setSeoProjects] = useState([]);
-    const [pageSeo, setPageSeo] = useState(1);
-    const [totalPagesSeo, setTotalPagesSeo] = useState(0);
 
     // Fetch projects when the page changes
     useEffect(() => {
@@ -115,7 +119,7 @@ const ProjectHistory = () => {
     const fetchSeoProjects = async () => {
         if (pageSeo > totalPagesSeo && !firstLoadingSeoProjects) { return; }
         // Fetch SEO projects using the API and update the seoProjects state
-        api.get(`https://backend.assistanthub.in/dashboard/history/seo?page=${pageSeo}&per_page=${perPage}`, {
+        api.get(`/dashboard/history/seo?page=${pageSeo}&per_page=${perPage}`, {
             headers: {
                 "Authorization": `Bearer ${session.session}`
             }
@@ -163,6 +167,7 @@ const ProjectHistory = () => {
                             (activeTab === 'projects' ? projects : seoProjects).map((project, index) => (
                                 <ProjectCard
                                     key={project.id} // 'project.id' should be the actual unique identifier
+                                    cardType={activeTab === 'projects' ? 'project' : 'seo'}
                                     project={project}
                                     ref={index === (activeTab === 'projects' ? projects : seoProjects).length - 1
                                         ? (activeTab === 'projects' ? lastProjectCardRef : lastSeoProjectCardRef)

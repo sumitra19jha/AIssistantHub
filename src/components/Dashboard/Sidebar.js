@@ -131,8 +131,8 @@ const SidebarComponent = () => {
                 <div className={sidebarStyle.sidebar__company_name}>
                     <select className={sidebarStyle.header__ai_dropdown}>
                         <option value="ai1">Content Writer AI</option>
-                        <option value="ai2">AI 2</option>
-                        <option value="ai3">AI 3</option>
+                        {/* <option value="ai2">AI 2</option>
+                        <option value="ai3">AI 3</option> */}
                     </select>
                 </div>
             </div>
