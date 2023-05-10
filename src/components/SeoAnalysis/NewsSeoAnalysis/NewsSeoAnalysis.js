@@ -1,9 +1,10 @@
 import React from 'react';
+import Loader from '../Loader';
 import classes from '../SearchAnalysis.module.css';
 
 const NewsSeoAnalysis = ({ newsData, suggestionTitles, onCreateContent }) => {
   if (newsData.loading) {
-    return <p>Loading...</p>;
+    return <Loader />;
   }
 
   if (newsData.error) {
