@@ -165,6 +165,7 @@ const SeoAnalysis = () => {
 
             <div className={classes.content}>
                 <div className={classes.leftSide}>
+                    
                     {/* Add Tabs */}
                     <div className={classes.tabs}>
                         {sections.map((section, index) => (
@@ -178,6 +179,7 @@ const SeoAnalysis = () => {
                             </div>
                         ))}
                     </div>
+                    
                     {/* Render active tab content */}
                     {renderSectionContent(sections[activeTab])}
                 </div>

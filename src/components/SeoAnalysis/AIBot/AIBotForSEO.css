@@ -5,13 +5,13 @@
     align-items: center;
     width: 30%;
     height: calc(100% - 3rem);
-    background-color: #f4f4f4;
+    background-color: var(--background-color);
     padding-top: 0px;
     padding-bottom: 0px;
     padding-right: 0px;
     position: relative;
     border-radius: 15px 15px 0 0;
-    border: 1px solid #ced4da;
+    border: 0px solid #ced4da;
     margin: 1rem;
 }
 
@@ -28,7 +28,8 @@
     justify-content: center;
     align-items: center;
     margin-bottom: 0rem;
-    background: #F5F7FA;
+    background: var(--background-color-2);
+    border: 1px solid #ced4da;
     width: 100%;
     padding: 10px;
     border-radius: 15px 15px 0 0;
@@ -76,7 +77,7 @@
 
 .ai-bot-for-seo__tab-icon {
     margin-right: 8px;
-    color: #000;
+    color: var(--text-color);
 }
 
 .ai-bot-image {
@@ -107,7 +108,8 @@
     flex-direction: column;
     justify-content: space-between;
     width: 100%;
-    background-color: #fff;
+    background-color: var(--background-color);
+    border: 1px solid #ced4da;
     padding: 0rem;
     height: 100%;
 }
@@ -161,7 +163,7 @@
 
 .ai-bot-for-seo__message.ai {
     align-self: flex-start;
-    background-color: #e1e1e1;
+    background-color: var(--background-color-2);
     /* Changed background color */
     padding: 0.5rem 1rem;
     border-radius: 1rem;
@@ -272,7 +274,7 @@
 .ai-bot-for-seo__message.user .ai-bot-for-seo__message-content {
     align-self: flex-end;
     background-color: transparent;
-    color: #fff;
+    color: var(--text-color);
 }
 
 .ai-bot-for-seo__message.user .ai-bot-for-seo__message-content .ai-bot-for-seo__message-p {
@@ -285,13 +287,13 @@
 .ai-bot-for-seo__message.ai .ai-bot-for-seo__message-content {
     align-self: flex-start;
     background-color: transparent;
-    color: #000;
+    color: var(--text-color);
 }
 
 .ai-bot-for-seo__message.ai .ai-bot-for-seo__message-content .ai-bot-for-seo__message-p {
     align-self: flex-start;
     background-color: transparent;
-    color: #000;
+    color: var(--text-color-2);
     font-size: 12px;
 }
 
@@ -329,14 +331,18 @@
 }
 
 .ai-bot-for-seo__tab:hover .ai-bot-for-seo__tab-text {
-    color: #5c3bb5;
+    color: var(--hover-color);
+}
+
+.ai-bot-for-seo__tab:hover .ai-bot-for-seo__tab-icon {
+    color: var(--hover-color);
 }
 
 .ai-bot-for-seo__tab-text {
     margin-left: 5px;
     font-weight: bold;
     font-size: 16px;
-    color: #000;
+    color: var(--text-color);
     transition: color 0.2s;
 }
 

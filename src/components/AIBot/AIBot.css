@@ -5,7 +5,7 @@
     align-items: center;
     width: 30%;
     height: calc(100% - 3rem);
-    background-color: var(--background-color);
+    background-color: transparent;
     padding-top: 0px;
     padding-bottom: 0px;
     padding-right: 0px;
