@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./UrlInput.css";
+import styles from "./UrlInput.module.css";
 
 
 const validateUrl = (input) => {
@@ -62,8 +62,8 @@ const UrlInput = ({ onUrlsChange }) => {
     };
 
     return (
-        <div className="url-input-container">
-            <div className="url-type-input-container">
+        <div className={styles.url_input_container}>
+            <div className={styles.url_type_input_container}>
                 <select value={urlType} onChange={handleTypeChange} style={{width: "fit-content"}}>
                     <option value="Research">Research</option>
                     <option value="Competition">Competition</option>
@@ -76,19 +76,19 @@ const UrlInput = ({ onUrlsChange }) => {
                             onChange={handleInputChange}
                             onKeyDown={handleKeyDown}
                             placeholder="Example: https://example.com/ai-healthcare"
-                            className="url-input"
+                            className={styles.url_input}
                             style={inputStyle}
                         />
                     </>
                 )}
             </div>
-            <span className="url-error">{urlError}</span>
-            <div className="url-list">
+            <span className={styles.url_error}>{urlError}</span>
+            <div className={styles.url_list}>
                 {urls.map((url, index) => (
-                    <div className="url-box" key={index}>
+                    <div className={styles.url_box} key={index}>
                         {url.type}: {url.url}
                         <button
-                            className="remove-url"
+                            className={styles.remove_url}
                             type="button"
                             onClick={() => removeUrl(index)}
                         >

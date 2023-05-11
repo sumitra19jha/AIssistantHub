@@ -2,16 +2,16 @@ import React, { useState } from "react";
 import CreatePostTab from "./CreatePostTab/CreatePostTab";
 import Header from "./Header/Header";
 import LoadingScreen from "../LoadingScreen/LoadingScreen";
-import "./SocialMediaPostDialog.css";
+import styles from "./SocialMediaPostDialog.module.css";
 
 
 const SocialMediaPostDialog = ({ onClose }) => {
     const [loading, setLoading] = useState(false);
     return (loading ? <LoadingScreen /> :
-        (<div className="social-media-post-dialog-overlay">
-            <div className="social-media-post-dialog">
+        (<div className={styles.social_media_post_dialog_overlay}>
+            <div className={styles.social_media_post_dialog}>
                 <Header name="Social Media Post" onClose={onClose} />
-                <div className="dialog-content">
+                <div className={styles.dialog_content}>
                     <CreatePostTab loading={loading} setLoading={setLoading} />
                 </div>
             </div>

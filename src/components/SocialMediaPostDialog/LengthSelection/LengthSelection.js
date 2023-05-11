@@ -1,9 +1,9 @@
 import React from 'react';
-import './LengthSelection.css';
+import styles from './LengthSelection.module.css';
 
 const LengthSelection = ({ onLengthSelect, selectedLength }) => {
     return (
-        <div className="length-selection">
+        <div className={styles.length_selection}>
             <LengthCard
                 label="Short"
                 value="SHORT"
@@ -30,10 +30,10 @@ const LengthSelection = ({ onLengthSelect, selectedLength }) => {
 const LengthCard = ({ label, value, onSelect, isSelected }) => {
     return (
         <div
-            className={`length-card ${isSelected ? 'selected' : ''}`}
+            className={`${styles.length_card} ${isSelected ? styles.selected : ''}`}
             onClick={() => onSelect(value)}
         >
-            <div className="length-card-name">{label}</div>
+            <div className={styles.length_card_name}>{label}</div>
         </div>
     );
 };
