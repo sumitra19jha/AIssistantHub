@@ -1,11 +1,11 @@
-.length-selection {
+.length_selection {
     display: flex;
     justify-content: space-between;
     gap: 1rem;
     margin-bottom: 3rem;
 }
 
-.length-card {
+.length_card {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,18 +15,21 @@
     cursor: pointer;
     transition: all 0.3s ease;
     width: 100%;
+    color: var(--background-color);
 }
 
-.length-card.selected {
-    background-color: #3a7bd5;
-    color: #fff;
+.length_card.selected {
+    background-color: var(--hover-color);
+    color: var(--text-color);
+    font-weight: 700;
 }
 
-.length-card:hover {
+.length_card:hover {
     transform: translateY(-5px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    background-color: var(--hover-color);
 }
 
-.length-card-name {
+.length_card_name {
     font-size: 16px;
 }

@@ -1,0 +1,28 @@
+.create_card {
+    background-color: var(--background-color);
+    border: 2px dashed var(--text-color-2);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.create_card:hover {
+    background-color: var(--text-color);
+    color: var(--background-color);
+    transform: translateY(-4px);
+}
+
+.create_card__icon {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.create_card__text {
+    font-size: var(--font-size-base);
+    font-weight: bold;
+}

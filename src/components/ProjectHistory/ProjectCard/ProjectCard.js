@@ -2,16 +2,27 @@ import React, { forwardRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './ProjectCard.module.css';
 
-const ProjectCard = forwardRef(({ project }, ref) => {
+const ProjectCard = forwardRef(({ project, cardType }, ref) => {
     const { content_id, created_at, type, topic, length, model_response, html_form } = project;
     const history = useNavigate();
 
     const onCardClick = () => {
-        history(
-            `/content-review?generatedContent=${encodeURIComponent(
-                html_form
-            )}&contentId=${encodeURIComponent(content_id)}&topic=${encodeURIComponent(topic)}`
-        );
+        if (cardType === 'project') {
+            history(
+                `/content-review?generatedContent=${encodeURIComponent(
+                    html_form
+                )}&contentId=${encodeURIComponent(content_id)}&topic=${encodeURIComponent(topic)}`
+            );
+        } else{
+            history('/seo', {
+                state: {
+                    data: {
+                        projectId: content_id,
+                    }
+                }
+            })
+        }
+
     };
 
     return (

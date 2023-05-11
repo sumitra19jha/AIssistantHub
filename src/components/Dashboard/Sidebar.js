@@ -131,8 +131,8 @@ const SidebarComponent = () => {
                 <div className={sidebarStyle.sidebar__company_name}>
                     <select className={sidebarStyle.header__ai_dropdown}>
                         <option value="ai1">Content Writer AI</option>
-                        <option value="ai2">AI 2</option>
-                        <option value="ai3">AI 3</option>
+                        {/* <option value="ai2">AI 2</option>
+                        <option value="ai3">AI 3</option> */}
                     </select>
                 </div>
             </div>
@@ -164,7 +164,7 @@ const SidebarComponent = () => {
                                     Social Media Post
                                 </Link>
                             </li>
-                            <li>
+                            {/* <li>
                                 <Link to="/seo-optimization" className={`${sidebarStyle.sidebar__page_link} ${isActive("/seo-optimization")}`}>
                                     <FaPlus className={sidebarStyle.sidebar__menu_icon} />
                                     Blog Creation
@@ -193,7 +193,7 @@ const SidebarComponent = () => {
                                     <FaPlus className={sidebarStyle.sidebar__menu_icon} />
                                     Product Description
                                 </Link>
-                            </li>
+                            </li> */}
                         </div>
 
                     </li>

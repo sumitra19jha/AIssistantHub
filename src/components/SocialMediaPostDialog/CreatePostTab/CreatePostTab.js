@@ -10,7 +10,7 @@ import LengthSelection from '../LengthSelection/LengthSelection';
 import PipelineSelection from "../PipelineSelection/PipelineSelection";
 import SelectPlatformTab from "../SelectPlatformTab/SelectPlatformTab";
 
-import "./CreatePostTab.css";
+import styles from "./CreatePostTab.module.css";
 
 const CreatePostTab = ({ loading, setLoading }) => {
     const session = useSession();
@@ -125,21 +125,21 @@ const CreatePostTab = ({ loading, setLoading }) => {
     };
 
     return (
-        <div className="post-tab">
+        <div className={styles.post_tab}>
             <form onSubmit={handleSubmit}>
-                <div className="form-content">
+                <div className={styles.form_content}>
 
                     {/** Platform selection */}
-                    <label htmlFor="topic">Platform Type <span className="required">*</span></label>
+                    <label htmlFor="topic">Platform Type <span className={styles.required}>*</span></label>
                     <SelectPlatformTab
                         onPlatformSelect={handlePlatformSelect}
                         selectedPlatform={platform}
                     />
-                    {!platformValid && <div className="error-message">Please select a platform.</div>}
-                    <div className="form-divider" />
+                    {!platformValid && <div className={styles.error_message}>Please select a platform.</div>}
+                    
 
                     {/** Providing the topic */}
-                    <label htmlFor="topic">Provide topic for your post<span className="required">*</span></label>
+                    <label htmlFor="topic">Provide topic for your post<span className={styles.required}>*</span></label>
                     <textarea
                         type="text"
                         id="topic"
@@ -149,23 +149,23 @@ const CreatePostTab = ({ loading, setLoading }) => {
                         rows="4"
                         style={{ width: '100%' }}
                     ></textarea>
-                    {!topicValid && <div className="error-message">Please provide a topic.</div>}
-                    <div className="form-divider" />
+                    {!topicValid && <div className={styles.error_message}>Please provide a topic.</div>}
+                   
 
                     {/** Providing the URL */}
                     <label htmlFor="url">Proton will open URL to perform research before writing post (Optional)</label>
                     <UrlInput onUrlsChange={handleUrlsChange} />
-                    <div className="form-divider" />
+                   
 
-                    <label htmlFor="length">Length of the Post<span className="required"></span></label>
+                    <label htmlFor="length">Length of the Post<span className={styles.required}></span></label>
                     <LengthSelection
                         onLengthSelect={handleLengthSelect}
                         selectedLength={length}
                     />
-                    {!lengthValid && <div className="error-message">Please select a length for the post.</div>}
-                    <div className="form-divider" />
+                    {!lengthValid && <div className={styles.error_message}>Please select a length for the post.</div>}
+                    
                     <label htmlFor="create-pipeline">
-                        Do you want to create a pipeline?<span className="required"></span>
+                        Do you want to create a pipeline?<span className={styles.required}></span>
                     </label>
                     <PipelineSelection
                         onCreatePipelineChange={value => {
@@ -174,15 +174,14 @@ const CreatePostTab = ({ loading, setLoading }) => {
                         }}
                         createPipeline={createPipeline}
                     />
-                    {!pipelineValid && <div className="error-message">Please select if you want to create a pipeline or not.</div>}
-                    <div className="form-divider" />
+                    {!pipelineValid && <div className={styles.error_message}>Please select if you want to create a pipeline or not.</div>}
                 </div>
 
-                <div className="button-container">
-                    <button type="button" className="clear-all" onClick={handleClearAll}>
+                <div className={styles.button_container}>
+                    <button type="button" className={styles.clear_all} onClick={handleClearAll}>
                         Clear All
                     </button>
-                    <button type="submit" className="create-post">
+                    <button type="submit" className={styles.create_post}>
                         {loading ? ( // Conditionally render the spinner based on the loading state
                             <Spinner animation="border" size="sm" />
                         ) : (

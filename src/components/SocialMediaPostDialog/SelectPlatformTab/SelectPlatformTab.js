@@ -1,11 +1,11 @@
 import React from "react";
 import { FaLinkedin, FaTwitter, FaFacebookSquare, FaInstagram } from 'react-icons/fa';
-import "./SelectPlatformTab.css";
+import styles from "./SelectPlatformTab.module.css";
 
 const SelectPlatformTab = ({ onPlatformSelect, selectedPlatform }) => {
     return (
-        <div className="platform-tab">
-            <div className="platform-cards">
+        <div className={styles.platform_tab}>
+            <div className={styles.platform_cards}>
                 <PlatformCard
                     icon={<FaLinkedin />}
                     platform="LinkedIn"
@@ -36,11 +36,11 @@ const SelectPlatformTab = ({ onPlatformSelect, selectedPlatform }) => {
 };
 
 const PlatformCard = ({ icon, platform, onSelect, selected }) => {
-    const cardClassName = `platform-card${selected ? " platform-card-selected" : ""}`;
+    const cardClassName = `${styles.platform_card} ${selected ? styles.platform_card_selected : ""}`;
     return (
         <div className={cardClassName} onClick={() => onSelect(platform)}>
-            <div className="platform-card-icon">{icon}</div>
-            <div className="platform-card-name">{platform}</div>
+            <div className={styles.platform_card_icon}>{icon}</div>
+            <div className={styles.platform_card_name}>{platform}</div>
         </div>
     );
 };

@@ -45,8 +45,7 @@ const CompetitorAnalysis = ({ compData, suggestionTitles, onCreateContent }) => 
     <div className={classes.container}>
       <h2 className={classes.title}>Search SEO Analysis</h2>
       <div className={classes.newsList}>
-        {compData.data.data.slice(0, 5).map(renderNewsItem)}
-        <button className={classes.showMoreButton}>Show more</button>
+        {compData.data.data.map(renderNewsItem)}
       </div>
       <h3 className={classes.suggestionTitle}>Suggested Titles:</h3>
       <div className={classes.suggestionList}>

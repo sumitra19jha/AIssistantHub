@@ -1,43 +1,75 @@
 // Import dependencies
-import React, { useEffect, useState, useContext, useRef } from 'react';
-import ProjectCard from './ProjectCard/ProjectCard';
-import { ProjectContext } from '../../context/ProjectContext';
-import useSession from '../useToken';
-import api from '../../services/api';
+import React, { useEffect, useState, useRef } from 'react';
+
 import EmptyComponent from './EmptyComponent';
 import styles from './ProjectHistory.module.css';
+import ProjectCard from './ProjectCard/ProjectCard';
+import CreateCard from './CreateCard/CreateCard';
+
+import ContentGenerationDialog from '../ContentCreationDialog/ContentGenerationDialog';
+import SeoOptimisationDialog from '../SeoOptimisationDialog/SeoOptimisationDialog';
+import SocialMediaPostDialog from '../SocialMediaPostDialog/SocialMediaPostDialog';
+
+import useProjects from './useProjects';
+import useSeoProjects from './useSeoProjects';
 
 // Main component
 const ProjectHistory = () => {
     // Define constants and state variables
     const perPage = 12;
-    const session = useSession();
 
     const lastProjectCardRef = useRef();
     const lastSeoProjectCardRef = useRef();
 
-    const [page, setPage] = useState(1);
+    const {
+        projects, totalPages, page, setPage
+    } = useProjects(perPage);
 
-    const [firstLoadingProjects, setFirstLoadingProjects] = useState(true);
-    const [firstLoadingSeoProjects, setFirstLoadingSeoProjects] = useState(true);
-
-    const { projects, setProjects, totalPages, setTotalPages } = useContext(ProjectContext);
+    const {
+        seoProjects, totalPagesSeo, pageSeo, setPageSeo
+    } = useSeoProjects(perPage);
 
     // Add a new state variable for the active tab and SEO projects
     const [activeTab, setActiveTab] = useState('projects');
-    const [seoProjects, setSeoProjects] = useState([]);
-    const [pageSeo, setPageSeo] = useState(1);
-    const [totalPagesSeo, setTotalPagesSeo] = useState(0);
+    const [showContentGenerationDialog, setShowContentGenerationDialog] = useState(false);
+    const [showSeoOptimisationDialog, setShowSeoOptimisationDialog] = useState(false);
+    const [showSocialMediaPostDialog, setShowSocialMediaPostDialog] = useState(false);
 
-    // Fetch projects when the page changes
-    useEffect(() => {
-        fetchProjects();
-    }, [page]);
+    const handleSocialMediaPostOptionClick = () => {
+        setShowSocialMediaPostDialog(true);
+    };
 
-    // Fetch SEO projects when the page changes
-    useEffect(() => {
-        fetchSeoProjects();
-    }, [pageSeo]);
+    const handleSeoOptionClick = () => {
+        setShowSeoOptimisationDialog(true);
+    };
+
+    const handleCloseSocialMediaPostDialog = () => {
+        setShowSocialMediaPostDialog(false);
+    };
+
+    const handleCloseContentGenerationDialog = () => {
+        setShowContentGenerationDialog(false);
+    };
+
+    const handleCloseSeoContentGenerationDialog = () => {
+        setShowSeoOptimisationDialog(false);
+    };
+
+    const renderDialogs = () => {
+        return (
+            <>
+                {showContentGenerationDialog && (
+                    <ContentGenerationDialog onClose={handleCloseContentGenerationDialog} />
+                )}
+                {showSeoOptimisationDialog && (
+                    <SeoOptimisationDialog onClose={handleCloseSeoContentGenerationDialog} />
+                )}
+                {showSocialMediaPostDialog && (
+                    <SocialMediaPostDialog onClose={handleCloseSocialMediaPostDialog} />
+                )}
+            </>
+        );
+    };
 
     // Intersection observer to handle infinite scrolling for projects
     useEffect(() => {
@@ -87,82 +119,42 @@ const ProjectHistory = () => {
         };
     }, [seoProjects, totalPagesSeo, activeTab]);
 
-    // Fetch projects from the API
-    const fetchProjects = async () => {
-        if (page > totalPages && !firstLoadingProjects) { return; }
-        api.get(`/dashboard/history/content?page=${page}&per_page=${perPage}`, {
-            headers: {
-                "Authorization": `Bearer ${session.session}`
-            }
-        })
-            .then((response) => {
-                if (response.data.success) {
-                    setProjects((prevProjects) => [...prevProjects, ...response.data.history]);
-                    setTotalPages(response.data.pagination.total_pages);
-                    setFirstLoadingProjects(false);
-                } else {
-                    alert(response.data.message);
-                    setFirstLoadingProjects(false);
-                }
-            })
-            .catch((error) => {
-                alert("Some issue occurred!");
-                setFirstLoadingProjects(false);
-            });
-    };
-
-    // Fetch SEO projects from the API
-    const fetchSeoProjects = async () => {
-        if (pageSeo > totalPagesSeo && !firstLoadingSeoProjects) { return; }
-        // Fetch SEO projects using the API and update the seoProjects state
-        api.get(`https://backend.assistanthub.in/dashboard/history/seo?page=${pageSeo}&per_page=${perPage}`, {
-            headers: {
-                "Authorization": `Bearer ${session.session}`
-            }
-        })
-            .then((response) => {
-                if (response.data.success) {
-                    setSeoProjects(prevSeoProjects => [...prevSeoProjects, ...response.data.seo_projects]);
-                    setTotalPagesSeo(response.data.pagination.total_pages);
-                    setFirstLoadingSeoProjects(false);
-                } else {
-                    alert(response.data.message);
-                    setFirstLoadingSeoProjects(false);
-                }
-            })
-            .catch((error) => {
-                alert("Some issue occurred!");
-                setFirstLoadingSeoProjects(false);
-            });
-    };
 
     // Render the component
     return (
         <>
             {projects.length > 0 || seoProjects.length > 0 ? (
                 <>
-                    {/* Render the tabs */}
                     <div className={styles.tabs}>
+
                         <button
                             onClick={() => setActiveTab('projects')}
                             className={`${styles.tab_button} ${activeTab === 'projects' ? styles.active : ''}`}
                         >
                             Projects
                         </button>
+
                         <button
                             onClick={() => setActiveTab('seo')}
                             className={`${styles.tab_button} ${activeTab === 'seo' ? styles.active : ''}`}
                         >
                             SEO
                         </button>
+
                     </div>
 
-                    {/* Render the projects or SEO data based on the active tab */}
                     <div className={styles.project_history}>
+
+                        <CreateCard
+                            cardType={activeTab === 'projects' ? 'project' : 'seo'}
+                            onClick={activeTab === 'projects' ? handleSocialMediaPostOptionClick : handleSeoOptionClick}
+                        />
+
                         {
                             (activeTab === 'projects' ? projects : seoProjects).map((project, index) => (
                                 <ProjectCard
-                                    key={project.id} // 'project.id' should be the actual unique identifier
+                                    key={project.id}
+                                    cardType={activeTab === 'projects' ? 'project' : 'seo'}
                                     project={project}
                                     ref={index === (activeTab === 'projects' ? projects : seoProjects).length - 1
                                         ? (activeTab === 'projects' ? lastProjectCardRef : lastSeoProjectCardRef)
@@ -173,8 +165,12 @@ const ProjectHistory = () => {
                     </div>
                 </>
             ) : (
-                <EmptyComponent />
+                <EmptyComponent
+                    handleSeoOptionClick={handleSeoOptionClick}
+                    handleSocialMediaPostOptionClick={handleSocialMediaPostOptionClick}
+                />
             )}
+            {renderDialogs()}
         </>
     );
 };

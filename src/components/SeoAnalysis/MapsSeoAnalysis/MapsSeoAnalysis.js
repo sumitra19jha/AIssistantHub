@@ -28,8 +28,7 @@ const MapsSeoAnalysis = ({ mapsData, onCreateContent }) => {
     <div className={classes.container}>
       <h2 className={classes.title}>Maps SEO Analysis</h2>
       <div className={classes.mapList}>
-        {mapsData.data.data.slice(0, 5).map(renderMapItem)}
-        <button className={classes.showMoreButton}>Show more</button>
+        {mapsData.data.data.map(renderMapItem)}
       </div>
     </div>
   );

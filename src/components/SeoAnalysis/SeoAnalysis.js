@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Spinner } from "react-bootstrap";
 
+import Loader from "./Loader";
 import classes from "./SeoAnalysis.module.css";
 import Dialog from './Dialog/Dialog';
 import SnackbarMessage from "../SnackbarMessage";
@@ -140,9 +141,7 @@ const SeoAnalysis = () => {
     const renderSectionContent = (section) => {
         if (section.data.loading) {
             return (
-                <div className={classes.spinnerContainer}>
-                    <Spinner animation="border" size="sm" />
-                </div>
+                <Loader />
             );
         } else if (section.data.error) {
             return (
@@ -179,11 +178,11 @@ const SeoAnalysis = () => {
                             </div>
                         ))}
                     </div>
-                    
+
                     {/* Render active tab content */}
                     {renderSectionContent(sections[activeTab])}
                 </div>
-                <AIBotForSEO contentId={1} />
+                {/* <AIBotForSEO contentId={1} /> */}
             </div>
 
             <Dialog isOpen={dialogData.isOpen} title={dialogData.title} data={dialogData.data} renderItem={sections.find(s => s.title === dialogData.title)?.renderItem} onClose={handleCloseDialog} />

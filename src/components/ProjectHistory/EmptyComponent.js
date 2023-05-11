@@ -4,7 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faThumbsUp, faEnvelopeOpenText } from '@fortawesome/free-solid-svg-icons';
 import './EmptyComponent.css';
 
-const EmptyComponent = () => {
+const EmptyComponent = ({ handleSeoOptionClick, handleSocialMediaPostOptionClick }) => {
+
     return (
         <Container fluid className="empty-component-bg">
             <Container className="py-5">
@@ -20,7 +21,7 @@ const EmptyComponent = () => {
                         <p>
                             AI which analyse video, news, your competitiors, maps, and social forums to improve your SEO.
                         </p>
-                        <Button variant="primary">Analyze SEO</Button>
+                        <Button variant="primary" onClick={handleSeoOptionClick}>Analyze SEO</Button>
                     </Col>
                     <Col md={4} className="feature">
                         <FontAwesomeIcon icon={faThumbsUp} size="3x" />
@@ -28,7 +29,7 @@ const EmptyComponent = () => {
                         <p>
                             Generate engaging posts using the latest hashtags, sentiment, and real time trends across industries. Our AI sends emails as well.
                         </p>
-                        <Button variant="primary">Create Post</Button>
+                        <Button variant="primary" onClick={handleSocialMediaPostOptionClick}>Create Post</Button>
                     </Col>
                     <Col md={4} className="feature">
                         <FontAwesomeIcon icon={faEnvelopeOpenText} size="3x" />
