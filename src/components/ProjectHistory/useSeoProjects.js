@@ -1,14 +1,11 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import api from '../../services/api';
-import { ProjectContext } from '../../context/ProjectContext';
 import useSession from '../useToken';
 
 const useSeoProjects = (perPage = 12) => {
     const session = useSession();
-    const {
-        seoProjects, setSeoProjects,
-        totalPagesSeo, setTotalPagesSeo,
-    } = useContext(ProjectContext);
+    const [seoProjects, setSeoProjects] = useState([]);
+    const [totalPagesSeo, setTotalPagesSeo] = useState(0);
     const [pageSeo, setPageSeo] = useState(1);
     const [firstLoadingSeoProjects, setFirstLoadingSeoProjects] = useState(true);
 
@@ -25,7 +22,11 @@ const useSeoProjects = (perPage = 12) => {
         })
             .then((response) => {
                 if (response.data.success) {
-                    setSeoProjects(prevSeoProjects => [...prevSeoProjects, ...response.data.seo_projects]);
+                    if (pageSeo === 1) {
+                        setSeoProjects(response.data.seo_projects);
+                    } else {
+                        setSeoProjects(prevSeoProjects => [...prevSeoProjects, ...response.data.seo_projects]);
+                    }
                     setTotalPagesSeo(response.data.pagination.total_pages);
                     setFirstLoadingSeoProjects(false);
                 } else {
@@ -38,6 +39,7 @@ const useSeoProjects = (perPage = 12) => {
                 setFirstLoadingSeoProjects(false);
             });
     };
+
 
     return { seoProjects, totalPagesSeo, pageSeo, setPageSeo };
 };
