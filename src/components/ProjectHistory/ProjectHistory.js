@@ -153,7 +153,7 @@ const ProjectHistory = () => {
                         {
                             (activeTab === 'projects' ? projects : seoProjects).map((project, index) => (
                                 <ProjectCard
-                                    key={project.id}
+                                    key={project.content_id}
                                     cardType={activeTab === 'projects' ? 'project' : 'seo'}
                                     project={project}
                                     ref={index === (activeTab === 'projects' ? projects : seoProjects).length - 1

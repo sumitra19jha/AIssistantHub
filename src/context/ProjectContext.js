@@ -1,6 +1,7 @@
 import { createContext, useState } from 'react';
 
 const ProjectContext = createContext();
+const SeoProjectContext = createContext();
 
 const ProjectProvider = ({ children }) => {
     const [projects, setProjects] = useState([]);
@@ -10,10 +11,12 @@ const ProjectProvider = ({ children }) => {
     const [totalPagesSeo, setTotalPagesSeo] = useState(0);
 
     return (
-        <ProjectContext.Provider value={{ projects, setProjects, totalPages, setTotalPages, seoProjects, setSeoProjects, totalPagesSeo, setTotalPagesSeo }}>
-            {children}
+        <ProjectContext.Provider value={{ projects, setProjects, totalPages, setTotalPages }}>
+            <SeoProjectContext.Provider value={{ seoProjects, setSeoProjects, totalPagesSeo, setTotalPagesSeo }}>
+                {children}
+            </SeoProjectContext.Provider>
         </ProjectContext.Provider>
     );
 };
 
-export { ProjectContext, ProjectProvider };
+export { ProjectContext, SeoProjectContext, ProjectProvider };

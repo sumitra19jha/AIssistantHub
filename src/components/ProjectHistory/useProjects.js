@@ -1,14 +1,11 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import api from '../../services/api';
-import { ProjectContext } from '../../context/ProjectContext';
 import useSession from '../useToken';
 
 const useProjects = (perPage = 12) => {
     const session = useSession();
-    const {
-        projects, setProjects,
-        totalPages, setTotalPages,
-    } = useContext(ProjectContext);
+    const [projects, setProjects] = useState([]);
+    const [totalPages, setTotalPages] = useState(0);
     const [page, setPage] = useState(1);
     const [firstLoadingProjects, setFirstLoadingProjects] = useState(true);
 
@@ -25,7 +22,11 @@ const useProjects = (perPage = 12) => {
         })
             .then((response) => {
                 if (response.data.success) {
-                    setProjects((prevProjects) => [...prevProjects, ...response.data.history]);
+                    if (page === 1) {
+                        setProjects(response.data.history);
+                    } else {
+                        setProjects((prevProjects) => [...prevProjects, ...response.data.history]);
+                    }
                     setTotalPages(response.data.pagination.total_pages);
                     setFirstLoadingProjects(false);
                 } else {
@@ -38,6 +39,7 @@ const useProjects = (perPage = 12) => {
                 setFirstLoadingProjects(false);
             });
     };
+
 
     return { projects, totalPages, page, setPage };
 };
