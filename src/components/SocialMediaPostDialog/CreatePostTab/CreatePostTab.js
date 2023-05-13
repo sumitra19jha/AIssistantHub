@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { CircularProgress } from "@mui/material";
 
 import useSession from '../../useToken';
 import api from "../../../services/api";
@@ -12,7 +12,7 @@ import SelectPlatformTab from "../SelectPlatformTab/SelectPlatformTab";
 
 import styles from "./CreatePostTab.module.css";
 
-const CreatePostTab = ({ loading, setLoading }) => {
+const CreatePostTab = () => {
     const session = useSession();
     const [platform, setPlatform] = useState(null);
     const [topic, setTopic] = useState("");
@@ -21,6 +21,7 @@ const CreatePostTab = ({ loading, setLoading }) => {
     const [createPipeline, setCreatePipeline] = useState(false);
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [apiError, setApiError] = useState("");
+    const [loading, setLoading] = useState(false);
     const history = useNavigate();
 
     // Validation states
@@ -46,6 +47,7 @@ const CreatePostTab = ({ loading, setLoading }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         let formValid = true;
+        setLoading(true);
 
         if (!platform) {
             setPlatformValid(false);
@@ -71,11 +73,8 @@ const CreatePostTab = ({ loading, setLoading }) => {
             return;
         }
 
-        // Set loading to true when the form is submitted
-        setLoading(true);
-
         // Continue with form submission
-        api.post('/dashboard/social_media_post/generator/content', {
+        api.post('/content/create', {
             topic: topic,
             keywords: '',
             length: length.toUpperCase(),
@@ -90,7 +89,14 @@ const CreatePostTab = ({ loading, setLoading }) => {
             .then((response) => {
                 setLoading(false);
                 if (response.data.success) {
-                    history(`/content-review?generatedContent=${encodeURIComponent(response.data.content)}&contentId=${encodeURIComponent(response.data.contentId)}&topic=${encodeURIComponent(topic)}`);
+                    history('/content-review', {
+                        state: {
+                            data: {
+                                contentId: response.data.contentId,
+                                topic: topic,
+                            }
+                        }
+                    });
                 } else {
                     setSnackbarOpen(true);
                     setApiError(response.data.message);
@@ -136,7 +142,7 @@ const CreatePostTab = ({ loading, setLoading }) => {
                         selectedPlatform={platform}
                     />
                     {!platformValid && <div className={styles.error_message}>Please select a platform.</div>}
-                    
+
 
                     {/** Providing the topic */}
                     <label htmlFor="topic">Provide topic for your post<span className={styles.required}>*</span></label>
@@ -150,12 +156,12 @@ const CreatePostTab = ({ loading, setLoading }) => {
                         style={{ width: '100%' }}
                     ></textarea>
                     {!topicValid && <div className={styles.error_message}>Please provide a topic.</div>}
-                   
+
 
                     {/** Providing the URL */}
                     <label htmlFor="url">Proton will open URL to perform research before writing post (Optional)</label>
                     <UrlInput onUrlsChange={handleUrlsChange} />
-                   
+
 
                     <label htmlFor="length">Length of the Post<span className={styles.required}></span></label>
                     <LengthSelection
@@ -163,7 +169,7 @@ const CreatePostTab = ({ loading, setLoading }) => {
                         selectedLength={length}
                     />
                     {!lengthValid && <div className={styles.error_message}>Please select a length for the post.</div>}
-                    
+
                     <label htmlFor="create-pipeline">
                         Do you want to create a pipeline?<span className={styles.required}></span>
                     </label>
@@ -182,11 +188,12 @@ const CreatePostTab = ({ loading, setLoading }) => {
                         Clear All
                     </button>
                     <button type="submit" className={styles.create_post}>
-                        {loading ? ( // Conditionally render the spinner based on the loading state
-                            <Spinner animation="border" size="sm" />
-                        ) : (
-                            "Create Post"
-                        )}
+                        <div className={styles.spinner_and_text}>
+                            {loading && ( // Conditionally render the spinner based on the loading state
+                                <CircularProgress size={24} color="primary" classes={{ svg: styles.custom_color }}/>
+                            )}
+                            <span className={loading ? styles.hidden : ""}>Create Post</span>
+                        </div>
                     </button>
                 </div>
             </form>

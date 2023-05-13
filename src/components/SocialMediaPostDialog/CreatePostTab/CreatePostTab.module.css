@@ -130,3 +130,18 @@
 .required {
     color: red;
 }
+
+.spinner_and_text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.hidden {
+    display: none;
+}
+
+.custom_color circle {
+    stroke: var(--text-color);
+}
