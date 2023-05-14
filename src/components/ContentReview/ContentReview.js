@@ -5,6 +5,7 @@ import { stateFromHTML } from 'draft-js-import-html';
 import { EditorState } from 'draft-js';
 import html2pdf from "html2pdf.js";
 import io from "socket.io-client";
+import queryString from 'query-string';
 
 import { createLinkDecorator } from './linkDecorator';
 import { AUTH_TOKEN, SOCKET_API_BASE_URL } from '../../utils/constants';
@@ -23,9 +24,10 @@ const ContentReview = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [socket, setSocket] = useState(null);
     const [content, setContent] = useState('');
-
-    const { data } = location.state;
-    const { contentId, topic } = data;
+    
+    const parsedQuery = queryString.parse(location.search);
+    const contentId = parsedQuery.contentId;
+    const topic = parsedQuery.topic;
 
     const [editorState, setEditorState] = useState(() =>
         EditorState.createWithContent(
@@ -63,9 +65,17 @@ const ContentReview = () => {
             });
 
             const handleCreatedContent = (data) => {
+                const categoryOfMessage = data.category;
                 const newContent = data.message.replace(/ {2}/g, '\n\n');
+
                 setContent((prevContent) => {
-                    const updatedContent = prevContent + newContent;
+                    let updatedContent;
+                    if (categoryOfMessage === 'NEW_CONTENT') {
+                        updatedContent = newContent;
+                    } else {
+                        updatedContent = prevContent + newContent;
+                    }
+
                     const newEditorState = EditorState.createWithContent(
                         stateFromHTML(`<pre>${updatedContent}</pre>`),
                         createLinkDecorator()

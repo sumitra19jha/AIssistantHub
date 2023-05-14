@@ -89,14 +89,7 @@ const CreatePostTab = () => {
             .then((response) => {
                 setLoading(false);
                 if (response.data.success) {
-                    history('/content-review', {
-                        state: {
-                            data: {
-                                contentId: response.data.contentId,
-                                topic: topic,
-                            }
-                        }
-                    });
+                    history(`/content-review?topic=${encodeURIComponent(topic)}&contentId=${encodeURIComponent(response.data.contentId)}`);
                 } else {
                     setSnackbarOpen(true);
                     setApiError(response.data.message);

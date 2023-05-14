@@ -5,6 +5,7 @@
     padding: 2rem;
     background-color: var(--background-color-2);
     height: 100%;
+    max-width: 70%;
 }
 
 .loading_box {
@@ -47,4 +48,26 @@
     to {
         transform: rotate(360deg);
     }
+}
+
+.enter {
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
+.enterActive {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 500ms, transform 500ms;
+}
+
+.exit {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.exitActive {
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 500ms, transform 500ms;
 }

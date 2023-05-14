@@ -1,7 +1,9 @@
 import React, { useState, useRef } from 'react';
 import 'draft-js/dist/Draft.css';
-import { CircularProgress } from "@mui/material";
 import { Editor } from 'draft-js';
+import { CircularProgress } from "@mui/material";
+import { CSSTransition } from 'react-transition-group';
+
 import Toolbar from '../Toolbar/Toolbar';
 import LinkBox from '../LinkBox/LinkBox';
 import UpdateLinkBox from '../UpdateLinkBox/UpdateLinkBox';
@@ -39,88 +41,107 @@ const ContentArea = ({ isLoading, content, editorState, setEditorState, socket, 
     useSocketHandlers(contentId, socket, setEditorState, setIsEditing);
     useKeyDownHandler(setShowLinkBox);
 
-    return isLoading ? (
-        <div
-            ref={editorContainerRef}
-            className={styles.content_area}
-            onClick={() => editorRef.current.focus()}
-        >
-            <div className={styles.loading_box}>
-                <CircularProgress size={24} color="primary" />
-                <span className={styles.loading_text}>Loading...</span>
-            </div>
-        </div>
-    ) : (
+    return (
         <div className={styles.content_area}>
-            <Toolbar
-                contentData={content}
-                setEditorState={setEditorState}
-                editorState={editorState}
-                handleLink={() =>
-                    handleLink(
-                        editorState,
-                        setLinkBoxPosition,
-                        setShowLinkBox,
-                        editorContainerRef
-                    )
-                }
-            />
-            {showLinkBox && (
-                <LinkBox
-                    left={linkBoxPosition.x}
-                    top={linkBoxPosition.y}
-                    showLinkBox={showLinkBox}
-                    editorState={editorState}
-                    setEditorState={setEditorState}
-                    setShowLinkBox={setShowLinkBox}
-                    lastEditorSelection={lastEditorSelection}
-                />
-            )}
-            {showEditLinkBox && (
-                <UpdateLinkBox
-                    left={editLinkBoxPosition.x}
-                    top={editLinkBoxPosition.y}
-                    editorState={editorState}
-                    editedURL={editedURL}
-                    setEditorState={setEditorState}
-                    setShowEditLinkBox={setShowEditLinkBox}
-                    setCurrentLinkKey={setCurrentLinkKey}
-                    setEditedURL={setEditedURL}
-                />
-            )}
-            <div
-                ref={editorContainerRef}
-                className={`${styles.editor} ${styles.fqelrj5}`}
-                onClick={() => editorRef.current.focus()}
+            <CSSTransition
+                in={isLoading}
+                timeout={500}
+                classNames={{
+                    enter: styles.enter,
+                    enterActive: styles.enterActive,
+                    exit: styles.exit,
+                    exitActive: styles.exitActive,
+                }}
+                unmountOnExit
             >
-                {isEditing && <div className={styles.loading_animation}></div>}
-                <Editor
-                    ref={editorRef}
-                    editorState={editorState}
-                    handleKeyCommand={(command, editorState) =>
-                        handleKeyCommand(command, editorState, setEditorState)
-                    }
-                    keyBindingFn={(event) => myKeyBindingFn(event)}
-                    blockRendererFn={(contentBlock) => imageRenderer(contentBlock)}
-                    onChange={(newState) => {
-                        setLastEditorSelection(newState.getSelection());
-                        setEditorState(newState);
-                        handleCursorPosition(
-                            editorFocused,
-                            editorState,
-                            editorContainerRef,
-                            setEditLinkBoxPosition,
-                            setShowEditLinkBox,
-                            currentLinkKey,
-                            setCurrentLinkKey,
-                            setEditedURL
-                        );
-                    }}
-                    onBlur={() => setEditorFocused(false)}
-                    onFocus={() => setEditorFocused(true)}
-                    customStyleMap={styleMap}
-                />
-            </div>
+                <div className={styles.loading_box}>
+                    <CircularProgress size={24} color="primary" />
+                    <span className={styles.loading_text}>Loading...</span>
+                </div>
+            </CSSTransition>
+            <CSSTransition
+                in={!isLoading}
+                timeout={500}
+                classNames={{
+                    enter: styles.enter,
+                    enterActive: styles.enterActive,
+                    exit: styles.exit,
+                    exitActive: styles.exitActive,
+                }}
+                unmountOnExit
+            >
+                <div>
+                    <Toolbar
+                        contentData={content}
+                        setEditorState={setEditorState}
+                        editorState={editorState}
+                        handleLink={() =>
+                            handleLink(
+                                editorState,
+                                setLinkBoxPosition,
+                                setShowLinkBox,
+                                editorContainerRef
+                            )
+                        }
+                    />
+                    {showLinkBox && (
+                        <LinkBox
+                            left={linkBoxPosition.x}
+                            top={linkBoxPosition.y}
+                            showLinkBox={showLinkBox}
+                            editorState={editorState}
+                            setEditorState={setEditorState}
+                            setShowLinkBox={setShowLinkBox}
+                            lastEditorSelection={lastEditorSelection}
+                        />
+                    )}
+                    {showEditLinkBox && (
+                        <UpdateLinkBox
+                            left={editLinkBoxPosition.x}
+                            top={editLinkBoxPosition.y}
+                            editorState={editorState}
+                            editedURL={editedURL}
+                            setEditorState={setEditorState}
+                            setShowEditLinkBox={setShowEditLinkBox}
+                            setCurrentLinkKey={setCurrentLinkKey}
+                            setEditedURL={setEditedURL}
+                        />
+                    )}
+                    <div
+                        ref={editorContainerRef}
+                        className={`${styles.editor} ${styles.fqelrj5}`}
+                        onClick={() => editorRef.current.focus()}
+                    >
+                        {isEditing && <div className={styles.loading_animation}></div>}
+                        <Editor
+                            ref={editorRef}
+                            editorState={editorState}
+                            handleKeyCommand={(command, editorState) =>
+                                handleKeyCommand(command, editorState, setEditorState)
+                            }
+                            keyBindingFn={(event) => myKeyBindingFn(event)}
+                            blockRendererFn={(contentBlock) => imageRenderer(contentBlock)}
+                            onChange={(newState) => {
+                                setLastEditorSelection(newState.getSelection());
+                                setEditorState(newState);
+                                handleCursorPosition(
+                                    editorFocused,
+                                    editorState,
+                                    editorContainerRef,
+                                    setEditLinkBoxPosition,
+                                    setShowEditLinkBox,
+                                    currentLinkKey,
+                                    setCurrentLinkKey,
+                                    setEditedURL
+                                );
+                            }}
+                            onBlur={() => setEditorFocused(false)}
+                            onFocus={() => setEditorFocused(true)}
+                            customStyleMap={styleMap}
+                        />
+                    </div>
+                </div>
+            </CSSTransition>
         </div>
     );
 };

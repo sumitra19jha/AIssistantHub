@@ -9,9 +9,7 @@ const ProjectCard = forwardRef(({ project, cardType }, ref) => {
     const onCardClick = () => {
         if (cardType === 'project') {
             history(
-                `/content-review?generatedContent=${encodeURIComponent(
-                    html_form
-                )}&contentId=${encodeURIComponent(content_id)}&topic=${encodeURIComponent(topic)}`
+                `/content-review?topic=${encodeURIComponent(topic)}&contentId=${encodeURIComponent(content_id)}`
             );
         } else{
             history('/seo', {
