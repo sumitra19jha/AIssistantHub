@@ -1,14 +1,24 @@
 import React from 'react';
-import { CssBaseline } from '@mui/material';
-import GradientBox from './../../components/TrendSection/GradientBox';
-import Features from './../../components/Features/Features';
+import Header from './Header';
+import Hero from './Hero';
+import Services from './Services';
+import Testimonials from './Testimonials';
+import ProductShowcase from './ProductShowcase';
+import DiagonalDivider from "./DiagonalDivider";
+import Footer from './../../components/Footer/Footer';
 
-function Home() {
+function Home({ setSession }) {
     return (
-        <div style={{minHeight:"100vh"}}>
-            <CssBaseline />
-            <GradientBox />
-            <Features />
+        <div style={{ minHeight: "100vh" }}>
+            <Header setSession={setSession} />
+            <Hero setSession={setSession} />
+            <DiagonalDivider /> {/* Add the wave divider */}
+            <Services />
+            <DiagonalDivider /> {/* Add the wave divider */}
+            <Testimonials />
+            <DiagonalDivider /> {/* Add the wave divider */}
+            <ProductShowcase />
+            <Footer />
         </div>
     );
 }

@@ -1,0 +1,107 @@
+.testimonials {
+    background-color: #f0f2f5;
+    padding: 100px 0;
+    color: #ffffff;
+    position: relative;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='Artboard' fill='%235c6bc0' fill-opacity='0.15'%3E%3Cpath d='M0 38.59l2.83-2.83 1.41 1.41L1.41 40H0v-1.41zM0 1.4l2.83 2.83 1.41-1.41L1.41 0H0v1.41zM38.59 40l-2.83-2.83 1.41-1.41L40 38.59V40h-1.41zM40 1.41l-2.83 2.83-1.41-1.41L38.59 0H40v1.41zM20 18.6l2.83-2.83 1.41 1.41L21.41 20l2.83 2.83-1.41 1.41L20 21.41l-2.83 2.83-1.41-1.41L18.59 20l-2.83-2.83 1.41-1.41L20 18.59z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.testimonial_item blockquote {
+    font-size: 24px;
+    font-style: italic;
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 30px;
+}
+
+.testimonial_item blockquote::before {
+    content: '“';
+    font-size: 48px;
+    position: absolute;
+    left: 0;
+    top: -10px;
+    color: #5c6bc0;
+}
+
+.testimonials::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("https://via.placeholder.com/1920x1080");
+    opacity: 0.1;
+    z-index: -1;
+}
+
+.section_title {
+    font-size: 36px;
+    text-align: center;
+    margin-bottom: 50px;
+    position: relative;
+}
+
+.section_title::after {
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: 2px;
+    bottom: -10px;
+    left: 50%;
+    background-color: #5c6bc0;
+    transform: translateX(-50%);
+}
+
+.testimonial_list {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+@keyframes slideUp {
+    0% {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.testimonial_item {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    color: black;
+    opacity: 0;
+    animation: slideUp 1.5s forwards;
+}
+
+.testimonial_item:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+
+.testimonial_item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.testimonial_item p {
+    font-size: 16px;
+    margin-bottom: 10px;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.testimonial_item span {
+    display: block;
+    font-size: 14px;
+}

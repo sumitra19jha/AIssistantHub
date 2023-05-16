@@ -1,0 +1,5 @@
+.diagonal_divider {
+    clip-path: polygon(0 0, 100% 15%, 100% 100%, 0 85%);
+    background-color: #f0f2f5;
+    transition: background-color 0.3s;
+}
