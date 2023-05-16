@@ -10,7 +10,7 @@ function ProductShowcase() {
     ];
 
     return (
-        <section id="product-showcase" className={styles.product_showcase}>
+        <section id="works" className={styles.product_showcase}>
             <h2 className={styles.section_title}>Our Exciting Field of Work</h2>
             <div className={styles.showcase_container}>
                 {productImages.map((image, index) => (

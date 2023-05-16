@@ -19,6 +19,7 @@ function Header({setSession}) {
                 <ul className={styles.nav_links}>
                     <li><a href="#services">Services</a></li>
                     <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#works">Works</a></li>
                 </ul>
             </nav>
             <button className={styles.login_btn} onClick={handleAuthDialogOpen}>Login</button>
