@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import AuthDialog from '../../components/AuthDialog/AuthDialog';
+import logo from "../../logo.svg"
 import styles from "./Header.module.css";
 
-function Header({setSession}) {
+function Header({ setSession }) {
     const [authDialogOpen, setAuthDialogOpen] = useState(false);
     const handleAuthDialogOpen = () => {
         setAuthDialogOpen(true);
