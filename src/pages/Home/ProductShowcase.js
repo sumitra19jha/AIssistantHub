@@ -3,10 +3,10 @@ import styles from "./ProductShowcase.module.css";
 
 function ProductShowcase() {
     const productImages = [
-        { src: "https://pigeon-website-images.s3.us-east-2.amazonaws.com/social-media-penguin.png", title: 'Social Medial Creator', description: 'In production.' },
-        { src: "https://pigeon-website-images.s3.us-east-2.amazonaws.com/seo-lion.png", title: 'Better Visibility', description: 'In development' },
-        { src: "https://pigeon-website-images.s3.us-east-2.amazonaws.com/product-description.png", title: 'Talk in your Voice', description: 'In Development' },
-        { src: "https://pigeon-website-images.s3.us-east-2.amazonaws.com/email-marketing.png", title: 'Microservice developer', description: 'In Ideation' },
+        { src: "https://pigeon-website-images.s3.us-east-2.amazonaws.com/creator-ai.webp", title: 'Social Medial Creator', description: 'In production.' },
+        { src: "https://pigeon-website-images.s3.us-east-2.amazonaws.com/research-ai.webp", title: 'Better Visibility', description: 'In development' },
+        { src: "https://pigeon-website-images.s3.us-east-2.amazonaws.com/voice-ai.webp", title: 'Talk in your Voice', description: 'In Development' },
+        { src: "https://pigeon-website-images.s3.us-east-2.amazonaws.com/coder-ai.webp", title: 'Microservice developer', description: 'In Ideation' },
     ];
 
     return (
