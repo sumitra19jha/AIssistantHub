@@ -1,3 +1,7 @@
+.display-4{
+    color: var(--text-color);
+}
+
 .empty-component-bg {
     background-color: transparent;
     padding: 2rem 0;
@@ -17,6 +21,7 @@
     background-color: transparent;
     margin-top: 80px;
     margin-bottom: 25px;
+
 }
 
 .feature {
@@ -27,13 +32,14 @@
 .feature h3 {
     margin-top: 1rem;
     margin-bottom: 0.5rem;
+    color: var(--text-color);
 }
 
 .feature p {
     font-size: 0.9rem;
     margin-top: 2rem;
     margin-bottom: 2rem;
-    color: var(--text-color);
+    color: var(--text-color-2);
 }
 
 /* Add button styling */
