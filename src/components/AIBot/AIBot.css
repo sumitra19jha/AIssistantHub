@@ -31,7 +31,8 @@
     background: var(--background-color-2);
     border: 1px solid #ced4da;
     width: 100%;
-    padding: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     border-radius: 15px 15px 0 0;
     border-bottom: 2px solid #ced4da;
 }
@@ -106,37 +107,35 @@
     background-color: var(--background-color);
     border: 1px solid #ced4da;
     padding: 0rem;
-    height: 100%;
+    height: 80vh;
 }
 
 .chat-window {
     display: flex;
     flex-direction: column;
     overflow-y: auto;
+    box-sizing: border-box;
     width: 100%;
     padding-top: 1rem;
     padding-bottom: 1rem;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.0);
-    position: absolute;
-    top: 60px;
-    bottom: 50px;
-    flex:1;
+    flex-grow: 1;
 }
 
 .chat-window::-webkit-scrollbar {
-    width: 5px; /* Set the desired width of the scrollbar */
+    width: 5px;
   }
   
   .chat-window::-webkit-scrollbar-track {
-    background-color: #f1f1f1; /* Set the desired background color for the scrollbar track */
+    background-color: #f1f1f1;
   }
   
   .chat-window::-webkit-scrollbar-thumb {
-    background-color: #888; /* Set the desired color for the scrollbar thumb */
+    background-color: #888;
   }
   
   .chat-window::-webkit-scrollbar-thumb:hover {
-    background-color: #555; /* Set the desired color for the scrollbar thumb when hovered */
+    background-color: #555;
   }
 
 .message {
@@ -149,7 +148,6 @@
 .message.user {
     align-self: flex-end;
     background-color: #4395c6;
-    /* Changed background color */
     padding: 0.5rem 1rem;
     border-radius: 1rem;
     margin-left: 0.5rem;
@@ -159,7 +157,6 @@
 .message.ai {
     align-self: flex-start;
     background-color: var(--background-color-2);
-    /* Changed background color */
     padding: 0.5rem 1rem;
     border-radius: 1rem;
     margin-left: 0.5rem;
@@ -183,12 +180,8 @@
     padding: 1rem;
     border-top: 0.5px solid #dfdfdf;
     background-color: white;
-    position: absolute;
-    /* Add this */
-    bottom: 0;
-    /* Add this */
     width: 100%;
-    /* Add this */
+    box-sizing: border-box;
 }
 
 .user-input {
@@ -213,7 +206,6 @@
 
 .submit-button {
     background-color: #5c3bb5;
-    /* Changed background color */
     color: #fff;
     font-weight: bold;
     border: none;
@@ -225,7 +217,6 @@
 
 .submit-button:hover {
     background-color: #412e94;
-    /* Changed hover background color */
 }
 
 .message-info {

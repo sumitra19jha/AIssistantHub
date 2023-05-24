@@ -1,6 +1,6 @@
 import { EditorState, AtomicBlockUtils, RichUtils } from "draft-js";
 import { FaImage, FaCopy, FaBold, FaItalic, FaUnderline, FaList, FaAlignJustify, FaLink } from "react-icons/fa";
-import "./Toolbar.css";
+import styles from "./Toolbar.module.css";
 
 const Toolbar = ({ contentData, setEditorState, editorState, handleLink }) => {
     const handleImage = () => {
@@ -59,45 +59,45 @@ const Toolbar = ({ contentData, setEditorState, editorState, handleLink }) => {
     };
 
     return (
-        <div className="toolbar">
-            <div className="toolbar-portion">
-                <div className="toolbar-group">
+        <div className={styles.toolbar}>
+            <div className={styles.toolbar_portion}>
+                <div className={styles.toolbar_group}>
                     <FaBold
-                        className={`toolbar-icon ${isStyleActive("BOLD") ? "toolbar-icon-active" : ""}`}
+                        className={`${styles.toolbar_icon} ${isStyleActive("BOLD") ? styles.toolbar_icon_active : ""}`}
                         onMouseDown={(event) => {
                             event.preventDefault();
                             handleBold();
                         }}
                     />
                     <FaItalic
-                        className={`toolbar-icon ${isStyleActive("ITALIC") ? "toolbar-icon-active" : ""}`}
+                        className={`${styles.toolbar_icon} ${isStyleActive("ITALIC") ? styles.toolbar_icon_active : ""}`}
                         onMouseDown={(event) => {
                             event.preventDefault();
                             handleItalic();
                         }}
                     />
                     <FaUnderline
-                        className={`toolbar-icon ${isStyleActive("UNDERLINE") ? "toolbar-icon-active" : ""}`}
+                        className={`${styles.toolbar_icon} ${isStyleActive("UNDERLINE") ? styles.toolbar_icon_active : ""}`}
                         onMouseDown={(event) => {
                             event.preventDefault();
                             handleUnderline();
                         }}
                     />
                 </div>
-                <div className="vertical-divider"></div>
-                <div className="toolbar-group">
-                    <FaList className="toolbar-icon" onClick={handleUnorderedList} />
-                    <FaAlignJustify className="toolbar-icon" />
+                <div className={styles.vertical_divider}></div>
+                <div className={styles.toolbar_group}>
+                    <FaList className={styles.toolbar_icon} onClick={handleUnorderedList} />
+                    <FaAlignJustify className={styles.toolbar_icon} />
                 </div>
-                <div className="vertical-divider"></div>
-                <div className="toolbar-group">
-                    <FaLink className="toolbar-icon" onMouseDown={handleLink} />
-                    <FaImage className="toolbar-icon" onClick={handleImage} />
+                <div className={styles.vertical_divider}></div>
+                <div className={styles.toolbar_group}>
+                    <FaLink className={styles.toolbar_icon} onMouseDown={handleLink} />
+                    <FaImage className={styles.toolbar_icon} onClick={handleImage} />
                 </div>
             </div>
-            <div className="toolbar-portion">
-                <div className="toolbar-group">
-                    <button className="copy-button" onClick={handleCopy}><FaCopy className="toolbar-icon" /> Copy</button>
+            <div className={styles.toolbar_portion}>
+                <div className={styles.toolbar_group}>
+                    <button className={styles.copy_button} onClick={handleCopy}><FaCopy className={styles.toolbar_icon} /> Copy</button>
                 </div>
             </div>
         </div>

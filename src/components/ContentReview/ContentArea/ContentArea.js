@@ -109,7 +109,7 @@ const ContentArea = ({ isLoading, content, editorState, setEditorState, socket, 
                     )}
                     <div
                         ref={editorContainerRef}
-                        className={`${styles.editor} ${styles.fqelrj5}`}
+                        className={`${styles.editor}`}
                         onClick={() => editorRef.current.focus()}
                     >
                         {isEditing && <div className={styles.loading_animation}></div>}

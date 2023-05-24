@@ -17,6 +17,8 @@
 
   --font-family: 'Open Sans', sans-serif;
   --font-size-base: 14px;
+  --cardWidth: 400px;
+  --rem: 14px;
 }
 
 .dashboard {
