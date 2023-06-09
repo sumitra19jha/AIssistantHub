@@ -49,3 +49,14 @@
     margin-top: 0.5rem;
     color: var(--background-color);
 }
+
+.platform_card_coming_soon {
+    cursor: default;
+    opacity: 0.5;
+}
+
+.platform_card_coming_soon_label {
+    font-size: 14px;
+    color: var(--hover-color);
+    margin-top: 0.2rem;
+}

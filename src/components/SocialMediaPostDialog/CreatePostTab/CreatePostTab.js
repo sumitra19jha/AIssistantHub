@@ -14,7 +14,7 @@ import styles from "./CreatePostTab.module.css";
 
 const CreatePostTab = () => {
     const session = useSession();
-    const [platform, setPlatform] = useState(null);
+    const [platform, setPlatform] = useState("LinkedIn");
     const [topic, setTopic] = useState("");
     const [urls, setUrls] = useState([]);
     const [length, setLength] = useState("SHORT");
@@ -110,7 +110,7 @@ const CreatePostTab = () => {
     };
 
     const handleClearAll = () => {
-        setPlatform(null);
+        setPlatform("LinkedIn");
         setTopic("");
         setUrls([]);
         setLength("SHORT");

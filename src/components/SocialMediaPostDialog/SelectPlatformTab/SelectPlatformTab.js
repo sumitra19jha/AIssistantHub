@@ -12,23 +12,17 @@ const SelectPlatformTab = ({ onPlatformSelect, selectedPlatform }) => {
                     onSelect={onPlatformSelect}
                     selected={selectedPlatform === "LinkedIn"}
                 />
-                <PlatformCard
+                <ComingSoonPlatformCard
                     icon={<FaTwitter />}
                     platform="Twitter"
-                    onSelect={onPlatformSelect}
-                    selected={selectedPlatform === "Twitter"}
                 />
-                <PlatformCard
+                <ComingSoonPlatformCard
                     icon={<FaFacebookSquare />}
                     platform="Facebook"
-                    onSelect={onPlatformSelect}
-                    selected={selectedPlatform === "Facebook"}
                 />
-                <PlatformCard
+                <ComingSoonPlatformCard
                     icon={<FaInstagram />}
                     platform="Instagram"
-                    onSelect={onPlatformSelect}
-                    selected={selectedPlatform === "Instagram"}
                 />
             </div>
         </div>
@@ -41,6 +35,17 @@ const PlatformCard = ({ icon, platform, onSelect, selected }) => {
         <div className={cardClassName} onClick={() => onSelect(platform)}>
             <div className={styles.platform_card_icon}>{icon}</div>
             <div className={styles.platform_card_name}>{platform}</div>
+        </div>
+    );
+};
+
+const ComingSoonPlatformCard = ({ icon, platform }) => {
+    const cardClassName = `${styles.platform_card} ${styles.platform_card_coming_soon}`;
+    return (
+        <div className={cardClassName}>
+            <div className={styles.platform_card_icon}>{icon}</div>
+            <div className={styles.platform_card_name}>{platform}</div>
+            <div className={styles.platform_card_coming_soon_label}>Coming Soon</div>
         </div>
     );
 };
