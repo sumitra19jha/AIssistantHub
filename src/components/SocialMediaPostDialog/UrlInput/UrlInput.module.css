@@ -2,7 +2,9 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    width: 100%;
+    width: calc(100% - 2rem);
+    margin-left: 1rem;
+    margin-right: 1rem;
 }
 
 .url_type_input_container {

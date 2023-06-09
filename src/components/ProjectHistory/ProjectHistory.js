@@ -16,7 +16,7 @@ import useSeoProjects from './useSeoProjects';
 // Main component
 const ProjectHistory = () => {
     // Define constants and state variables
-    const perPage = 12;
+    const perPage = 20;
 
     const lastProjectCardRef = useRef();
     const lastSeoProjectCardRef = useRef();

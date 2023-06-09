@@ -146,7 +146,6 @@ const CreatePostTab = () => {
                         onChange={(e) => setTopic(e.target.value)}
                         placeholder="Example: AI in Healthcare"
                         rows="4"
-                        style={{ width: '100%' }}
                     ></textarea>
                     {!topicValid && <div className={styles.error_message}>Please provide a topic.</div>}
 

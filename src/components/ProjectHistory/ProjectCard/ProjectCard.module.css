@@ -46,6 +46,8 @@
     font-size: var(--font-size-base);
     font-weight: bold;
     color: var(--text-color);
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .project_card__project_length {

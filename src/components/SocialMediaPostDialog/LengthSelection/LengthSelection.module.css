@@ -16,6 +16,8 @@
     transition: all 0.3s ease;
     width: 100%;
     color: var(--background-color);
+    margin-left: 1rem;
+    margin-right: 1rem;
 }
 
 .length_card.selected {

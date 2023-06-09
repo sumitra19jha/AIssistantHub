@@ -26,7 +26,6 @@ const Dashboard = () => {
                             <ProjectHistory />
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
