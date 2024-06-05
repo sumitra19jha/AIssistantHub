@@ -1,6 +1,19 @@
 # AIssistantHub
+Welcome to AIssistantHub! This innovative project facilitates real-time communication between users and the OpenAI GPT model for content generation and refinement. Whether you need a blog post, article, or any written content, simply provide a topic, set the sentiment, and specify the length—AIssistantHub will handle the rest!
 
-An AI based online platform to solve content generation for your work
+**Key Features**
+- **Topic Submission**: Input your desired topic.
+- **Sentiment Control**: Define the tone of your content.
+- **Length Adjustment**: Specify the length of your post or article.
+
+**Major Components**
+- Frontend - [AIssistantHub](https://github.com/sumitra19jha/AIssistantHub)
+- Backend - [AIssistantHub-Backend](https://github.com/sumitra19jha/AIssistantHub-Backend)
+- RTC - [AIssistantHub-RTC](https://github.com/sumitra19jha/AIssistantHub-RTC)
+
+# AIssistantHub Frontend
+
+The Frontend is built in React. We are using proper jsx, keeping css seprated.
 <p align="left">
   <img src="https://pigeon-website-images.s3.us-east-2.amazonaws.com/new-logo.png" width="300" alt="link-to-project-image">
 </p>
